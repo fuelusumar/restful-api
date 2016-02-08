@@ -1,8 +1,24 @@
+var winston = require('winston');
+var events = require('events');
+var eventEmitter = new events.EventEmitter();
 var environment = process.env.NODE_ENV || 'development';
 var routes = require('../environments/' + environment + '/routes.json');
 var versions = routes.versions;
-var links = [];
-var getLink = function (action, method, base, controller, id) {
+var endpoints = [];
+/**
+ * [getRoute description]
+ *
+ * @method getRoute
+ *
+ * @param  {[type]} action     [description]
+ * @param  {[type]} method     [description]
+ * @param  {[type]} base       [description]
+ * @param  {[type]} controller [description]
+ * @param  {[type]} id         [description]
+ *
+ * @return {[type]} [description]
+ */
+var getRoute = function (action, method, base, controller, id) {
 	var head = base + '/' + controller;
 	var tail = id ? '/:' + id : '';
 	var link = {
@@ -12,56 +28,46 @@ var getLink = function (action, method, base, controller, id) {
 	};
 	return link;
 };
-var getVersionActions = function () {
-	return [{
+/**
+ * [getVersionRoutes description]
+ *
+ * @method getVersionRoutes
+ *
+ * @param  {[type]}         version [description]
+ *
+ * @return {[type]}         [description]
+ */
+var getVersionRoutes = function (version) {
+	var controllers = version.controllers;
+	var base = '/' + version.name;
+	var actions = [{
 		'method': 'OPTIONS',
 		'action': 'links',
 		'id': false
 	}];
-};
-var getVersionRoutes = function (version) {
-	var controllers = version.controllers;
-	var base = '/' + version.name;
-	var actions = getVersionActions();
-	links[version.name] = [];
+	endpoints[version.name] = [];
 	for (var i = 0; i < controllers.length; i++) {
 		getControllerRoutes(base, version, controllers[i]);
 	}
 };
-var getControllerActions = function () {
-	return [{
-		'method': 'GET',
-		'name': 'list',
-		'id': false
-	}, {
-		'method': 'POST',
-		'name': 'create',
-		'id': false
-	}, {
-		'method': 'GET',
-		'name': 'retrieve',
-		'id': true
-	}, {
-		'method': 'PUT',
-		'name': 'update',
-		'id': true
-	}, {
-		'method': 'PATCH',
-		'name': 'partial',
-		'id': true
-	}, {
-		'method': 'DELETE',
-		'name': 'delete',
-		'id': true
-	}];
-};
+/**
+ * [getControllerRoutes description]
+ *
+ * @method getControllerRoutes
+ *
+ * @param  {[type]}            base       [description]
+ * @param  {[type]}            version    [description]
+ * @param  {[type]}            controller [description]
+ *
+ * @return {[type]}            [description]
+ */
 var getControllerRoutes = function (base, version, controller) {
 	var controllers = controller.controllers || null;
-	var actions = getControllerActions();
-	links[version.name][controller.name] = [];
+	var actions = version.actions;
+	endpoints[version.name][controller.name] = [];
 	for (var i = 0; i < actions.length; i++) {
 		var action = actions[i];
-		links[version.name][controller.name].push(getLink(action.name, action.method, base, controller.name, action.id ? controller.id : null));
+		endpoints[version.name][controller.name].push(getRoute(action.name, action.method, base, controller.name, action.id ? controller.id : null));
 	}
 	if (controllers && controllers.length > 0) {
 		base += '/' + controller.name + '/:' + controller.id;
@@ -70,38 +76,24 @@ var getControllerRoutes = function (base, version, controller) {
 		}
 	}
 };
+/**
+ * [initRoutes description]
+ *
+ * @method initRoutes
+ *
+ * @return {[type]}   [description]
+ */
 var initRoutes = function () {
 	for (var i = 0; i < versions.length; i++) {
 		getVersionRoutes(versions[i]);
 	}
-	global.links = links;
+	global.endpoints = endpoints;
+	console.dir(global.endpoints);
 };
-initRoutes();
-//console.dir(global);
-console.dir(global.links);
-/*function Routes(url) {
-	initRoutes();
-	this.links = links;
-	this.url = url;
-	//console.dir(links);
-}
-Routes.prototype.getLinks = function (version, controller, hypermedia, ids) {
-	if (hypermedia) {
-		var _links = this.links[version][controller];
-		for (var i = 0; i < _links.length; i++) {
-			_links[i].href = this.url + _links[i].href;
-			for (var key in ids) {
-				_links[i].href = _links[i].href.replace(':' + key, ids[key]);
-			}
-		}
-		return _links;
-	}
-	return this.links[version][controller];
-};
-var rt = new Routes('hello');
-console.dir(rt.getLinks('v1', 'friends', true, {
-	'user_id': '1',
-	frjhgiend_id: 2
-}));*/
-// export the class
-//module.exports = Routes;
+// action to take when events are emitted
+eventEmitter.on('initRoutes', initRoutes);
+// events emision
+eventEmitter.emit('initRoutes');
+process.on('uncaughtException', function (err) {
+	winston.log('error', 'Error initialazing routes', err);
+});

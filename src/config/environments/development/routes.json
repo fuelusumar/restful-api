@@ -4,6 +4,33 @@
 	"versions": [
 		{
 			"name": "v1",
+			"actions": [
+				{
+					"method": "GET",
+					"name": "list",
+					"id": false
+				}, {
+					"method": "POST",
+					"name": "create",
+					"id": false
+				}, {
+					"method": "GET",
+					"name": "retrieve",
+					"id": true
+				}, {
+					"method": "PUT",
+					"name": "update",
+					"id": true
+				}, {
+					"method": "PATCH",
+					"name": "partial",
+					"id": true
+				}, {
+					"method": "DELETE",
+					"name": "delete",
+					"id": true
+				}
+			],
 			"controllers": [
 				{
 					"name": "users",
