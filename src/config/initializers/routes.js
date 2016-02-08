@@ -6,27 +6,27 @@ var routes = require('../environments/' + environment + '/routes.json');
 var versions = routes.versions;
 var endpoints = [];
 /**
- * [getRoute description]
+ * builds the route object
  *
  * @method getRoute
  *
- * @param  {[type]} action     [description]
- * @param  {[type]} method     [description]
- * @param  {[type]} base       [description]
- * @param  {[type]} controller [description]
- * @param  {[type]} id         [description]
+ * @param  {[type]} action     CRUD action that this route executes
+ * @param  {[type]} method     HTTP method for route
+ * @param  {[type]} base       base url or start of route
+ * @param  {[type]} controller controller that owns the action
+ * @param  {[type]} id         specifies if the route uses id
  *
- * @return {[type]} [description]
+ * @return {[type]} route object
  */
 var getRoute = function (action, method, base, controller, id) {
 	var head = base + '/' + controller;
 	var tail = id ? '/:' + id : '';
-	var link = {
+	var route = {
 		'method': method,
 		'href': head + tail,
 		'rel': action
 	};
-	return link;
+	return route;
 };
 /**
  * [getVersionRoutes description]
@@ -40,11 +40,6 @@ var getRoute = function (action, method, base, controller, id) {
 var getVersionRoutes = function (version) {
 	var controllers = version.controllers;
 	var base = '/' + version.name;
-	var actions = [{
-		'method': 'OPTIONS',
-		'action': 'links',
-		'id': false
-	}];
 	endpoints[version.name] = [];
 	for (var i = 0; i < controllers.length; i++) {
 		getControllerRoutes(base, version, controllers[i]);
@@ -88,7 +83,6 @@ var initRoutes = function () {
 		getVersionRoutes(versions[i]);
 	}
 	global.endpoints = endpoints;
-	console.dir(global.endpoints);
 };
 // action to take when events are emitted
 eventEmitter.on('initRoutes', initRoutes);

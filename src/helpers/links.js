@@ -1,27 +1,25 @@
-//console.dir(global);
-/*function Routes(url) {
-	initRoutes();
-	this.links = links;
-	this.url = url;
-	//console.dir(links);
-}
-Routes.prototype.getLinks = function (version, controller, hypermedia, ids) {
+/**
+ * [getLinks description]
+ *
+ * @method getLinks
+ *
+ * @param  {[type]} url        API host protocol and domain
+ * @param  {[type]} version    controller version
+ * @param  {[type]} controller controller name
+ * @param  {[type]} hypermedia if it should return hypermedia style
+ * @param  {[type]} ids        id's object e.g. {user_id: 1}
+ *
+ * @return {[type]} options or link object
+ */
+exports.getLinks = function (url, version, controller, hypermedia, ids) {
+	var _links = global.endpoints[version][controller];
 	if (hypermedia) {
-		var _links = this.links[version][controller];
 		for (var i = 0; i < _links.length; i++) {
-			_links[i].href = this.url + _links[i].href;
+			_links[i].href = url + _links[i].href;
 			for (var key in ids) {
 				_links[i].href = _links[i].href.replace(':' + key, ids[key]);
 			}
 		}
-		return _links;
 	}
-	return this.links[version][controller];
+	return _links;
 };
-var rt = new Routes('hello');
-console.dir(rt.getLinks('v1', 'friends', true, {
-	'user_id': '1',
-	frjhgiend_id: 2
-}));*/
-// export the class
-//module.exports = Routes;
