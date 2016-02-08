@@ -1,0 +1,25 @@
+{
+	"description": "fuelusumar",
+	"author": "",
+	"versions": [
+		{
+			"name": "v1",
+			"controllers": [
+				{
+					"name": "users",
+					"description": "system's users",
+					"id": "user_id",
+					"author": "fuelusumar",
+					"controllers": [
+						{
+							"name": "friends",
+							"description": "user's friends and friendship actions and relations",
+							"id": "friend_id",
+							"author": "fuelusumar"
+						}
+					]
+				}
+			]
+		}
+	]
+}
