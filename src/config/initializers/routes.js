@@ -5,6 +5,33 @@ var environment = process.env.NODE_ENV || 'development';
 var routes = require('../environments/' + environment + '/routes.json');
 var versions = routes.versions;
 var endpoints = [];
+var default_actions = [
+	{
+		"method": "GET",
+		"name": "list",
+		"id": false
+	}, {
+		"method": "POST",
+		"name": "create",
+		"id": false
+	}, {
+		"method": "GET",
+		"name": "retrieve",
+		"id": true
+	}, {
+		"method": "PUT",
+		"name": "update",
+		"id": true
+	}, {
+		"method": "PATCH",
+		"name": "partial",
+		"id": true
+	}, {
+		"method": "DELETE",
+		"name": "delete",
+		"id": true
+	}
+];
 /**
  * builds the route object
  *
@@ -58,7 +85,7 @@ var getVersionRoutes = function (version) {
  */
 var getControllerRoutes = function (base, version, controller) {
 	var controllers = controller.controllers || null;
-	var actions = version.actions;
+	var actions = controller.actions || default_actions;
 	endpoints[version.name][controller.name] = [];
 	for (var i = 0; i < actions.length; i++) {
 		var action = actions[i];
