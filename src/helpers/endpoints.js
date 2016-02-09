@@ -9,23 +9,23 @@
  * @param  {[type]} url        API host protocol and domain
  * @param  {[type]} ids        id's object e.g. {user_id: 1}
  *
- * @return {[type]} options or link object
+ * @return {[type]} options or endpoint object
  */
 exports.getLinks = function (version, controller, hypermedia, url, ids) {
-	var _links = global.endpoints[version][controller];
+	var _endpoints = global.endpoints[version][controller];
 	if (hypermedia && url) {
 		var _hypers = [];
-		for (var i = 0; i < _links.length; i++) {
-			var _link = {};
-			_link.method = _links[i].method;
-			_link.href = url + _links[i].href;
-			_link.rel = _links[i].rel;
+		for (var i = 0; i < _endpoints.length; i++) {
+			var _endpoint = {};
+			_endpoint.method = _endpoints[i].method;
+			_endpoint.href = url + _endpoints[i].href;
+			_endpoint.rel = _endpoints[i].rel;
 			for (var key in ids) {
-				_link.href = _link.href.replace(':' + key, ids[key]);
+				_endpoint.href = _endpoint.href.replace(':' + key, ids[key]);
 			}
-			_hypers.push(_link);
+			_hypers.push(_endpoint);
 		}
 		return _hypers;
 	}
-	return _links;
+	return _endpoints;
 };
