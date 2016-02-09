@@ -1,5 +1,4 @@
 /* global describe, it */
-var assert = require('assert');
 var endpointsInit = require('../src/config/initializers/endpoints');
 var endptsHelpr = require('../src/helpers/endpoints');
 describe('endptsHelpr', function () {

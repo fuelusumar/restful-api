@@ -7,6 +7,7 @@ var src_files = [
 	'src/*.{js,json}'];
 var test_files = ['test/*.{js,json}'];
 var all_files = src_files.concat(test_files);
+process.setMaxListeners(0);
 //
 gulp.task('jslint', function () {
 	return gulp.src(src_files).pipe(jshint({
