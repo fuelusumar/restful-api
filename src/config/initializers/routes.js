@@ -56,23 +56,6 @@ var getRoute = function (action, method, base, controller, id) {
 	return route;
 };
 /**
- * [getVersionRoutes description]
- *
- * @method getVersionRoutes
- *
- * @param  {[type]}         version [description]
- *
- * @return {[type]}         [description]
- */
-var getVersionRoutes = function (version) {
-	var controllers = version.controllers;
-	var base = '/' + version.name;
-	endpoints[version.name] = [];
-	for (var i = 0; i < controllers.length; i++) {
-		getControllerRoutes(base, version, controllers[i]);
-	}
-};
-/**
  * [getControllerRoutes description]
  *
  * @method getControllerRoutes
@@ -93,9 +76,26 @@ var getControllerRoutes = function (base, version, controller) {
 	}
 	if (controllers && controllers.length > 0) {
 		base += '/' + controller.name + '/:' + controller.id;
-		for (var i = 0; i < controllers.length; i++) {
-			getControllerRoutes(base, version, controllers[i])
+		for (var j = 0; j < controllers.length; j++) {
+			getControllerRoutes(base, version, controllers[i]);
 		}
+	}
+};
+/**
+ * [getVersionRoutes description]
+ *
+ * @method getVersionRoutes
+ *
+ * @param  {[type]}         version [description]
+ *
+ * @return {[type]}         [description]
+ */
+var getVersionRoutes = function (version) {
+	var controllers = version.controllers;
+	var base = '/' + version.name;
+	endpoints[version.name] = [];
+	for (var i = 0; i < controllers.length; i++) {
+		getControllerRoutes(base, version, controllers[i]);
 	}
 };
 /**
