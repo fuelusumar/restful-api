@@ -4,16 +4,19 @@ var mocha = require('gulp-mocha');
 var src_files = [
 	'src/bin/*',
 	'src/**/*.{js,json}',
-	'src/*.{js,json}'];
-var test_files = ['test/*.{js,json}'];
-var serv_files = ['test/database/services/*.{js,json}'];
-var ctrl_files = ['test/database/controllers/*.{js,json}'];
-var db_files = serv_files.concat(ctrl_files);
-var watch_files = src_files.concat(test_files.concat(db_files));
+	'src/*.{js,json}',
+	'test/**/*.js'];
+//var test_files = ['test/**/*.{js,json}'];
+var ctrl_files = ['test/controllers/*.{js,json}'];
+var help_files = ['test/helpers/*.{js,json}'];
+var modl_files = ['test/models/*.{js,json}'];
+var rout_files = ['test/routes/*.{js,json}'];
+var serv_files = ['test/services/*.{js,json}'];
+//
 process.setMaxListeners(0);
 // jslint task for source files and tests that don't require database connection
 gulp.task('jslint', function () {
-	return gulp.src(watch_files).pipe(jshint({
+	return gulp.src(src_files).pipe(jshint({
 		'undef': true,
 		'unused': false,
 		'node': true,
@@ -24,13 +27,19 @@ gulp.task('jslint', function () {
 	//.pipe(gulp.dest('dist'));
 });
 // mocha tests task for files that don't require database connection
-gulp.task('mocha', ['jslint'], function () {
-	return gulp.src(test_files, {
+gulp.task('helpers', ['jslint'], function () {
+	return gulp.src(help_files, {
+		read: false
+	}).pipe(mocha());
+});
+// mocha tests task for files that don't require database connection
+gulp.task('models', ['jslint'], function () {
+	return gulp.src(modl_files, {
 		read: false
 	}).pipe(mocha());
 });
 // mocha tests task for services files that require database connection
-gulp.task('services', function () {
+gulp.task('services', ['jslint'], function () {
 	return gulp.src(serv_files) //
 		.pipe(mocha()) //
 		.once('end', function () {
@@ -38,14 +47,15 @@ gulp.task('services', function () {
 		});
 });
 // mocha tests task for controllers files that require database connection
-gulp.task('controllers', function () {
+gulp.task('controllers', ['jslint'], function () {
 	return gulp.src(ctrl_files) //
 		.pipe(mocha()) //
 		.once('end', function () {
 			process.exit();
 		});
 });
+gulp.task('mocha', ['helpers', 'models', 'services']);
 // watch files changes
 gulp.task('watch', function () {
-	gulp.watch(watch_files, ['mocha']);
+	gulp.watch(src_files, ['jslint']);
 });

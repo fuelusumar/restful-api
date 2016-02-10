@@ -1,7 +1,7 @@
 /* global describe, it */
 var winston = require('winston');
 var assert = require('assert');
-var UsrMdl = require('../src/models/user');
+var UsrMdl = require('../../src/models/user');
 try {
 	describe('UsrMdl', function () {
 		var usr = new UsrMdl('fuelusumar', '15946659', 'fuelusumar@gmail.com', 'Luis Fuenmayor', 'no_avatar');

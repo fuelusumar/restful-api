@@ -1,8 +1,11 @@
 /* global describe, it */
-var endpointsInit = require('../src/config/initializers/endpoints');
-var endptsHelpr = require('../src/helpers/endpoints');
+var endptsHelpr = require('../../src/helpers/endpoints');
 describe('endptsHelpr', function () {
 	describe('#getLinks()', function () {
+		it('should initialize endpoints', function (done) {
+			require('../../src/config/initializers/endpoints');
+			done();
+		});
 		it('should return an array of endpoints', function () {
 			Array.isArray(endptsHelpr.getLinks('v1', 'users'));
 		});

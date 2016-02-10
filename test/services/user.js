@@ -1,8 +1,8 @@
 /* global describe, it */
 var winston = require('winston');
 var assert = require('assert');
-var UsrMdl = require('../../../src/models/user');
-var usrSrv = require('../../../src/services/user');
+var UsrMdl = require('../../src/models/user');
+var usrSrv = require('../../src/services/user');
 try {
 	describe('usrSrv', function () {
 		var usr = new UsrMdl('fuelusumar', '15946659', 'fuelusumar@gmail.com', 'Luis Fuenmayor', 'no_avatar');
@@ -10,7 +10,7 @@ try {
 		describe('database connection', function () {
 			this.timeout(2000);
 			it('should connect before doing any action', function (done) {
-				var db = require('../../../src/config/initializers/database');
+				var db = require('../../src/config/initializers/database');
 				done();
 			});
 		});
@@ -57,7 +57,7 @@ try {
 			});
 		});
 		describe('#findUsrById()', function () {
-			it('should be an user model', function (done) {
+			it('should return an user model', function (done) {
 				usrSrv.findUsrById(_id, function (err, res) {
 					if (err) {
 						winston.log('error', 'Error testing user service\n', err);
@@ -73,7 +73,7 @@ try {
 			});
 		});
 		describe('#findUsrByEmail()', function () {
-			it('should be an user model', function (done) {
+			it('should return an user model', function (done) {
 				usrSrv.findUsrByEmail('fuelusumar@gmail.com', function (err, res) {
 					if (err) {
 						winston.log('error', 'Error testing user service\n', err);
@@ -89,7 +89,7 @@ try {
 			});
 		});
 		describe('#findUsrByUsrnm()', function () {
-			it('should be an user model', function (done) {
+			it('should return an user model', function (done) {
 				usrSrv.findUsrByUsrnm('fuelusumar', function (err, res) {
 					if (err) {
 						winston.log('error', 'Error testing user service\n', err);
@@ -105,7 +105,7 @@ try {
 			});
 		});
 		describe('#findUsrs()', function () {
-			it('should not has property passwd', function (done) {
+			it('should return an array of user models', function (done) {
 				usrSrv.findUsrs({}, 1, {}, function (err, res) {
 					if (err) {
 						winston.log('error', 'Error testing user service\n', err);
@@ -117,7 +117,7 @@ try {
 			});
 		});
 		describe('#findAllUsrs()', function () {
-			it('should not has property passwd', function (done) {
+			it('should return an array of user models', function (done) {
 				usrSrv.findAllUsrs({}, {}, function (err, res) {
 					if (err) {
 						winston.log('error', 'Error testing user service\n', err);
@@ -129,7 +129,7 @@ try {
 			});
 		});
 		describe('#updateUsrById()', function () {
-			it('should not has property passwd', function (done) {
+			it('should have changed a model', function (done) {
 				usrSrv.updateUsrById(_id, {
 					name: 'Gerardo Fuenmayor'
 				}, function (err, res) {
@@ -145,7 +145,7 @@ try {
 			});
 		});
 		describe('#delUsrById()', function () {
-			it('should not has property passwd', function (done) {
+			it('should deleted a model', function (done) {
 				usrSrv.delUsrById(_id, function (err, res) {
 					if (err) {
 						winston.log('error', 'Error testing user service\n', err);
@@ -158,7 +158,7 @@ try {
 			});
 		});
 		describe('#delAllUsrs()', function () {
-			it('should not has property passwd', function (done) {
+			it('should be ok', function (done) {
 				usrSrv.delAllUsrs(function (err, res) {
 					if (err) {
 						winston.log('error', 'Error testing user service\n', err);
