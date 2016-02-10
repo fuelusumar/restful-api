@@ -125,30 +125,30 @@ exports.updateUsrById = function (_id, set, callback) {
 	});
 };
 /**
- * [delAllUsrs description]
+ * [deleteAllUsrs description]
  *
- * @method delAllUsrs
+ * @method deleteAllUsrs
  *
- * @param  {Function} callback [description]
+ * @param  {Function}    callback [description]
  *
- * @return {[type]}   [description]
+ * @return {[type]}      [description]
  */
-exports.delAllUsrs = function (callback) {
+exports.deleteAllUsrs = function (callback) {
 	usrDao.delAllSchemas(function (err, usr) {
 		callback(err, usr);
 	});
 };
 /**
- * [delCompById description]
+ * [deleteUsrById description]
  *
- * @method delCompById
+ * @method deleteUsrById
  *
- * @param  {[type]}    _id      [description]
- * @param  {Function}  callback [description]
+ * @param  {[type]}      _id      [description]
+ * @param  {Function}    callback [description]
  *
- * @return {[type]}    [description]
+ * @return {[type]}      [description]
  */
-exports.delUsrById = function (_id, callback) {
+exports.deleteUsrById = function (_id, callback) {
 	usrDao.delSchemaById(_id, function (err, usr) {
 		callback(err, usr);
 	});

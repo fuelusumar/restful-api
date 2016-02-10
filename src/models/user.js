@@ -68,28 +68,29 @@ var validation = {
  *
  * @method UsrMdl
  *
- * @param  {[type]} usrnm      [description]
- * @param  {[type]} email      [description]
- * @param  {[type]} name       [description]
- * @param  {[type]} avatar_url [description]
+ * @param  {[type]} usrObj [description]
  */
-function UsrMdl(usrnm, passwd, email, name, avatar_url) {
-	this.usrnm = usrnm;
-	this.passwd = passwd;
-	this.email = email;
-	this.name = name;
-	this.avatar_url = avatar_url;
-	this.bday = null;
-	this.sex = null;
-	this.lang = null;
-	this.country = null;
-	this.is_active = true;
-	this.is_private = false;
-	this.is_banned = false;
-	this.is_verfied = false;
-	this.email_verfd = false;
-	this.upd_at = new mongoose.Types.ObjectId();
-	inspector.sanitize(sanitization, this);
+function UsrMdl(usrObj) {
+	if (usrObj.usrnm && usrObj.passwd && usrObj.email && usrObj.name && usrObj.avatar_url) {
+		this.usrnm = usrObj.usrnm;
+		this.passwd = usrObj.passwd;
+		this.email = usrObj.email;
+		this.name = usrObj.name;
+		this.avatar_url = usrObj.avatar_url;
+		this.bday = null;
+		this.sex = null;
+		this.lang = null;
+		this.country = null;
+		this.is_active = true;
+		this.is_private = false;
+		this.is_banned = false;
+		this.is_verfied = false;
+		this.email_verfd = false;
+		this.upd_at = new mongoose.Types.ObjectId();
+		inspector.sanitize(sanitization, this);
+	} else {
+		throw new Error('user object do not have minimum requirements');
+	}
 }
 /**
  * [validate description]
@@ -103,6 +104,16 @@ UsrMdl.prototype.validate = function () {
 	if (!inspect.valid) {
 		throw new Error(inspect.format());
 	}
+};
+/**
+ * [sanitize description]
+ *
+ * @method sanitize
+ *
+ * @return {[type]} [description]
+ */
+UsrMdl.prototype.sanitize = function () {
+	inspector.sanitize(sanitization, this);
 };
 /**
  * [init description]
@@ -157,6 +168,31 @@ UsrMdl.prototype.show = function () {
 	//usr.is_verfied = this.is_verfied;
 	//usr.email_verfd = this.email_verfd;
 	usr.upd_at = this.upd_at;
+	return usr;
+};
+/**
+ * [set description]
+ *
+ * @method set
+ */
+UsrMdl.prototype.set = function () {
+	var usr = {};
+	//usr._id = this._id;
+	usr.usrnm = this.usrnm;
+	usr.passwd = this.passwd;
+	usr.email = this.email;
+	usr.name = this.name;
+	usr.avatar_url = this.avatar_url;
+	usr.bday = this.bday;
+	usr.sex = this.sex;
+	usr.lang = this.lang;
+	usr.country = this.country;
+	usr.is_active = this.is_active;
+	usr.is_private = this.is_private;
+	usr.is_banned = this.is_banned;
+	usr.is_verfied = this.is_verfied;
+	usr.email_verfd = this.email_verfd;
+	//usr.upd_at = this.upd_at;
 	return usr;
 };
 /**

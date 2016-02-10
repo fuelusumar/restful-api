@@ -4,7 +4,13 @@ var assert = require('assert');
 var UsrMdl = require('../../src/models/user');
 try {
 	describe('UsrMdl', function () {
-		var usr = new UsrMdl('fuelusumar', '15946659', 'fuelusumar@gmail.com', 'Luis Fuenmayor', 'no_avatar');
+		var usr = new UsrMdl({
+			usrnm: 'fuelusumar',
+			passwd: '15946659',
+			email: 'fuelusumar@gmail.com',
+			name: 'Luis Fuenmayor',
+			avatar_url: 'no_avatar'
+		});
 		describe('#constructor()', function () {
 			it('should return an user object', function () {
 				assert.equal(usr.usrnm, 'fuelusumar');

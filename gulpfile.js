@@ -54,7 +54,6 @@ gulp.task('controllers', ['jslint'], function () {
 			process.exit();
 		});
 });
-gulp.task('mocha', ['helpers', 'models', 'services']);
 // watch files changes
 gulp.task('watch', function () {
 	gulp.watch(src_files, ['jslint']);
