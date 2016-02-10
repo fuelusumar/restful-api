@@ -77,15 +77,15 @@ function UsrMdl(usrObj) {
 		this.email = usrObj.email;
 		this.name = usrObj.name;
 		this.avatar_url = usrObj.avatar_url;
-		this.bday = null;
-		this.sex = null;
-		this.lang = null;
-		this.country = null;
-		this.is_active = true;
-		this.is_private = false;
-		this.is_banned = false;
-		this.is_verfied = false;
-		this.email_verfd = false;
+		this.bday = usrObj.bday || null;
+		this.sex = usrObj.sex || null;
+		this.lang = usrObj.lang || null;
+		this.country = usrObj.country || null;
+		this.is_active = usrObj.is_active || true;
+		this.is_private = usrObj.is_private || false;
+		this.is_banned = usrObj.is_banned || false;
+		this.is_verfied = usrObj.is_verfied || false;
+		this.email_verfd = usrObj.email_verfd || false;
 		this.upd_at = new mongoose.Types.ObjectId();
 		inspector.sanitize(sanitization, this);
 	} else {
