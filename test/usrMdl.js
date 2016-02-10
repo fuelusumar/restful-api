@@ -17,7 +17,7 @@ try {
 		describe('#show()', function () {
 			it('should not has property passwd', function () {
 				var usrShow = usr.show();
-				typeof usrShow.passwd == 'undefined';
+				assert.equal(typeof usrShow.passwd, 'undefined');
 			});
 		});
 	});

@@ -90,11 +90,20 @@ function UsrMdl(usrnm, passwd, email, name, avatar_url) {
 	this.email_verfd = false;
 	this.upd_at = new mongoose.Types.ObjectId();
 	inspector.sanitize(sanitization, this);
+}
+/**
+ * [validate description]
+ *
+ * @method validate
+ *
+ * @return {[type]} [description]
+ */
+UsrMdl.prototype.validate = function () {
 	var inspect = inspector.validate(validation, this);
 	if (!inspect.valid) {
 		throw new Error(inspect.format());
 	}
-}
+};
 /**
  * [init description]
  *
@@ -121,6 +130,7 @@ UsrMdl.prototype.init = function (usrSchema) {
 	this.is_verfied = usrSchema.is_verfied;
 	this.email_verfd = usrSchema.email_verfd;
 	this.upd_at = usrSchema.upd_at;
+	inspector.sanitize(sanitization, this);
 };
 /**
  * [show description]

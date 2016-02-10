@@ -149,7 +149,7 @@ exports.delAllUsrs = function (callback) {
  * @return {[type]}    [description]
  */
 exports.delUsrById = function (_id, callback) {
-	usrDao.delSchemaById(_id, function (err, comp) {
-		callback(err, comp);
+	usrDao.delSchemaById(_id, function (err, usr) {
+		callback(err, usr);
 	});
 };
