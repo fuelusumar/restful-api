@@ -78,18 +78,6 @@ try {
 				});
 			});
 		});
-		describe('#findUsrs()', function () {
-			it('should return an array', function (done) {
-				usrSrv.findUsrs({}, 10, {}, function (err, res) {
-					if (err) {
-						winston.log('error', 'Error testing user service\n', err);
-						done();
-					}
-					Array.isArray(res);
-					done();
-				});
-			});
-		});
 		describe('#findUsrByEmail()', function () {
 			it('should return an user model', function (done) {
 				usrSrv.findUsrByEmail('fuelusumar@gmail.com', function (err, res) {
@@ -124,12 +112,12 @@ try {
 		});
 		describe('#findUsrs()', function () {
 			it('should return an array of user models', function (done) {
-				usrSrv.findUsrs({}, 1, {}, function (err, res) {
+				usrSrv.findUsrs({}, 0, 1, {}, function (err, res) {
 					if (err) {
 						winston.log('error', 'Error testing user service\n', err);
 						done();
 					}
-					Array.isArray(res);
+					assert.ok(Array.isArray(res));
 					done();
 				});
 			});
@@ -141,7 +129,7 @@ try {
 						winston.log('error', 'Error testing user service\n', err);
 						done();
 					}
-					Array.isArray(res);
+					assert.ok(Array.isArray(res));
 					done();
 				});
 			});
@@ -155,7 +143,7 @@ try {
 						winston.log('error', 'Error testing user service\n', err);
 						done();
 					}
-					assert.equal(res.ok, 1);
+					assert.ok(res.ok);
 					assert.equal(res.nModified, 1);
 					assert.equal(res.n, 1);
 					done();
@@ -169,7 +157,7 @@ try {
 						winston.log('error', 'Error testing user service\n', err);
 						done();
 					}
-					assert.equal(res.result.ok, 1);
+					assert.ok(res.result.ok);
 					assert.equal(res.result.n, 1);
 					done();
 				});
@@ -182,7 +170,7 @@ try {
 						winston.log('error', 'Error testing user service\n', err);
 						done();
 					}
-					assert.equal(res.result.ok, 1);
+					assert.ok(res.result.ok);
 					done();
 				});
 			});

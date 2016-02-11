@@ -78,7 +78,7 @@ try {
 		});
 		describe('#findUsrs()', function () {
 			it('should return an array', function (done) {
-				usrCtrl.findUsrs({}, 10, {}, function (err, res) {
+				usrCtrl.findUsrs({}, 0, 1, {}, function (err, res) {
 					if (err) {
 						winston.log('error', 'Error testing user service\n', err);
 						done();
