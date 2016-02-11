@@ -6,6 +6,9 @@ describe('endptsHelpr', function () {
 			require('../../src/config/initializers/endpoints');
 			done();
 		});
+		it('should return an array of controllers', function () {
+			Array.isArray(endptsHelpr.getLinks('v1'));
+		});
 		it('should return an array of endpoints', function () {
 			Array.isArray(endptsHelpr.getLinks('v1', 'users'));
 		});

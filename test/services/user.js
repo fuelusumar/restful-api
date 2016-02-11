@@ -5,7 +5,13 @@ var UsrMdl = require('../../src/models/user');
 var usrSrv = require('../../src/services/user');
 try {
 	describe('usrSrv', function () {
-		var usr = new UsrMdl('fuelusumar', '15946659', 'fuelusumar@gmail.com', 'Luis Fuenmayor', 'no_avatar');
+		var usr = new UsrMdl({
+			usrnm: 'fuelusumar',
+			passwd: '15946659',
+			email: 'fuelusumar@gmail.com',
+			name: 'Luis Fuenmayor',
+			avatar_url: 'no_avatar'
+		});
 		var _id = null;
 		describe('database connection', function () {
 			this.timeout(2000);
@@ -24,7 +30,7 @@ try {
 								winston.log('error', 'Error testing user service\n', err);
 								done();
 							}
-							usrSrv.delUsrById(res._id, function (err, res) {
+							usrSrv.deleteUsrById(res._id, function (err, res) {
 								if (err) {
 									winston.log('error', 'Error testing user service\n', err);
 									done();
@@ -144,9 +150,9 @@ try {
 				});
 			});
 		});
-		describe('#delUsrById()', function () {
+		describe('#deleteUsrById()', function () {
 			it('should deleted a model', function (done) {
-				usrSrv.delUsrById(_id, function (err, res) {
+				usrSrv.deleteUsrById(_id, function (err, res) {
 					if (err) {
 						winston.log('error', 'Error testing user service\n', err);
 						done();
@@ -157,9 +163,9 @@ try {
 				});
 			});
 		});
-		describe('#delAllUsrs()', function () {
+		describe('#deleteAllUsrs()', function () {
 			it('should be ok', function (done) {
-				usrSrv.delAllUsrs(function (err, res) {
+				usrSrv.deleteAllUsrs(function (err, res) {
 					if (err) {
 						winston.log('error', 'Error testing user service\n', err);
 						done();

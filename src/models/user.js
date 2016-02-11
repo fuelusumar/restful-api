@@ -71,12 +71,12 @@ var validation = {
  * @param  {[type]} usrObj [description]
  */
 function UsrMdl(usrObj) {
-	if (usrObj.usrnm && usrObj.passwd && usrObj.email && usrObj.name && usrObj.avatar_url) {
-		this.usrnm = usrObj.usrnm;
-		this.passwd = usrObj.passwd;
-		this.email = usrObj.email;
-		this.name = usrObj.name;
-		this.avatar_url = usrObj.avatar_url;
+	if (usrObj) {
+		this.usrnm = usrObj.usrnm || null;
+		this.passwd = usrObj.passwd || null;
+		this.email = usrObj.email || null;
+		this.name = usrObj.name || null;
+		this.avatar_url = usrObj.avatar_url || null;
 		this.bday = usrObj.bday || null;
 		this.sex = usrObj.sex || null;
 		this.lang = usrObj.lang || null;
@@ -88,8 +88,6 @@ function UsrMdl(usrObj) {
 		this.email_verfd = usrObj.email_verfd || false;
 		this.upd_at = new mongoose.Types.ObjectId();
 		inspector.sanitize(sanitization, this);
-	} else {
-		throw new Error('user object do not have minimum requirements');
 	}
 }
 /**

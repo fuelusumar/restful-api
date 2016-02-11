@@ -54,16 +54,16 @@ exports.findUsrByUsrnm = function (usrnm, callback) {
 	}
 };
 /**
- * [findUsr description]
+ * [findUsrById description]
  *
- * @method findUsr
+ * @method findUsrById
  *
  * @param  {[type]}   _id      [description]
  * @param  {Function} callback [description]
  *
  * @return {[type]}   [description]
  */
-exports.findUsr = function (_id, callback) {
+exports.findUsrById = function (_id, callback) {
 	try {
 		if (valdHlpr.isObjectID(_id)) {
 			usrSrv.findUsrById(_id, function (err, res) {
@@ -81,16 +81,16 @@ exports.findUsr = function (_id, callback) {
 	}
 };
 /**
- * [insUsr description]
+ * [insertUsr description]
  *
- * @method insUsr
+ * @method insertUsr
  *
  * @param  {[type]}   usr_obj  [description]
  * @param  {Function} callback [description]
  *
  * @return {[type]}   [description]
  */
-exports.insUsr = function (usr_obj, callback) {
+exports.insertUsr = function (usr_obj, callback) {
 	try {
 		if (usr_obj && Object.keys(usr_obj).length >= 5) {
 			var usr = new UsrMdl(usr_obj);
@@ -110,16 +110,16 @@ exports.insUsr = function (usr_obj, callback) {
 	}
 };
 /**
- * [updOrPatchUsr description]
+ * [updateOrPatchUsr description]
  *
- * @method updOrPatchUsr
+ * @method updateOrPatchUsr
  *
  * @param  {[type]}      usr_obj  [description]
  * @param  {Function}    callback [description]
  *
  * @return {[type]}      [description]
  */
-exports.updOrPatchUsr = function (usr_obj, callback) {
+exports.updateOrPatchUsr = function (usr_obj, callback) {
 	try {
 		if (usr_obj && valdHlpr.isObjectID(usr_obj._id) && Object.keys(usr_obj).length > 1) {
 			usrSrv.findUsrById(usr_obj._id, function (err, usr) {
@@ -156,19 +156,19 @@ exports.updOrPatchUsr = function (usr_obj, callback) {
 	}
 };
 /**
- * [delUsr description]
+ * [deleteUsrById description]
  *
- * @method delUsr
+ * @method deleteUsrById
  *
  * @param  {[type]}   _id      [description]
  * @param  {Function} callback [description]
  *
  * @return {[type]}   [description]
  */
-exports.delUsr = function (_id, callback) {
+exports.deleteUsrById = function (_id, callback) {
 	try {
 		if (valdHlpr.isObjectID(_id)) {
-			usrSrv.delUsrById(_id, function (err, res) {
+			usrSrv.deleteUsrById(_id, function (err, res) {
 				if (err) {
 					return callback(err, null);
 				} else {
