@@ -76,6 +76,18 @@ try {
 				});
 			});
 		});
+		describe('#findUsrs()', function () {
+			it('should return an array', function (done) {
+				usrCtrl.findUsrs({}, 10, {}, function (err, res) {
+					if (err) {
+						winston.log('error', 'Error testing user service\n', err);
+						done();
+					}
+					Array.isArray(res);
+					done();
+				});
+			});
+		});
 		describe('#findUsrByEmail()', function () {
 			it('should return an user model', function (done) {
 				usrCtrl.findUsrByEmail(usr_obj.email, function (err, res) {

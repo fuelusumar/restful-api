@@ -2,6 +2,30 @@ var valdHlpr = require('../helpers/validate');
 var usrSrv = require('../services/user');
 var UsrMdl = require('../models/user');
 /**
+ * [findUsrs description]
+ *
+ * @method findUsrs
+ *
+ * @param  {[type]}   query    [description]
+ * @param  {[type]}   limit    [description]
+ * @param  {[type]}   order    [description]
+ * @param  {Function} callback [description]
+ *
+ * @return {[type]}   [description]
+ */
+exports.findUsrs = function (query, skip, limit, order, callback) {
+	try {
+		usrSrv.findUsrs(query, skip, limit, order, function (err, usr) {
+			if (err) {
+				return callback(err, null);
+			}
+			return callback(null, usr);
+		});
+	} catch (err) {
+		return callback(err, null);
+	}
+};
+/**
  * [findUsrByEmail description]
  *
  * @method findUsrByEmail

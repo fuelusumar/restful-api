@@ -28,7 +28,7 @@ function Dao(ref, schema, model) {
 	}
 	this.Schema.ensureIndexes(function (err, res) {
 		if (err) {
-            winston.log('error', 'Mongoose default connection error', err);
+			winston.log('error', 'Mongoose default connection error', err);
 		}
 	});
 }
@@ -98,17 +98,18 @@ Dao.prototype.findSchema = function (query, callback) {
  * @method findSchemaLst
  *
  * @param  {[type]}      query    [description]
+ * @param  {[type]}      skip     [description]
  * @param  {[type]}      limit    [description]
  * @param  {[type]}      sort     [description]
  * @param  {Function}    callback [description]
  *
  * @return {[type]}      [description]
  */
-Dao.prototype.findSchemaLst = function (query, limit, sort, callback) {
+Dao.prototype.findSchemaLst = function (query, skip, limit, sort, callback) {
 	'use strict';
 	try {
 		var that = this;
-		this.Schema.find(query).limit(limit).sort(sort).exec(function (err, schemas) {
+		this.Schema.find(query).skip(skip).limit(limit).sort(sort).exec(function (err, schemas) {
 			if (err && !schemas) {
 				return callback(err, null);
 			}
@@ -285,11 +286,11 @@ Dao.prototype.findAndPopulateSchema = function (query, path, callback) {
  *
  * @return {[type]}                  [description]
  */
-Dao.prototype.findAndPopulateSchemaLst = function (query, limit, sort, path, callback) {
+Dao.prototype.findAndPopulateSchemaLst = function (query, skip, limit, sort, path, callback) {
 	'use strict';
 	try {
 		var that = this;
-		this.Schema.find(query).limit(limit).sort(sort).populate(path).exec(function (err, schemas) {
+		this.Schema.find(query).skip(skip).limit(limit).sort(sort).populate(path).exec(function (err, schemas) {
 			if (err && !schemas) {
 				return callback(err, null);
 			}

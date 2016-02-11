@@ -1,36 +1,72 @@
 /**
+ * [Endpoints description]
+ *
+ * @method Endpoints
+ *
+ * @param  {Boolean} is_hyper [description]
+ * @param  {[type]}  links    [description]
+ */
+function Endpoints(is_hyper, links) {
+	this.is_hyper = is_hyper;
+	this.links = links;
+}
+/**
+ * [getHyper description]
+ *
+ * @method getHyper
+ *
+ * @param  {[type]} method [description]
+ * @param  {[type]} host   [description]
+ * @param  {[type]} url    [description]
+ * @param  {[type]} params [description]
+ *
+ * @return {[type]} [description]
+ */
+Endpoints.prototype.getHyper = function (method, host, url, params) {
+	if (this.is_hyper && method && host && url) {
+		var _links = [];
+		for (var i = 0; i < this.links.length; i++) {
+			var _link = {};
+			_link.method = this.links[i].method;
+			_link.href = host + this.links[i].href;
+			for (var key in params) {
+				_link.href = _link.href.replace(':' + key, params[key]);
+			}
+			if (_link.method == method && _link.href == host + url) {
+				_link.rel = 'self';
+			} else {
+				_link.rel = this.links[i].rel;
+			}
+			_links.push(_link);
+		}
+		return _links;
+	}
+	return this.links;
+};
+/**
  * [getLinks description]
  *
  * @method getLinks
  *
- * @param  {[type]} version    controller version
- * @param  {[type]} controller controller name
- * @param  {[type]} hypermedia if it should return hypermedia style
- * @param  {[type]} url        API host protocol and domain
- * @param  {[type]} ids        id's object e.g. {user_id: 1}
- *
- * @return {[type]} options or endpoint object
+ * @return {[type]} [description]
  */
-exports.getLinks = function (version, controller, hypermedia, url, ids) {
-	var _endpoints;
+Endpoints.prototype.getLinks = function () {
+	return this.links;
+};
+/**
+ * [loadEnpoints description]
+ *
+ * @method loadEnpoints
+ *
+ * @param  {[type]}     version    [description]
+ * @param  {[type]}     controller [description]
+ *
+ * @return {[type]}     [description]
+ */
+exports.loadEnpoints = function (version, controller) {
 	if (version && controller) {
-		_endpoints = global.endpoints[version][controller];
-		if (hypermedia && url) {
-			var _hypers = [];
-			for (var i = 0; i < _endpoints.length; i++) {
-				var _endpoint = {};
-				_endpoint.method = _endpoints[i].method;
-				_endpoint.href = url + _endpoints[i].href;
-				_endpoint.rel = _endpoints[i].rel;
-				for (var key in ids) {
-					_endpoint.href = _endpoint.href.replace(':' + key, ids[key]);
-				}
-				_hypers.push(_endpoint);
-			}
-			return _hypers;
-		}
+		return new Endpoints(true, global.endpoints[version][controller]);
 	} else {
-		_endpoints = global.endpoints[version];
+		return new Endpoints(false, global.endpoints[version]);
 	}
-	return _endpoints;
 };

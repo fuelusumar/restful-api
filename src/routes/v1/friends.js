@@ -4,8 +4,8 @@ var endptsHlpr = require('../../helpers/endpoints');
 router.get('/users/:user_id/friends', function (req, res, next) {
 	try {
 		res.status(200).send({
-			message: "list",
-			_links: endptsHlpr.getLinks('v1', 'friends', true, req.headers.host, req.params)
+			action: "list",
+			_links: endptsHlpr.loadEnpoints('v1', 'friends').getHyper(req.method, req.headers.host, req.originalUrl, req.params)
 		});
 	} catch (err) {
 		next(err);
@@ -14,8 +14,8 @@ router.get('/users/:user_id/friends', function (req, res, next) {
 router.get('/users/:user_id/friends/:friend_id', function (req, res, next) {
 	try {
 		res.status(200).send({
-			message: "retrieve",
-			_links: endptsHlpr.getLinks('v1', 'friends', true, req.headers.host, req.params)
+			action: "retrieve",
+			_links: endptsHlpr.loadEnpoints('v1', 'friends').getHyper(req.method, req.headers.host, req.originalUrl, req.params)
 		});
 	} catch (err) {
 		next(err);
@@ -24,8 +24,8 @@ router.get('/users/:user_id/friends/:friend_id', function (req, res, next) {
 router.post('/users/:user_id/friends', function (req, res, next) {
 	try {
 		res.status(200).send({
-			message: "create",
-			_links: endptsHlpr.getLinks('v1', 'friends', true, req.headers.host, req.params)
+			action: "create",
+			_links: endptsHlpr.loadEnpoints('v1', 'friends').getHyper(req.method, req.headers.host, req.originalUrl, req.params)
 		});
 	} catch (err) {
 		next(err);
@@ -34,8 +34,8 @@ router.post('/users/:user_id/friends', function (req, res, next) {
 router.put('/users/:user_id/friends/:friend_id', function (req, res, next) {
 	try {
 		res.status(200).send({
-			message: "update",
-			_links: endptsHlpr.getLinks('v1', 'friends', true, req.headers.host, req.params)
+			action: "update",
+			_links: endptsHlpr.loadEnpoints('v1', 'friends').getHyper(req.method, req.headers.host, req.originalUrl, req.params)
 		});
 	} catch (err) {
 		next(err);
@@ -44,8 +44,8 @@ router.put('/users/:user_id/friends/:friend_id', function (req, res, next) {
 router.patch('/users/:user_id/friends/:friend_id', function (req, res, next) {
 	try {
 		res.status(200).send({
-			message: "partial",
-			_links: endptsHlpr.getLinks('v1', 'friends', true, req.headers.host, req.params)
+			action: "partial",
+			_links: endptsHlpr.loadEnpoints('v1', 'friends').getHyper(req.method, req.headers.host, req.originalUrl, req.params)
 		});
 	} catch (err) {
 		next(err);
@@ -54,8 +54,8 @@ router.patch('/users/:user_id/friends/:friend_id', function (req, res, next) {
 router.delete('/users/:user_id/friends/:friend_id', function (req, res, next) {
 	try {
 		res.status(200).send({
-			message: "delete",
-			_links: endptsHlpr.getLinks('v1', 'friends', true, req.headers.host, req.params)
+			action: "delete",
+			_links: endptsHlpr.loadEnpoints('v1', 'friends').getHyper(req.method, req.headers.host, req.originalUrl, req.params)
 		});
 	} catch (err) {
 		next(err);
@@ -64,8 +64,8 @@ router.delete('/users/:user_id/friends/:friend_id', function (req, res, next) {
 router.options('/users/:user_id/friends/:friend_id', function (req, res, next) {
 	try {
 		res.status(200).send({
-			message: "options",
-			_links: endptsHlpr.getLinks('v1', 'friends', true, req.headers.host, req.params)
+			action: "options",
+			_links: endptsHlpr.loadEnpoints('v1', 'friends').getHyper(req.method, req.headers.host, req.originalUrl, req.params)
 		});
 	} catch (err) {
 		next(err);
@@ -74,8 +74,8 @@ router.options('/users/:user_id/friends/:friend_id', function (req, res, next) {
 router.options('/users/:user_id/friends', function (req, res, next) {
 	try {
 		res.status(200).send({
-			message: "options",
-			_links: endptsHlpr.getLinks('v1', 'friends', true, req.headers.host, req.params)
+			action: "options",
+			_links: endptsHlpr.loadEnpoints('v1', 'friends').getHyper(req.method, req.headers.host, req.originalUrl, req.params)
 		});
 	} catch (err) {
 		next(err);

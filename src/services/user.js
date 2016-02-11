@@ -84,8 +84,8 @@ exports.findUsrByUsrnm = function (usrnm, callback) {
  *
  * @return {[type]}   [description]
  */
-exports.findUsrs = function (query, limit, order, callback) {
-	usrDao.findSchemaLst(query, limit, order, function (err, usr) {
+exports.findUsrs = function (query, skip, limit, order, callback) {
+	usrDao.findSchemaLst(query, skip, limit, order, function (err, usr) {
 		callback(err, usr);
 	});
 };

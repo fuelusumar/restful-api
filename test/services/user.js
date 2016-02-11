@@ -78,6 +78,18 @@ try {
 				});
 			});
 		});
+		describe('#findUsrs()', function () {
+			it('should return an array', function (done) {
+				usrSrv.findUsrs({}, 10, {}, function (err, res) {
+					if (err) {
+						winston.log('error', 'Error testing user service\n', err);
+						done();
+					}
+					Array.isArray(res);
+					done();
+				});
+			});
+		});
 		describe('#findUsrByEmail()', function () {
 			it('should return an user model', function (done) {
 				usrSrv.findUsrByEmail('fuelusumar@gmail.com', function (err, res) {
