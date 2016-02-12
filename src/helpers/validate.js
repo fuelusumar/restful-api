@@ -85,18 +85,3 @@ exports.isUsrnm = function (usrnm) {
 	}
 	return false;
 };
-/**
- * [isLang description]
- *
- * @method isLang
- *
- * @param  {[type]} lang [description]
- *
- * @return {Boolean} [description]
- */
-exports.isLang = function (lang) {
-	if (isValidData(lang)) {
-		return validator.isLength(lang, 2, 5);
-	}
-	return false;
-};
