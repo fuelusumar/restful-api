@@ -13,16 +13,18 @@ var UsrMdl = require('../models/user');
  *
  * @return {[type]}   [description]
  */
-exports.findUsrs = function (query, skip, limit, order, callback) {
+exports.findUsrs = function (query, page, order, callback) {
 	try {
+		var skip = page * 100;
+		var limit = page;
 		usrSrv.findUsrs(query, skip, limit, order, function (err, usr) {
 			if (err) {
-				return callback(err, null);
+				return callback(err, null, 500);
 			}
-			return callback(null, usr);
+			return callback(null, usr, 200);
 		});
 	} catch (err) {
-		return callback(err, null);
+		return callback(err, null, 500);
 	}
 };
 /**
@@ -37,18 +39,18 @@ exports.findUsrs = function (query, skip, limit, order, callback) {
  */
 exports.findUsrByEmail = function (email, callback) {
 	try {
-		if (valdHlpr.isEmail(email)) {
+		if (!valdHlpr.isEmail(email)) {
+			return callback(Error('invalid email'), null, 400);
+		} else {
 			usrSrv.findUsrByEmail(email, function (err, usr) {
 				if (err) {
-					return callback(err, null);
+					return callback(err, null, 500);
 				}
-				return callback(null, usr);
+				return callback(null, usr, 200);
 			});
-		} else {
-			return callback(new Error('invalid email'), null);
 		}
 	} catch (err) {
-		return callback(err, null);
+		return callback(err, null, 500);
 	}
 };
 /**
@@ -63,18 +65,18 @@ exports.findUsrByEmail = function (email, callback) {
  */
 exports.findUsrByUsrnm = function (usrnm, callback) {
 	try {
-		if (valdHlpr.isUsrnm(usrnm)) {
+		if (!valdHlpr.isUsrnm(usrnm)) {
+			return callback(Error('invalid username'), null, 400);
+		} else {
 			usrSrv.findUsrByUsrnm(usrnm, function (err, usr) {
 				if (err) {
-					return callback(err, null);
+					return callback(err, null, 500);
 				}
-				return callback(null, usr);
+				return callback(null, usr, 200);
 			});
-		} else {
-			return callback(new Error('invalid usrnm'), null);
 		}
 	} catch (err) {
-		return callback(err, null);
+		return callback(err, null, 500);
 	}
 };
 /**
@@ -89,19 +91,19 @@ exports.findUsrByUsrnm = function (usrnm, callback) {
  */
 exports.findUsrById = function (_id, callback) {
 	try {
-		if (valdHlpr.isObjectID(_id)) {
+		if (!valdHlpr.isObjectID(_id)) {
+			return callback(Error('invalid user id'), null, 400);
+		} else {
 			usrSrv.findUsrById(_id, function (err, res) {
 				if (err) {
-					return callback(err, null);
+					return callback(err, null, 500);
 				} else {
-					return callback(null, res);
+					return callback(null, res, 200);
 				}
 			});
-		} else {
-			return callback(new Error('invalid _id'), null);
 		}
 	} catch (err) {
-		return callback(err, null);
+		return callback(err, null, 500);
 	}
 };
 /**
@@ -116,21 +118,21 @@ exports.findUsrById = function (_id, callback) {
  */
 exports.insertUsr = function (usr_obj, callback) {
 	try {
-		if (usr_obj && Object.keys(usr_obj).length >= 5) {
+		if (!usr_obj || Object.keys(usr_obj).length < 5) {
+			return callback(Error('invalid user object or not enough parameters'), null, 400);
+		} else {
 			var usr = new UsrMdl(usr_obj);
 			usr.validate();
 			usrSrv.insertUsr(usr, function (err, res) {
 				if (err) {
-					return callback(err, null);
+					return callback(err, null, 500);
 				} else {
-					return callback(null, res);
+					return callback(null, res, 201);
 				}
 			});
-		} else {
-			return callback(new Error('invalid user object'), null);
 		}
 	} catch (err) {
-		return callback(err, null);
+		return callback(err, null, 500);
 	}
 };
 /**
@@ -145,10 +147,14 @@ exports.insertUsr = function (usr_obj, callback) {
  */
 exports.updateOrPatchUsr = function (usr_obj, callback) {
 	try {
-		if (usr_obj && valdHlpr.isObjectID(usr_obj._id) && Object.keys(usr_obj).length > 1) {
+		if (!usr_obj || Object.keys(usr_obj).length < 2) {
+			return callback(Error('invalid user object or not enough parameters'), null, 400);
+		} else if (!valdHlpr.isObjectID(usr_obj._id)) {
+			return callback(Error('invalid user id'), null, 400);
+		} else {
 			usrSrv.findUsrById(usr_obj._id, function (err, usr) {
 				if (err) {
-					return callback(err, null);
+					return callback(err, null, 500);
 				} else {
 					var cnt = 0;
 					for (var key in usr_obj) {
@@ -162,21 +168,19 @@ exports.updateOrPatchUsr = function (usr_obj, callback) {
 						usr.validate();
 						usrSrv.updateUsrById(usr._id, usr.set(), function (err, res) {
 							if (err) {
-								return callback(err, null);
+								return callback(err, null, 500);
 							} else {
-								return callback(null, usr);
+								return callback(null, usr, 200);
 							}
 						});
 					} else {
-						return callback(null, usr);
+						return callback(null, usr, 304);
 					}
 				}
 			});
-		} else {
-			return callback(new Error('invalid user object'), null);
 		}
 	} catch (err) {
-		return callback(err, null);
+		return callback(err, null, 500);
 	}
 };
 /**
@@ -191,18 +195,18 @@ exports.updateOrPatchUsr = function (usr_obj, callback) {
  */
 exports.deleteUsrById = function (_id, callback) {
 	try {
-		if (valdHlpr.isObjectID(_id)) {
+		if (!valdHlpr.isObjectID(_id)) {
+			return callback(Error('invalid user id'), null, 400);
+		} else {
 			usrSrv.deleteUsrById(_id, function (err, res) {
 				if (err) {
-					return callback(err, null);
+					return callback(err, null, 500);
 				} else {
-					return callback(null, true);
+					return callback(null, true, 204);
 				}
 			});
-		} else {
-			return callback(new Error('invalid _id'), null);
 		}
 	} catch (err) {
-		return callback(err, null);
+		return callback(err, null, 500);
 	}
 };

@@ -17,19 +17,18 @@ router.get('/users', function (req, res, next) {
 	try {
 		var query = {};
 		var order = {};
-		var skip = parseInt(req.query.limit, 10) || 0;
-		var limit = parseInt(req.query.skip, 10) || 100;
+		var page = parseInt(req.query.page, 10) || 1;
 		order[req.query.order || '_id'] = -1;
 		for (var key in req.query) {
-			if (key != 'order' && key != 'limit' && key != 'skip' && key != 'axs_key' && key != 'digest') {
+			if (key != 'order' && key != 'limit' && key != 'skip' && key != 'axs_key' && key != 'digest' && key != 'page') {
 				query[key] = req.query[key];
 			}
 		}
-		usrCtrl.findUsrs(query, skip, limit, order, function (error, result) {
+		usrCtrl.findUsrs(query, page, order, function (error, result, status) {
 			if (error) {
 				next(error);
 			} else {
-				res.status(200).send({
+				res.status(status).send({
 					action: "list",
 					data: result,
 					_links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params)
@@ -53,11 +52,11 @@ router.get('/users', function (req, res, next) {
  */
 router.get('/users/:user_id', function (req, res, next) {
 	try {
-		usrCtrl.findUsrById(req.params.user_id, function (error, result) {
+		usrCtrl.findUsrById(req.params.user_id, function (error, result, status) {
 			if (error) {
 				next(error);
 			} else {
-				res.status(200).send({
+				res.status(status).send({
 					action: "retrieve",
 					data: result,
 					_links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params)
@@ -81,11 +80,11 @@ router.get('/users/:user_id', function (req, res, next) {
  */
 router.post('/users', function (req, res, next) {
 	try {
-		usrCtrl.insertUsr(req.body, function (error, result) {
+		usrCtrl.insertUsr(req.body, function (error, result, status) {
 			if (error) {
 				next(error);
 			} else {
-				res.status(200).send({
+				res.status(status).send({
 					action: "create",
 					data: result,
 					_links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params)
@@ -109,11 +108,11 @@ router.post('/users', function (req, res, next) {
  */
 router.put('/users/:user_id', function (req, res, next) {
 	try {
-		usrCtrl.updateOrPatchUsr(req.body, function (error, result) {
+		usrCtrl.updateOrPatchUsr(req.body, function (error, result, status) {
 			if (error) {
 				next(error);
 			} else {
-				res.status(200).send({
+				res.status(status).send({
 					action: "update",
 					data: result,
 					_links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params)
@@ -137,11 +136,11 @@ router.put('/users/:user_id', function (req, res, next) {
  */
 router.patch('/users/:user_id', function (req, res, next) {
 	try {
-		usrCtrl.updateOrPatchUsr(req.body, function (error, result) {
+		usrCtrl.updateOrPatchUsr(req.body, function (error, result, status) {
 			if (error) {
 				next(error);
 			} else {
-				res.status(200).send({
+				res.status(status).send({
 					action: "partial",
 					data: result,
 					_links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params)
@@ -165,11 +164,11 @@ router.patch('/users/:user_id', function (req, res, next) {
  */
 router.delete('/users/:user_id', function (req, res, next) {
 	try {
-		usrCtrl.deleteUsr(req.params.user_id, function (error, result) {
+		usrCtrl.deleteUsrById(req.params.user_id, function (error, result, status) {
 			if (error) {
 				next(error);
 			} else {
-				res.status(204).send({
+				res.status(status).send({
 					action: "delete",
 					data: result,
 					_links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params)

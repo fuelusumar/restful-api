@@ -2,15 +2,15 @@
 var winston = require('winston');
 var assert = require('assert');
 var usrCtrl = require('../../src/controllers/user');
+var usr_obj = {
+	usrnm: 'fuelusumar',
+	passwd: '15946659',
+	email: 'fuelusumar@gmail.com',
+	name: 'Luis Fuenmayor',
+	avatar_url: 'no_avatar'
+};
 try {
 	describe('usrCtrl', function () {
-		var usr_obj = {
-			usrnm: 'fuelusumar',
-			passwd: '15946659',
-			email: 'fuelusumar@gmail.com',
-			name: 'Luis Fuenmayor',
-			avatar_url: 'no_avatar'
-		};
 		describe('database connection', function () {
 			this.timeout(2000);
 			it('should connect before doing any action', function (done) {
@@ -78,7 +78,7 @@ try {
 		});
 		describe('#findUsrs()', function () {
 			it('should return an array', function (done) {
-				usrCtrl.findUsrs({}, 0, 1, {}, function (err, res) {
+				usrCtrl.findUsrs({}, 1, {}, function (err, res) {
 					if (err) {
 						winston.log('error', 'Error testing user service\n', err);
 						done();

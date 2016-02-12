@@ -54,6 +54,15 @@ gulp.task('controllers', ['jslint'], function () {
 			process.exit();
 		});
 });
+// mocha tests task for controllers files that don't require database connection
+// this mocha it requires the server to be running
+gulp.task('routers', ['jslint'], function () {
+	return gulp.src(rout_files) //
+		.pipe(mocha()) //
+		.once('end', function () {
+			process.exit();
+		});
+});
 // watch files changes
 gulp.task('watch', function () {
 	gulp.watch(src_files, ['jslint']);
