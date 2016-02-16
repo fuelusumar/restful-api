@@ -24,10 +24,6 @@ var sanitization = {
 		name: {
 			type: "string",
 			rules: ["trim", "title"]
-		},
-		avatar_url: {
-			type: "string",
-			rules: ["trim"]
 		}
 	}
 };
@@ -54,10 +50,6 @@ var validation = {
 			pattern: 'email'
 		},
 		name: {
-			type: "string",
-			minLength: 1
-		},
-		avatar_url: {
 			type: "string",
 			minLength: 1
 		}

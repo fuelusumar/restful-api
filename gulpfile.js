@@ -1,9 +1,16 @@
 var gulp = require('gulp');
 var jshint = require('gulp-jshint');
 var mocha = require('gulp-mocha');
-var src_files = [
+var apidoc = require('gulp-apidoc');
+var src_files = ['*.{js,json}',
 	'src/bin/*',
-	'src/**/*.{js,json}',
+	'src/config/*.{js,json}',
+	'src/controllers/*.{js,json}',
+	'src/helpers/*.{js,json}',
+	'src/models/*.{js,json}',
+	'src/routes/*.{js,json}',
+	'src/schemas/*.{js,json}',
+	'src/services/*.{js,json}',
 	'src/*.{js,json}',
 	'test/**/*.js'];
 //var test_files = ['test/**/*.{js,json}'];
@@ -62,6 +69,13 @@ gulp.task('routers', ['jslint'], function () {
 		.once('end', function () {
 			process.exit();
 		});
+});
+// apidoc task
+gulp.task('apidoc', function (done) {
+	apidoc({
+		src: "src/routes/",
+		dest: "src/public/doc/"
+	}, done);
 });
 // watch files changes
 gulp.task('watch', function () {

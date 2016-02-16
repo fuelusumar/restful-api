@@ -3,15 +3,22 @@ var router = express.Router();
 var endptsHlpr = require('../../helpers/endpoints');
 var usrCtrl = require('../../controllers/user');
 /**
- * [description]
+ * @api {get} /v1/users list users
+ * @apiVersion 0.0.1
+ * @apiName findUsrs
+ * @apiGroup users
  *
- * @method
+ * @apiParam {Number} page number of page
+ * @apiParam {String} order user parameter to do order with
+ * @apiParam {String} usrnm users username to search for
+ * @apiParam {String} email users email to search for
+ * @apiParam {String} name users name to search for
+ * @apiParam {String} lang users languague to search for
+ * @apiParam {String} country users country to search for
  *
- * @param  {[type]} req   [description]
- * @param  {[type]} res   [description]
- * @param  {Object} next  [description]
- *
- * @return {[type]} [description]
+ * @apiSuccess {String} action indicates done action
+ * @apiSuccess {Object[]} data array of user objects
+ * @apiSuccess {Object[]} _links hypermedia
  */
 router.get('/users', function (req, res, next) {
 	try {
@@ -40,15 +47,17 @@ router.get('/users', function (req, res, next) {
 	}
 });
 /**
- * [description]
+ * @api {get} /v1/users/:user_id request user information
+ * @apiVersion 0.0.1
+ * @apiName findUsrById
+ * @apiGroup users
  *
- * @method
+ * @apiParam {ObjectID} user_id users unique id
  *
- * @param  {[type]} req   [description]
- * @param  {[type]} res   [description]
- * @param  {[type]} next  [description]
- *
- * @return {[type]} [description]
+ * @apiSuccess {String} action indicates done action
+ * @apiSuccess {Object} data user object
+ * @apiSuccess {Object[]} _links hypermedia
+ * 
  */
 router.get('/users/:user_id', function (req, res, next) {
 	try {
@@ -68,15 +77,20 @@ router.get('/users/:user_id', function (req, res, next) {
 	}
 });
 /**
- * [description]
+ * @api {post} /v1/users create an user
+ * @apiVersion 0.0.1
+ * @apiName insertUsr
+ * @apiGroup users
  *
- * @method
+ * @apiParam {Object} body user object to be created
+ * @apiParam {String} body.usrnm users username
+ * @apiParam {String} body.passwd users password
+ * @apiParam {String} body.email users email
+ * @apiParam {String} body.name users name
  *
- * @param  {[type]} req   [description]
- * @param  {[type]} res   [description]
- * @param  {[type]} next  [description]
- *
- * @return {[type]} [description]
+ * @apiSuccess {String} action indicates done action
+ * @apiSuccess {Object} data created user object
+ * @apiSuccess {Object[]} _links hypermedia
  */
 router.post('/users', function (req, res, next) {
 	try {
@@ -96,15 +110,17 @@ router.post('/users', function (req, res, next) {
 	}
 });
 /**
- * [description]
+ * @api {put} /v1/users/:user_id update an user
+ * @apiVersion 0.0.1
+ * @apiName updateUsr
+ * @apiGroup users
  *
- * @method
+ * @apiParam {ObjectID} user_id users unique id
+ * @apiParam {Object} body user object to be updated
  *
- * @param  {[type]} req   [description]
- * @param  {[type]} res   [description]
- * @param  {[type]} next  [description]
- *
- * @return {[type]} [description]
+ * @apiSuccess {String} action indicates done action
+ * @apiSuccess {Object} data user object
+ * @apiSuccess {Object[]} _links hypermedia
  */
 router.put('/users/:user_id', function (req, res, next) {
 	try {
@@ -124,15 +140,17 @@ router.put('/users/:user_id', function (req, res, next) {
 	}
 });
 /**
- * [description]
+ * @api {patch} /v1/users/:user_id partially update an user
+ * @apiVersion 0.0.1
+ * @apiName patchUsr
+ * @apiGroup users
  *
- * @method
+ * @apiParam {ObjectID} user_id users unique id
+ * @apiParam {Object} body user object to be updated
  *
- * @param  {[type]} req   [description]
- * @param  {[type]} res   [description]
- * @param  {[type]} next  [description]
- *
- * @return {[type]} [description]
+ * @apiSuccess {String} action indicates done action
+ * @apiSuccess {Object} data user object
+ * @apiSuccess {Object[]} _links hypermedia
  */
 router.patch('/users/:user_id', function (req, res, next) {
 	try {
@@ -152,15 +170,16 @@ router.patch('/users/:user_id', function (req, res, next) {
 	}
 });
 /**
- * [description]
+ * @api {delete} /v1/users/:user_id delete an user
+ * @apiVersion 0.0.1
+ * @apiName deleteUsrById
+ * @apiGroup users
  *
- * @method
+ * @apiParam {ObjectID} user_id users unique id
  *
- * @param  {[type]} req   [description]
- * @param  {[type]} res   [description]
- * @param  {[type]} next  [description]
- *
- * @return {[type]} [description]
+ * @apiSuccess {String} action indicates done action
+ * @apiSuccess {Object} data user object
+ * @apiSuccess {Object[]} _links hypermedia
  */
 router.delete('/users/:user_id', function (req, res, next) {
 	try {
@@ -180,15 +199,15 @@ router.delete('/users/:user_id', function (req, res, next) {
 	}
 });
 /**
- * [description]
+ * @api {options} /v1/users/:user_id specific user options
+ * @apiVersion 0.0.1
+ * @apiName userOptions
+ * @apiGroup users
  *
- * @method
+ * @apiParam {ObjectID} user_id users unique id
  *
- * @param  {[type]} req   [description]
- * @param  {[type]} res   [description]
- * @param  {[type]} next  [description]
- *
- * @return {[type]} [description]
+ * @apiSuccess {String} action indicates done action
+ * @apiSuccess {Object[]} _links hypermedia
  */
 router.options('/users/:user_id', function (req, res, next) {
 	try {
@@ -201,15 +220,13 @@ router.options('/users/:user_id', function (req, res, next) {
 	}
 });
 /**
- * [description]
+ * @api {options} /v1/users user options
+ * @apiVersion 0.0.1
+ * @apiName usersOptions
+ * @apiGroup users
  *
- * @method
- *
- * @param  {[type]} req   [description]
- * @param  {[type]} res   [description]
- * @param  {[type]} next  [description]
- *
- * @return {[type]} [description]
+ * @apiSuccess {String} action indicates done action
+ * @apiSuccess {Object[]} _links hypermedia
  */
 router.options('/users', function (req, res, next) {
 	try {

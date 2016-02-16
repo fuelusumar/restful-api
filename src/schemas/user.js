@@ -30,7 +30,8 @@ var usrSchema = mongoose.Schema({
 	},
 	avatar_url: {
 		type: String,
-		trim: true
+		trim: true,
+		'default': null
 	},
 	bday: {
 		type: Date,
