@@ -4,9 +4,10 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var routes = require('./routes');
+var security = require('./config/initializers/security');
 var database = require('./config/initializers/database');
 var endpoints = require('./config/initializers/endpoints');
+var routes = require('./routes');
 var app = express();
 // view engine setup
 //app.set('views', path.join(__dirname, 'views'));

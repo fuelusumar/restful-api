@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 // split up route handling
+var authRouter = require('./auth');
 var usersRouter = require('./users');
 var friendsRouter = require('./friends');
 /**
@@ -39,6 +40,7 @@ router.get('/', function (req, res, next) {
 	}
 });
 // list route namespaces
+router.use('/', authRouter);
 router.use('/', auth, usersRouter);
 router.use('/', auth, friendsRouter);
 // etc.

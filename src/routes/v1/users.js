@@ -2,6 +2,11 @@ var express = require('express');
 var router = express.Router();
 var endptsHlpr = require('../../helpers/endpoints');
 var usrCtrl = require('../../controllers/user');
+var expressJWT = require('express-jwt');
+/**
+ * JWT middleware
+ */
+router.use(expressJWT(global.security.options));
 /**
  * @api {get} /v1/users list users
  * @apiVersion 0.0.1

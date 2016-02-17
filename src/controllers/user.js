@@ -15,8 +15,8 @@ var UsrMdl = require('../models/user');
  */
 exports.findUsrs = function (query, page, order, callback) {
 	try {
-		var skip = page * 100;
-		var limit = page;
+		var skip = (page - 1) * 100;
+		var limit = 100;
 		usrSrv.findUsrs(query, skip, limit, order, function (err, usr) {
 			if (err) {
 				return callback(err, null, 500);

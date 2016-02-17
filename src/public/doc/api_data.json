@@ -1,5 +1,147 @@
 [
   {
+    "type": "post",
+    "url": "/v1/auth/login",
+    "title": "log in as an user",
+    "version": "0.0.1",
+    "name": "login",
+    "group": "auth",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "body",
+            "description": "<p>login object to be created</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "body.usrnm",
+            "description": "<p>users username or email</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "body.passwd",
+            "description": "<p>users password</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "action",
+            "description": "<p>indicates done action</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>created user object</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "_links",
+            "description": "<p>hypermedia</p>"
+          }
+        ]
+      }
+    },
+    "filename": "src/routes/v1/auth.js",
+    "groupTitle": "auth"
+  },
+  {
+    "type": "post",
+    "url": "/v1/auth/signin",
+    "title": "sign in and create an user",
+    "version": "0.0.1",
+    "name": "signin",
+    "group": "auth",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "body",
+            "description": "<p>user object to be created</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "body.usrnm",
+            "description": "<p>users username</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "body.passwd",
+            "description": "<p>users password</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "body.email",
+            "description": "<p>users email</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "body.name",
+            "description": "<p>users name</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 201": [
+          {
+            "group": "Success 201",
+            "type": "String",
+            "optional": false,
+            "field": "action",
+            "description": "<p>indicates done action</p>"
+          },
+          {
+            "group": "Success 201",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>created user object</p>"
+          },
+          {
+            "group": "Success 201",
+            "type": "Object[]",
+            "optional": false,
+            "field": "_links",
+            "description": "<p>hypermedia</p>"
+          }
+        ]
+      }
+    },
+    "filename": "src/routes/v1/auth.js",
+    "groupTitle": "auth"
+  },
+  {
     "type": "delete",
     "url": "/v1/users/:user_id",
     "title": "delete an user",
