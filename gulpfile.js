@@ -79,5 +79,5 @@ gulp.task('apidoc', function (done) {
 });
 // watch files changes
 gulp.task('watch', function () {
-	gulp.watch(src_files, ['jslint']);
+	gulp.watch(src_files, ['jslint', 'apidoc']);
 });
