@@ -21,27 +21,13 @@ define({ "api": [
     },
     "success": {
       "fields": {
-        "Success 200": [
+        "Success 204": [
           {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "action",
-            "description": "<p>indicates done action</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Object",
+            "group": "Success 204",
+            "type": "Undefined",
             "optional": false,
             "field": "data",
-            "description": "<p>user object</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Object[]",
-            "optional": false,
-            "field": "_links",
-            "description": "<p>hypermedia</p>"
+            "description": "<p>no content</p>"
           }
         ]
       }
@@ -241,23 +227,23 @@ define({ "api": [
     },
     "success": {
       "fields": {
-        "Success 200": [
+        "Success 201": [
           {
-            "group": "Success 200",
+            "group": "Success 201",
             "type": "String",
             "optional": false,
             "field": "action",
             "description": "<p>indicates done action</p>"
           },
           {
-            "group": "Success 200",
+            "group": "Success 201",
             "type": "Object",
             "optional": false,
             "field": "data",
             "description": "<p>created user object</p>"
           },
           {
-            "group": "Success 200",
+            "group": "Success 201",
             "type": "Object[]",
             "optional": false,
             "field": "_links",

@@ -88,9 +88,9 @@ router.get('/users/:user_id', function (req, res, next) {
  * @apiParam {String} body.email users email
  * @apiParam {String} body.name users name
  *
- * @apiSuccess {String} action indicates done action
- * @apiSuccess {Object} data created user object
- * @apiSuccess {Object[]} _links hypermedia
+ * @apiSuccess (Success 201) {String} action indicates done action
+ * @apiSuccess (Success 201) {Object} data created user object
+ * @apiSuccess (Success 201) {Object[]} _links hypermedia
  */
 router.post('/users', function (req, res, next) {
 	try {
@@ -177,9 +177,7 @@ router.patch('/users/:user_id', function (req, res, next) {
  *
  * @apiParam {ObjectID} user_id users unique id
  *
- * @apiSuccess {String} action indicates done action
- * @apiSuccess {Object} data user object
- * @apiSuccess {Object[]} _links hypermedia
+ * @apiSuccess (Success 204) {Undefined} data no content
  */
 router.delete('/users/:user_id', function (req, res, next) {
 	try {
