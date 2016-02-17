@@ -70,7 +70,7 @@ gulp.task('routers', ['jslint'], function () {
 			process.exit();
 		});
 });
-// apidoc task
+// apidoc task that generates route documentation
 gulp.task('apidoc', function (done) {
 	apidoc({
 		src: "src/routes/",
