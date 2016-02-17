@@ -1,12 +1,11 @@
 var express = require('express');
+var path = require('path');
 var router = express.Router();
 var v1 = require('./v1');
 //
 router.use('/v1', v1);
 /* GET home page. */
-router.get('/', function (req, res, next) {
-	res.render('index', {
-		title: 'RESTful API'
-	});
+router.all('/', function (req, res) {
+	res.render('index.html');
 });
 module.exports = router;
