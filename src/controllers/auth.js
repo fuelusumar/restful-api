@@ -81,7 +81,7 @@ exports.login = function (log_obj, callback) {
 					if (err) {
 						return callback(err, null, 500);
 					} else {
-						authHlpr.doLogin(usr, log_obj, function (error, result, status) {
+						doLogin(usr, log_obj, function (error, result, status) {
 							return callback(error, authHlpr.addToken(result), status);
 						});
 					}
@@ -91,7 +91,7 @@ exports.login = function (log_obj, callback) {
 					if (err) {
 						return callback(err, null, 500);
 					} else {
-						authHlpr.doLogin(usr, log_obj, function (error, result, status) {
+						doLogin(usr, log_obj, function (error, result, status) {
 							return callback(error, authHlpr.addToken(result), status);
 						});
 					}
