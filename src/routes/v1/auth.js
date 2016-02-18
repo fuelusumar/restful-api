@@ -7,6 +7,7 @@ var authCtrl = require('../../controllers/auth');
  * @apiVersion 0.0.1
  * @apiName login
  * @apiGroup auth
+ * @apiPermission none
  *
  * @apiParam {Object} body login object to be created
  * @apiParam {String} body.usrnm users username or email
@@ -14,7 +15,7 @@ var authCtrl = require('../../controllers/auth');
  * 
  * @apiSuccess {String} action indicates done action
  * @apiSuccess {Object} data created user object
- * @apiSuccess {Object[]} _links hypermedia
+ * @apiSuccess {Object[]} links hypermedia
  */
 router.post('/auth/login', function (req, res, next) {
 	try {
@@ -25,7 +26,7 @@ router.post('/auth/login', function (req, res, next) {
 				res.status(status).send({
 					action: "login",
 					data: result,
-					_links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params)
+					links: endptsHlpr.loadEnpoints('v1', 'auth').getHyper(req.method, req.headers.host, req.originalUrl, req.params)
 				});
 			}
 		});
@@ -38,6 +39,7 @@ router.post('/auth/login', function (req, res, next) {
  * @apiVersion 0.0.1
  * @apiName signin
  * @apiGroup auth
+ * @apiPermission none
  *
  * @apiParam {Object} body user object to be created
  * @apiParam {String} body.usrnm users username
@@ -47,7 +49,7 @@ router.post('/auth/login', function (req, res, next) {
  *
  * @apiSuccess (Success 201) {String} action indicates done action
  * @apiSuccess (Success 201) {Object} data created user object
- * @apiSuccess (Success 201) {Object[]} _links hypermedia
+ * @apiSuccess (Success 201) {Object[]} links hypermedia
  */
 router.post('/auth/signin', function (req, res, next) {
 	try {
@@ -58,7 +60,7 @@ router.post('/auth/signin', function (req, res, next) {
 				res.status(status).send({
 					action: "signin",
 					data: result,
-					_links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params)
+					links: endptsHlpr.loadEnpoints('v1', 'auth').getHyper(req.method, req.headers.host, req.originalUrl, req.params)
 				});
 			}
 		});
@@ -66,23 +68,5 @@ router.post('/auth/signin', function (req, res, next) {
 		next(err);
 	}
 });
-/*
-router.post('/auth/logout'function (req, res, next) {
-	try {
-		authCtrl.logout(req.body, function (error, result, status) {
-			if (error) {
-				next(error);
-			} else {
-				res.status(status).send({
-					action: "logout",
-					data: result,
-					_links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params)
-				});
-			}
-		});
-	} catch (err) {
-		next(err);
-	}
-});
-*/
+//
 module.exports = router;

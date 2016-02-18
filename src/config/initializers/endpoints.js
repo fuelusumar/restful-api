@@ -42,12 +42,14 @@ var default_actions = [
  * @param  {[type]} base       base url or start of endpoint
  * @param  {[type]} controller controller that owns the action
  * @param  {[type]} id         specifies if the endpoint uses id
+ * @param  {[type]} append     specifies if the endpoint ends with the action name
  *
  * @return {[type]} endpoint object
  */
-var getEndpoint = function (action, method, base, controller, id) {
+var getEndpoint = function (action, method, base, controller, id, append) {
 	var head = base + '/' + controller;
 	var tail = id ? '/:' + id : '';
+	tail += append ? '/' + action : '';
 	var endpoint = {
 		'method': method,
 		'href': head + tail,
@@ -72,7 +74,7 @@ var getControllerEndpoints = function (base, version, controller) {
 	endpoints[version.name][controller.name] = [];
 	for (var i = 0; i < actions.length; i++) {
 		var action = actions[i];
-		endpoints[version.name][controller.name].push(getEndpoint(action.name, action.method, base, controller.name, action.id ? controller.id : null));
+		endpoints[version.name][controller.name].push(getEndpoint(action.name, action.method, base, controller.name, action.id ? controller.id : null, action.append));
 	}
 	if (controllers && controllers.length > 0) {
 		base += '/' + controller.name + '/:' + controller.id;

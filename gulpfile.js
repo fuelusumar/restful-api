@@ -4,13 +4,13 @@ var mocha = require('gulp-mocha');
 var apidoc = require('gulp-apidoc');
 var src_files = ['*.{js,json}',
 	'src/bin/*',
-	'src/config/*.{js,json}',
-	'src/controllers/*.{js,json}',
-	'src/helpers/*.{js,json}',
-	'src/models/*.{js,json}',
+	'src/config/**/*.{js,json}',
+	'src/controllers/**/*.{js,json}',
+	'src/helpers/**/*.{js,json}',
+	'src/models/**/*.{js,json}',
 	'src/routes/**/*.{js,json}',
-	'src/schemas/*.{js,json}',
-	'src/services/*.{js,json}',
+	'src/schemas/**/*.{js,json}',
+	'src/services/**/*.{js,json}',
 	'src/*.{js,json}',
 	'test/**/*.js'];
 //var test_files = ['test/**/*.{js,json}'];

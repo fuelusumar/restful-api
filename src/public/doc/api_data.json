@@ -6,6 +6,11 @@
     "version": "0.0.1",
     "name": "login",
     "group": "auth",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
     "parameter": {
       "fields": {
         "Parameter": [
@@ -54,7 +59,7 @@
             "group": "Success 200",
             "type": "Object[]",
             "optional": false,
-            "field": "_links",
+            "field": "links",
             "description": "<p>hypermedia</p>"
           }
         ]
@@ -70,6 +75,11 @@
     "version": "0.0.1",
     "name": "signin",
     "group": "auth",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
     "parameter": {
       "fields": {
         "Parameter": [
@@ -132,7 +142,7 @@
             "group": "Success 201",
             "type": "Object[]",
             "optional": false,
-            "field": "_links",
+            "field": "links",
             "description": "<p>hypermedia</p>"
           }
         ]
@@ -148,6 +158,11 @@
     "version": "0.0.1",
     "name": "deleteUsrById",
     "group": "users",
+    "permission": [
+      {
+        "name": "user has to have a token"
+      }
+    ],
     "parameter": {
       "fields": {
         "Parameter": [
@@ -184,6 +199,11 @@
     "version": "0.0.1",
     "name": "findUsrById",
     "group": "users",
+    "permission": [
+      {
+        "name": "user has to have a token"
+      }
+    ],
     "parameter": {
       "fields": {
         "Parameter": [
@@ -218,7 +238,7 @@
             "group": "Success 200",
             "type": "Object[]",
             "optional": false,
-            "field": "_links",
+            "field": "links",
             "description": "<p>hypermedia</p>"
           }
         ]
@@ -234,6 +254,11 @@
     "version": "0.0.1",
     "name": "findUsrs",
     "group": "users",
+    "permission": [
+      {
+        "name": "user has to have a token"
+      }
+    ],
     "parameter": {
       "fields": {
         "Parameter": [
@@ -310,7 +335,7 @@
             "group": "Success 200",
             "type": "Object[]",
             "optional": false,
-            "field": "_links",
+            "field": "links",
             "description": "<p>hypermedia</p>"
           }
         ]
@@ -326,6 +351,11 @@
     "version": "0.0.1",
     "name": "insertUsr",
     "group": "users",
+    "permission": [
+      {
+        "name": "user has to have a token"
+      }
+    ],
     "parameter": {
       "fields": {
         "Parameter": [
@@ -388,7 +418,7 @@
             "group": "Success 201",
             "type": "Object[]",
             "optional": false,
-            "field": "_links",
+            "field": "links",
             "description": "<p>hypermedia</p>"
           }
         ]
@@ -404,6 +434,11 @@
     "version": "0.0.1",
     "name": "patchUsr",
     "group": "users",
+    "permission": [
+      {
+        "name": "user has to have a token"
+      }
+    ],
     "parameter": {
       "fields": {
         "Parameter": [
@@ -445,7 +480,7 @@
             "group": "Success 200",
             "type": "Object[]",
             "optional": false,
-            "field": "_links",
+            "field": "links",
             "description": "<p>hypermedia</p>"
           }
         ]
@@ -461,6 +496,11 @@
     "version": "0.0.1",
     "name": "updateUsr",
     "group": "users",
+    "permission": [
+      {
+        "name": "user has to have a token"
+      }
+    ],
     "parameter": {
       "fields": {
         "Parameter": [
@@ -502,7 +542,7 @@
             "group": "Success 200",
             "type": "Object[]",
             "optional": false,
-            "field": "_links",
+            "field": "links",
             "description": "<p>hypermedia</p>"
           }
         ]
@@ -518,6 +558,11 @@
     "version": "0.0.1",
     "name": "userOptions",
     "group": "users",
+    "permission": [
+      {
+        "name": "user has to have a token"
+      }
+    ],
     "parameter": {
       "fields": {
         "Parameter": [
@@ -545,7 +590,7 @@
             "group": "Success 200",
             "type": "Object[]",
             "optional": false,
-            "field": "_links",
+            "field": "links",
             "description": "<p>hypermedia</p>"
           }
         ]
@@ -561,6 +606,11 @@
     "version": "0.0.1",
     "name": "usersOptions",
     "group": "users",
+    "permission": [
+      {
+        "name": "user has to have a token"
+      }
+    ],
     "success": {
       "fields": {
         "Success 200": [
@@ -575,7 +625,7 @@
             "group": "Success 200",
             "type": "Object[]",
             "optional": false,
-            "field": "_links",
+            "field": "links",
             "description": "<p>hypermedia</p>"
           }
         ]

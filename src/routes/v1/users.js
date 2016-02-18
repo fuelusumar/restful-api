@@ -12,6 +12,7 @@ router.use(expressJWT(global.security.options));
  * @apiVersion 0.0.1
  * @apiName findUsrs
  * @apiGroup users
+ * @apiPermission user has to have a token
  *
  * @apiParam {Number} page number of page
  * @apiParam {String} order user parameter to do order with
@@ -23,7 +24,7 @@ router.use(expressJWT(global.security.options));
  *
  * @apiSuccess {String} action indicates done action
  * @apiSuccess {Object[]} data array of user objects
- * @apiSuccess {Object[]} _links hypermedia
+ * @apiSuccess {Object[]} links hypermedia
  */
 router.get('/users', function (req, res, next) {
 	try {
@@ -43,7 +44,7 @@ router.get('/users', function (req, res, next) {
 				res.status(status).send({
 					action: "list",
 					data: result,
-					_links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params)
+					links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params)
 				});
 			}
 		});
@@ -56,12 +57,13 @@ router.get('/users', function (req, res, next) {
  * @apiVersion 0.0.1
  * @apiName findUsrById
  * @apiGroup users
+ * @apiPermission user has to have a token
  *
  * @apiParam {ObjectID} user_id users unique id
  *
  * @apiSuccess {String} action indicates done action
  * @apiSuccess {Object} data user object
- * @apiSuccess {Object[]} _links hypermedia
+ * @apiSuccess {Object[]} links hypermedia
  * 
  */
 router.get('/users/:user_id', function (req, res, next) {
@@ -73,7 +75,7 @@ router.get('/users/:user_id', function (req, res, next) {
 				res.status(status).send({
 					action: "retrieve",
 					data: result,
-					_links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params)
+					links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params)
 				});
 			}
 		});
@@ -86,6 +88,7 @@ router.get('/users/:user_id', function (req, res, next) {
  * @apiVersion 0.0.1
  * @apiName insertUsr
  * @apiGroup users
+ * @apiPermission user has to have a token
  *
  * @apiParam {Object} body user object to be created
  * @apiParam {String} body.usrnm users username
@@ -95,7 +98,7 @@ router.get('/users/:user_id', function (req, res, next) {
  *
  * @apiSuccess (Success 201) {String} action indicates done action
  * @apiSuccess (Success 201) {Object} data created user object
- * @apiSuccess (Success 201) {Object[]} _links hypermedia
+ * @apiSuccess (Success 201) {Object[]} links hypermedia
  */
 router.post('/users', function (req, res, next) {
 	try {
@@ -106,7 +109,7 @@ router.post('/users', function (req, res, next) {
 				res.status(status).send({
 					action: "create",
 					data: result,
-					_links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params)
+					links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params)
 				});
 			}
 		});
@@ -119,13 +122,14 @@ router.post('/users', function (req, res, next) {
  * @apiVersion 0.0.1
  * @apiName updateUsr
  * @apiGroup users
+ * @apiPermission user has to have a token
  *
  * @apiParam {ObjectID} user_id users unique id
  * @apiParam {Object} body user object to be updated
  *
  * @apiSuccess {String} action indicates done action
  * @apiSuccess {Object} data user object
- * @apiSuccess {Object[]} _links hypermedia
+ * @apiSuccess {Object[]} links hypermedia
  */
 router.put('/users/:user_id', function (req, res, next) {
 	try {
@@ -136,7 +140,7 @@ router.put('/users/:user_id', function (req, res, next) {
 				res.status(status).send({
 					action: "update",
 					data: result,
-					_links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params)
+					links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params)
 				});
 			}
 		});
@@ -149,13 +153,14 @@ router.put('/users/:user_id', function (req, res, next) {
  * @apiVersion 0.0.1
  * @apiName patchUsr
  * @apiGroup users
+ * @apiPermission user has to have a token
  *
  * @apiParam {ObjectID} user_id users unique id
  * @apiParam {Object} body user object to be updated
  *
  * @apiSuccess {String} action indicates done action
  * @apiSuccess {Object} data user object
- * @apiSuccess {Object[]} _links hypermedia
+ * @apiSuccess {Object[]} links hypermedia
  */
 router.patch('/users/:user_id', function (req, res, next) {
 	try {
@@ -166,7 +171,7 @@ router.patch('/users/:user_id', function (req, res, next) {
 				res.status(status).send({
 					action: "partial",
 					data: result,
-					_links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params)
+					links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params)
 				});
 			}
 		});
@@ -179,6 +184,7 @@ router.patch('/users/:user_id', function (req, res, next) {
  * @apiVersion 0.0.1
  * @apiName deleteUsrById
  * @apiGroup users
+ * @apiPermission user has to have a token
  *
  * @apiParam {ObjectID} user_id users unique id
  *
@@ -193,7 +199,7 @@ router.delete('/users/:user_id', function (req, res, next) {
 				res.status(status).send({
 					action: "delete",
 					data: result,
-					_links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params)
+					links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params)
 				});
 			}
 		});
@@ -206,17 +212,18 @@ router.delete('/users/:user_id', function (req, res, next) {
  * @apiVersion 0.0.1
  * @apiName userOptions
  * @apiGroup users
+ * @apiPermission user has to have a token
  *
  * @apiParam {ObjectID} user_id users unique id
  *
  * @apiSuccess {String} action indicates done action
- * @apiSuccess {Object[]} _links hypermedia
+ * @apiSuccess {Object[]} links hypermedia
  */
 router.options('/users/:user_id', function (req, res, next) {
 	try {
 		res.status(200).send({
 			action: "options",
-			_links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params)
+			links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params)
 		});
 	} catch (err) {
 		next(err);
@@ -227,15 +234,16 @@ router.options('/users/:user_id', function (req, res, next) {
  * @apiVersion 0.0.1
  * @apiName usersOptions
  * @apiGroup users
+ * @apiPermission user has to have a token
  *
  * @apiSuccess {String} action indicates done action
- * @apiSuccess {Object[]} _links hypermedia
+ * @apiSuccess {Object[]} links hypermedia
  */
 router.options('/users', function (req, res, next) {
 	try {
 		res.status(200).send({
 			action: "options",
-			_links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params)
+			links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params)
 		});
 	} catch (err) {
 		next(err);

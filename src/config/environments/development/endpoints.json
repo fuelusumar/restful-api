@@ -48,22 +48,16 @@
 				}, {
 					"name": "auth",
 					"description": "system's authentication",
-					"id": null,
-					"action": true,
 					"author": "fuelusumar",
 					"actions": [
 						{
 							"method": "POST",
 							"name": "login",
-							"id": false
+							"append": true
 						}, {
 							"method": "POST",
 							"name": "signin",
-							"id": false
-						}, {
-							"method": "POST",
-							"name": "logout",
-							"id": false
+							"append": true
 						}
 					]
 				}
