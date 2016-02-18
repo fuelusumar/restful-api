@@ -3,6 +3,36 @@ var authHlpr = require('../helpers/auth');
 var usrSrv = require('../services/user');
 var UsrMdl = require('../models/user');
 /**
+ * [doLogin description]
+ *
+ * @method doLogin
+ *
+ * @param  {[type]}   usr      [description]
+ * @param  {[type]}   login    [description]
+ * @param  {Function} callback [description]
+ *
+ * @return {[type]}   [description]
+ */
+var doLogin = function (usr, login, callback) {
+	if (usr.usrnm == login.usrnm || usr.email == login.usrnm) {
+		if (login.passwd == usr.passwd) {
+			usrSrv.updateUsrById(usr._id, {
+				is_active: true
+			}, function (err, res) {
+				if (err) {
+					return callback(err, null, 500);
+				} else {
+					return callback(null, usr, 200);
+				}
+			});
+		} else {
+			return callback(new Error('invalid password'), null, 400);
+		}
+	} else {
+		return callback(new Error('invalid username or email'), null, 400);
+	}
+};
+/**
  * [signin description]
  *
  * @method signin

@@ -2,7 +2,9 @@ var gulp = require('gulp');
 var jshint = require('gulp-jshint');
 var mocha = require('gulp-mocha');
 var apidoc = require('gulp-apidoc');
-var src_files = ['*.{js,json}',
+var nodemon = require('gulp-nodemon');
+var src_files = [
+	'*.{js,json}',
 	'src/bin/*',
 	'src/config/**/*.{js,json}',
 	'src/controllers/**/*.{js,json}',
@@ -36,14 +38,20 @@ gulp.task('jslint', function () {
 // mocha tests task for files that don't require database connection
 gulp.task('helpers', ['jslint'], function () {
 	return gulp.src(help_files, {
-		read: false
-	}).pipe(mocha());
+			read: false
+		}).pipe(mocha()) // 
+		.once('end', function () {
+			process.exit();
+		});
 });
 // mocha tests task for files that don't require database connection
 gulp.task('models', ['jslint'], function () {
 	return gulp.src(modl_files, {
-		read: false
-	}).pipe(mocha());
+			read: false
+		}).pipe(mocha()) // 
+		.once('end', function () {
+			process.exit();
+		});
 });
 // mocha tests task for services files that require database connection
 gulp.task('services', ['jslint'], function () {
@@ -79,5 +87,17 @@ gulp.task('apidoc', function (done) {
 });
 // watch files changes
 gulp.task('watch', function () {
-	gulp.watch(src_files, ['jslint', 'apidoc']);
+	gulp.watch(src_files, ['jslint']);
+});
+// nodemon watch runs and refreshes the server when a file is modified
+gulp.task('daemon', function () {
+	nodemon({
+		script: 'src/bin/www',
+		ext: 'js html json',
+		watch: ['src/**/*'],
+		ignore: ['test/**/*'],
+		env: {
+			'NODE_ENV': 'development'
+		}
+	});
 });
