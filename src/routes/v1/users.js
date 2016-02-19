@@ -1,12 +1,14 @@
 var express = require('express');
 var router = express.Router();
 var endptsHlpr = require('../../helpers/endpoints');
+var authHlpr = require('../../helpers/auth');
 var usrCtrl = require('../../controllers/user');
 var expressJWT = require('express-jwt');
 /**
  * JWT middleware
  */
 router.use(expressJWT(global.security.options));
+router.use(authHlpr.renewToken);
 /**
  * @api {get} /v1/users list users
  * @apiVersion 0.0.1
@@ -44,7 +46,8 @@ router.get('/users', function (req, res, next) {
 				res.status(status).send({
 					action: "list",
 					data: result,
-					links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params)
+					links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params),
+					auth: req.next_token
 				});
 			}
 		});
@@ -75,7 +78,8 @@ router.get('/users/:user_id', function (req, res, next) {
 				res.status(status).send({
 					action: "retrieve",
 					data: result,
-					links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params)
+					links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params),
+					auth: req.next_token
 				});
 			}
 		});
@@ -109,7 +113,8 @@ router.post('/users', function (req, res, next) {
 				res.status(status).send({
 					action: "create",
 					data: result,
-					links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params)
+					links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params),
+					auth: req.next_token
 				});
 			}
 		});
@@ -140,7 +145,8 @@ router.put('/users/:user_id', function (req, res, next) {
 				res.status(status).send({
 					action: "update",
 					data: result,
-					links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params)
+					links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params),
+					auth: req.next_token
 				});
 			}
 		});
@@ -171,7 +177,8 @@ router.patch('/users/:user_id', function (req, res, next) {
 				res.status(status).send({
 					action: "partial",
 					data: result,
-					links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params)
+					links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params),
+					auth: req.next_token
 				});
 			}
 		});
@@ -199,7 +206,8 @@ router.delete('/users/:user_id', function (req, res, next) {
 				res.status(status).send({
 					action: "delete",
 					data: result,
-					links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params)
+					links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params),
+					auth: req.next_token
 				});
 			}
 		});
@@ -223,7 +231,8 @@ router.options('/users/:user_id', function (req, res, next) {
 	try {
 		res.status(200).send({
 			action: "options",
-			links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params)
+			links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params),
+			auth: req.next_token
 		});
 	} catch (err) {
 		next(err);
@@ -243,7 +252,8 @@ router.options('/users', function (req, res, next) {
 	try {
 		res.status(200).send({
 			action: "options",
-			links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params)
+			links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params),
+			auth: req.next_token
 		});
 	} catch (err) {
 		next(err);

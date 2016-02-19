@@ -1,6 +1,24 @@
 var usrSrv = require('../services/user');
 var jwt = require('jsonwebtoken');
 /**
+ * [getTkn description]
+ *
+ * @method getTkn
+ *
+ * @param  {[type]} _usr_id [description]
+ * @param  {[type]} usrnm   [description]
+ *
+ * @return {[type]} [description]
+ */
+var getTkn = function (_usr_id, usrnm) {
+	return jwt.sign({
+		_id: _usr_id,
+		usr: usrnm
+	}, global.security.options.secret, {
+		expiresIn: global.security.options.expires_in
+	});
+};
+/**
  * [getToken description]
  *
  * @method getToken
@@ -9,11 +27,29 @@ var jwt = require('jsonwebtoken');
  *
  * @return {[type]} [description]
  */
-exports.addToken = function (usr) {
-	var tkn = jwt.sign({
-		_id: usr._id,
-		usrnm: usr.usrnm
-	}, global.security.options.secret);
-	usr.tkn = tkn;
-	return usr;
+exports.getToken = function (_usr_id, usrnm) {
+	return getTkn(_usr_id, usrnm);
+};
+/**
+ * [renewToken description]
+ *
+ * @method renewToken
+ *
+ * @param  {[type]}   req  [description]
+ * @param  {[type]}   res  [description]
+ * @param  {Function} next [description]
+ *
+ * @return {[type]}   [description]
+ */
+exports.renewToken = function (req, res, next) {
+	var date = new Date();
+	var now = Math.floor(date.getTime() / 1000);
+	var token = req.headers.authorization.split(" ")[1];
+	var decoded = jwt.verify(token, global.security.options.secret);
+	if (decoded.exp >= now) {
+		req.next_token = getTkn(decoded._id, decoded.usr);
+		next();
+	} else {
+		next(new Error('token has expired'));
+	}
 };

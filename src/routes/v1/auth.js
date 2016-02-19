@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var endptsHlpr = require('../../helpers/endpoints');
 var authCtrl = require('../../controllers/auth');
+var authHlpr = require('../../helpers/auth');
 /**
  * @api {post} /v1/auth/login log in as an user
  * @apiVersion 0.0.1
@@ -26,7 +27,8 @@ router.post('/auth/login', function (req, res, next) {
 				res.status(status).send({
 					action: "login",
 					data: result,
-					links: endptsHlpr.loadEnpoints('v1', 'auth').getHyper(req.method, req.headers.host, req.originalUrl, req.params)
+					links: endptsHlpr.loadEnpoints('v1', 'auth').getHyper(req.method, req.headers.host, req.originalUrl, req.params),
+					auth: authHlpr.getToken(result._id, result.usrnm)
 				});
 			}
 		});
@@ -60,7 +62,8 @@ router.post('/auth/signin', function (req, res, next) {
 				res.status(status).send({
 					action: "signin",
 					data: result,
-					links: endptsHlpr.loadEnpoints('v1', 'auth').getHyper(req.method, req.headers.host, req.originalUrl, req.params)
+					links: endptsHlpr.loadEnpoints('v1', 'auth').getHyper(req.method, req.headers.host, req.originalUrl, req.params),
+					auth: authHlpr.getToken(result._id, result.usrnm)
 				});
 			}
 		});

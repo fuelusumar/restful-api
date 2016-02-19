@@ -53,7 +53,7 @@ exports.signin = function (usr_obj, callback) {
 				if (error) {
 					return callback(error, null, 500);
 				} else {
-					return callback(null, authHlpr.addToken(result), 201);
+					return callback(null, result, 201);
 				}
 			});
 		}
@@ -82,7 +82,7 @@ exports.login = function (log_obj, callback) {
 						return callback(err, null, 500);
 					} else {
 						doLogin(usr, log_obj, function (error, result, status) {
-							return callback(error, authHlpr.addToken(result), status);
+							return callback(error, result, status);
 						});
 					}
 				});
@@ -92,7 +92,7 @@ exports.login = function (log_obj, callback) {
 						return callback(err, null, 500);
 					} else {
 						doLogin(usr, log_obj, function (error, result, status) {
-							return callback(error, authHlpr.addToken(result), status);
+							return callback(error, result, status);
 						});
 					}
 				});

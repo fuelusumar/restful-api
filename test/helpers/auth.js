@@ -12,14 +12,14 @@ describe('authHelpr', function () {
 			done();
 		});
 	});
-	describe('#addToken()', function () {
+	describe('#getToken()', function () {
 		it('should have tkn', function (done) {
 			usrSrv.findUsrByUsrnm('fuelusumar', function (err, res) {
 				if (err) {
 					winston.log('error', 'Error testing user service\n', err);
 					done();
 				}
-				var usr = authHelpr.addToken(res);
+				var usr = authHelpr.getToken(res);
 				winston.log('info', 'Token: ', usr.tkn);
 				assert.ok(usr.tkn);
 				done();

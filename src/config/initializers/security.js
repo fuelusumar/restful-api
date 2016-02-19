@@ -1,4 +1,5 @@
 var winston = require('winston');
+var crypto = require('crypto');
 var events = require('events');
 var eventEmitter = new events.EventEmitter();
 var environment = process.env.NODE_ENV || 'development';
@@ -12,7 +13,14 @@ var security = require('../environments/' + environment + '/security.json');
  */
 var initSecurity = function () {
 	winston.log('info', 'Initialazing security...');
-	global.security = security;
+	var secret = security.secret;
+	var hash = crypto.createHmac('sha256', secret).update(secret).digest('hex');
+	global.security = {
+		options: {
+			secret: hash,
+			expires_in: security.expires_in
+		}
+	};
 };
 // action to take when events are emitted
 eventEmitter.on('initSecurity', initSecurity);

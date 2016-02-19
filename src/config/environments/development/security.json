@@ -1,5 +1,4 @@
 {
-	"options": {
-		"secret": "restful api by fuelusumar"
-	}
+	"secret": "restful api by fuelusumar",
+	"expires_in": 86400
 }
