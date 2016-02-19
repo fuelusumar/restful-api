@@ -13,7 +13,7 @@ var usr_obj = {
 	name: 'Gerardo Jose Fuenmayor',
 	avatar_url: 'no_avatar'
 };
-var tkn = "bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1NmM1ZmMyYjhlMmNmZmI5NjQxOWM3NTIiLCJ1c3JubSI6ImZ1ZWx1c3VtYXIiLCJpYXQiOjE0NTU4MTU3MjN9.u17e3tpRo5Fw6s5YRpVlEs0_dcWmQ6418zCHDFDDZ9U";
+var tkn = "bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1NmM1ZmMyYjhlMmNmZmI5NjQxOWM3NTIiLCJ1c3IiOiJmdWVsdXN1bWFyIiwiaWF0IjoxNDU1OTEzNTMzLCJleHAiOjE0NTU5OTk5MzN9.mkUTyZsHe7Wg9GOIRQoebfGE98Wyw-V3gidpmRGmfbc";
 var upd_obj = {
 	name: 'Gerardo Fuenmayor'
 };
