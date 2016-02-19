@@ -44,7 +44,7 @@ var doLogin = function (usr, login, callback) {
  */
 exports.signin = function (usr_obj, callback) {
 	try {
-		if (!usr_obj || Object.keys(usr_obj).length < 5) {
+		if (!usr_obj || Object.keys(usr_obj).length < 4) {
 			return callback(Error('invalid user object or not enough parameters'), null, 400);
 		} else {
 			var usr = new UsrMdl(usr_obj);

@@ -47,7 +47,7 @@ exports.renewToken = function (req, res, next) {
 	var token = req.headers.authorization.split(" ")[1];
 	var decoded = jwt.verify(token, global.security.options.secret);
 	if (decoded.exp >= now) {
-		req.next_token = getTkn(decoded._id, decoded.usr);
+		req.auth = getTkn(decoded._id, decoded.usr);
 		next();
 	} else {
 		next(new Error('token has expired'));

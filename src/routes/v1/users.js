@@ -47,7 +47,7 @@ router.get('/users', function (req, res, next) {
 					action: "list",
 					data: result,
 					links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params),
-					auth: req.next_token
+					auth: req.auth
 				});
 			}
 		});
@@ -79,7 +79,7 @@ router.get('/users/:user_id', function (req, res, next) {
 					action: "retrieve",
 					data: result,
 					links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params),
-					auth: req.next_token
+					auth: req.auth
 				});
 			}
 		});
@@ -114,7 +114,7 @@ router.post('/users', function (req, res, next) {
 					action: "create",
 					data: result,
 					links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params),
-					auth: req.next_token
+					auth: req.auth
 				});
 			}
 		});
@@ -146,7 +146,7 @@ router.put('/users/:user_id', function (req, res, next) {
 					action: "update",
 					data: result,
 					links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params),
-					auth: req.next_token
+					auth: req.auth
 				});
 			}
 		});
@@ -178,7 +178,7 @@ router.patch('/users/:user_id', function (req, res, next) {
 					action: "partial",
 					data: result,
 					links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params),
-					auth: req.next_token
+					auth: req.auth
 				});
 			}
 		});
@@ -207,7 +207,7 @@ router.delete('/users/:user_id', function (req, res, next) {
 					action: "delete",
 					data: result,
 					links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params),
-					auth: req.next_token
+					auth: req.auth
 				});
 			}
 		});
@@ -232,7 +232,7 @@ router.options('/users/:user_id', function (req, res, next) {
 		res.status(200).send({
 			action: "options",
 			links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params),
-			auth: req.next_token
+			auth: req.auth
 		});
 	} catch (err) {
 		next(err);
@@ -253,7 +253,7 @@ router.options('/users', function (req, res, next) {
 		res.status(200).send({
 			action: "options",
 			links: endptsHlpr.loadEnpoints('v1', 'users').getHyper(req.method, req.headers.host, req.originalUrl, req.params),
-			auth: req.next_token
+			auth: req.auth
 		});
 	} catch (err) {
 		next(err);
