@@ -1,7 +1,7 @@
 # restful-api
 A basic but complete implementation of a RESTful API
 
-## Installation Progress
+## Installation Process
 
 ### Development Environment
 
@@ -82,5 +82,46 @@ Node.js is available from the NodeSource Debian and Ubuntu binary distributions 
 ##### Install build tools (optional)
 To compile and install native addons from npm you may also need to install build tools:
 ```bash
-sudo apt-get install -y build-essential
+:~$ sudo apt-get install -y build-essential
 ```
+
+#### Nginx Installation
+
+##### Install Nginx
+We can install Nginx easily because the Ubuntu team provides an Nginx package in its default repositories.
+```bash
+:~$ sudo apt-get update
+:~$ sudo apt-get install -y nginx
+```
+
+##### Config Server
+Create the file `sudo nano /etc/nginx/conf.d/servers.conf` and add the configuration for our server. Our server will be running in the 3000 port, so we need to configure our nginx server as a proxy.
+```bash
+:~$ sudo nano /etc/nginx/conf.d/servers.conf
+```
+And add our configuration:
+```bash
+server {
+    listen 80;
+    server_name our.domain.com;
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_connect_timeout 3000;
+        proxy_send_timeout 3000;
+        proxy_read_timeout 3000;
+        proxy_buffers 4 32k;
+        client_max_body_size 8m;
+        client_body_buffer_size 128k;
+    }
+}
+```
+Finally restart the nginx server:
+```bash
+sudo service nginx restart
+```
+
+### Testing Deployment
+Comming soon...
