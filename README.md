@@ -17,44 +17,37 @@ The Ubuntu package management tools (i.e. dpkg and apt) ensure package consisten
 ```bash
 :~$ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927 
 ```
-
 2. ##### Create a list file for MongoDB
 Create the `/etc/apt/sources.list.d/mongodb-org-3.2.list` list file using the command appropriate for your version of Ubuntu:
 ```bash
 :~$ sudo nano /etc/apt/sources.list.d/mongodb-org-3.2.list
 ```
-
 3. ##### Edit the file
 Write this in it:
 ```bash
 deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.2 multiverse
 ```
-
 4. ##### Reload local package database
 Issue the following command to reload the local package database:
 ```bash
 :~$ sudo apt-get update
 ```
-
 5. ##### Install the MongoDB packages
 You can install the latest stable version of MongoDB. Issue the following command:
 ```bash
 :~$ sudo apt-get install -y mongodb-org
 ```
-
 6. ##### Check Version
 Run this command:
 ```bash
 :~$ mongo --version
 -> MongoDB shell version: 3.2.3
 ```
-
 7. ##### Possible errors
 One of the possible errors that might be found is with the global initialization.
 ```bash
 Failed global initialization: BadValue Invalid or no user locale set. Please ensure LANG and/or LC_* environment variables are set correctly.
 ```
-
 8. ##### How to fix it?
 For temporary fix, just run:
 ```bash
