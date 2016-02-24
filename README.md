@@ -69,3 +69,18 @@ For a more permanent approach, edit the `/etc/environment` file and add this in 
 LC_ALL=C
 LANG=en_US.UTF-8
 ```
+
+#### NodeJS Installation
+
+##### Debian and Ubuntu based Linux distributions
+Node.js is available from the NodeSource Debian and Ubuntu binary distributions repository (formerly Chris Lea's Launchpad PPA). Support for this repository, along with its scripts, can be found on GitHub at nodesource/distributions.
+```bash
+:~$ sudo curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
+:~$ sudo apt-get install -y nodejs
+```
+
+##### Install build tools (optional)
+To compile and install native addons from npm you may also need to install build tools:
+```bash
+sudo apt-get install -y build-essential
+```
