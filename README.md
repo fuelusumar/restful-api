@@ -6,7 +6,7 @@ A basic but complete implementation of a RESTful API
 ### Development Environment
 
 ### Testing Environment
-Its function is to deliver a a software that is validated, stable and usable to execute the test scenarios or replicate bugs. This installation takes course in an Ubuntu 14.04.3 x64 server instance located in DigitalOcean cloud hosting.
+  Its function is to deliver a a software that is validated, stable and usable to execute the test scenarios or replicate bugs. This installation takes course in an Ubuntu 14.04.3 x64 server instance located in DigitalOcean cloud hosting.
 This guide is for a node.js API server, using express.js and mongodb as database server. 
 
 #### MongoDB Installation
