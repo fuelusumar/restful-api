@@ -3,8 +3,6 @@ var jshint = require('gulp-jshint');
 var mocha = require('gulp-mocha');
 var apidoc = require('gulp-apidoc');
 var nodemon = require('gulp-nodemon');
-var ignore = require('gulp-ignore');
-var rimraf = require('gulp-rimraf');
 var src_files = [
 	'*.{js,json}',
 	'src/bin/*',
@@ -87,14 +85,6 @@ gulp.task('apidoc', function (done) {
 		src: "src/routes/",
 		dest: "src/public/doc/"
 	}, done);
-});
-// clean folder task
-gulp.task('clean', function () {
-	return gulp.src('build/**/*', {
-			read: false
-		}) // much faster 
-		.pipe(ignore('node_modules/**')) //
-		.pipe(rimraf());
 });
 // build task
 gulp.task('build', function () {

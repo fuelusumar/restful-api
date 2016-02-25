@@ -120,7 +120,7 @@ server {
 ```
 Finally restart the nginx server:
 ```bash
-sudo service nginx restart
+:~$ sudo service nginx restart
 ```
 
 ### Testing Deployment
