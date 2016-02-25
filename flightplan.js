@@ -74,15 +74,15 @@ plan.remote('deploy', function (remote) {
 	remote.with('cd ' + remote.runtime.root, function () {
 		remote.exec('cd repo/' + remote.runtime.project + ' && git pull origin ' + remote.runtime.branch);
 		var versionFolder = remote.runtime.root + '/versions/' + timestamp;
-		var currentFolder = remote.runtime.root + '/versions/current';
+		//var currentFolder = remote.runtime.root + '/versions/current';
 		remote.exec('cp -R ' + remote.runtime.root + '/repo/' + remote.runtime.project + '/build ' + versionFolder);
-		remote.exec('ln -fsn ' + versionFolder + ' ' + currentFolder);
+		//remote.exec('ln -fsn ' + versionFolder + ' ' + currentFolder);
 		//remote.sudo('chown -R ' + remote.runtime.owner + ':' + remote.runtime.owner + ' current');
 		if (remote.runtime.maxDeploys > 0) {
 			remote.log('Cleaning up old deploys...');
 			remote.exec('rm -rf `ls -1dt ' + remote.runtime.root + '/versions/* | tail -n +' + (remote.runtime.maxDeploys + 1) + '`');
 		}
-		remote.with('cd ' + currentFolder, function () {
+		remote.with('cd ' + versionFolder, function () {
 			remote.exec('npm install');
 			remote.exec('npm start');
 			remote.log('Successfully deployied in ' + versionFolder);
@@ -108,8 +108,9 @@ plan.remote('rollback', function (remote) {
 		var lastVersion = versions[0];
 		var previousVersion = versions[1];
 		remote.log('Rolling back from ' + lastVersion + ' to ' + previousVersion);
-		remote.sudo('ln -fsn ' + previousVersion + ' current');
-		remote.sudo('chown -R ' + remote.runtime.owner + ':' + remote.runtime.owner + ' current');
+		remote.exec('cd ' + previousVersion);
+		remote.exec('npm start');
+		remote.exec('cd ..');
 		remote.sudo('rm -rf ' + lastVersion);
 	});
 });

@@ -131,12 +131,10 @@ Finally restart the nginx server:
 ### Testing Deployment
 
 #### Server Side
-First of all we have to login into our server through SSH protocol. Once inside our server, and in our user home directory we create the followin folders:
+First of all we have to configure our server, SSH protocol, SSH key, a local user and a remote user. Then we can use flightplan:
 ```bash
-:~$ mkdir repo versions
-```
-
-Inside the repo folder we clone our repository with git:
-```bash
-:~$ git clone https://github.com/fuelusumar/restful-api.git
+:~$ fly setup:testing
+:~$ fly build:testing
+:~$ fly predeploy:testing
+:~$ fly deploy:testing
 ```
