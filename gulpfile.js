@@ -92,13 +92,14 @@ gulp.task('clean', function () {
 	return gulp.src(['build'], {
 			read: false
 		}) // much faster 
+		//.pipe(ignore('build')) //
 		.pipe(rimraf({
 			force: true
 		}));
 });
 // build task
 gulp.task('build', ['clean', 'apidoc'], function () {
-	gulp.src(['src/**', 'src/*', '*.json']).pipe(gulp.dest('build'));
+	gulp.src(['src/**', 'src/*', '*.json']).pipe(ignore('deploy.json')).pipe(gulp.dest('build'));
 });
 // watch files changes
 gulp.task('watch', function () {

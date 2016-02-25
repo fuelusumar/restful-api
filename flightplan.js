@@ -14,6 +14,15 @@ plan.target('testing', {
 	branch: 'master',
 	maxDeploys: 10
 });
+/*plan.local(function(local) {
+  local.log('Run build');
+  local.exec('gulp build');
+ 
+  local.log('Copy files to remote hosts');
+  var filesToCopy = local.exec('git ls-files', {silent: true});
+  // rsync files to all the target's remote hosts 
+  local.transfer(filesToCopy, '/tmp/' + tmpDir);
+});*/
 /**
  * Creates all the necessary folders in the remote and clones the source git repository
  * 
@@ -48,9 +57,10 @@ plan.remote('deploy', function (remote) {
 		//remote.sudo('chown -R ' + remote.runtime.owner + ':' + remote.runtime.owner + ' current');
 		if (remote.runtime.maxDeploys > 0) {
 			remote.log('Cleaning up old deploys...');
-			remote.exec('rm -rf `ls -1dt ' + remote.runtime.root + 'versions/* | tail -n +' + (remote.runtime.maxDeploys + 1) + '`');
+			remote.exec('rm -rf `ls -1dt ' + remote.runtime.root + '/versions/* | tail -n +' + (remote.runtime.maxDeploys + 1) + '`');
 		}
 		remote.with('cd ' + currentFolder, function () {
+			remote.exec('forever stopall');
 			remote.exec('npm start');
 			remote.log('Successfully deployied in ' + versionFolder);
 			remote.log('To rollback to the previous version run "fly rollback:testing"');
