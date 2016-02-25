@@ -6,15 +6,15 @@ var timestamp = date.getTime();
  * Remote configuration for "production"
  */
 plan.target('testing', {
-	host: 'kiptips.com',
-	username: 'fuelusumar',
-	password: '15946659',
-	root: '/home/fuelusumar',
-	project: 'restful-api',
+	host: deploy.testing.host,
+	username: deploy.testing.username,
+	password: deploy.testing.password,
+	root: deploy.testing.root,
+	project: deploy.testing.project,
 	agent: process.env.SSH_AUTH_SOCK,
-	repository: 'https://github.com/fuelusumar/restful-api.git',
-	branch: 'master',
-	maxDeploys: 10
+	repository: deploy.testing.repository,
+	branch: deploy.testing.branch,
+	maxDeploys: deploy.testing.maxDeploys
 });
 /**
  * [description]
@@ -43,7 +43,6 @@ plan.local('build', function (local) {
  */
 plan.local('predeploy', function (local) {
 	local.with('cd build', function () {
-		local.exec('npm shrinkwrap');
 		local.exec('git add --all');
 		local.exec('git commit -am "build ' + timestamp + '"');
 		local.exec('git push');
@@ -84,9 +83,10 @@ plan.remote('deploy', function (remote) {
 			remote.exec('rm -rf `ls -1dt ' + remote.runtime.root + '/versions/* | tail -n +' + (remote.runtime.maxDeploys + 1) + '`');
 		}
 		remote.with('cd ' + currentFolder, function () {
-			remote.exec('forever stopall');
+			remote.exec('npm install');
 			remote.exec('npm start');
 			remote.log('Successfully deployied in ' + versionFolder);
+			remote.exec('forever list');
 			remote.log('To rollback to the previous version run "fly rollback:testing"');
 		});
 	});
