@@ -87,7 +87,7 @@ To compile and install native addons from npm you may also need to install build
 
 ##### Install global packages
 ```bash
-:~$ sudo npm install -g apidoc forever gulp jshint mocha nodemon
+:~$ sudo npm install -g apidoc flightplan forever gulp jshint mocha nodemon
 ```
 
 #### Nginx Installation
@@ -129,4 +129,14 @@ Finally restart the nginx server:
 ```
 
 ### Testing Deployment
-Comming soon...
+
+#### Server Side
+First of all we have to login into our server through SSH protocol. Once inside our server, and in our user home directory we create the followin folders:
+```bash
+:~$ mkdir repo versions
+```
+
+Inside the repo folder we clone our repository with git:
+```bash
+:~$ git clone https://github.com/fuelusumar/restful-api.git
+```
