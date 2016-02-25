@@ -34,7 +34,6 @@ gulp.task('jslint', function () {
 		'plusplus': false,
 		'latedef': true
 	})).pipe(jshint.reporter('jshint-stylish'));
-	//.pipe(gulp.dest('dist'));
 });
 // mocha tests task for files that don't require database connection
 gulp.task('helpers', ['jslint'], function () {
@@ -90,15 +89,16 @@ gulp.task('apidoc', function (done) {
 });
 // clean folder task
 gulp.task('clean', function () {
-	return gulp.src('build/**/*', {
+	return gulp.src(['build'], {
 			read: false
 		}) // much faster 
-		.pipe(ignore('node_modules/**')) //
-		.pipe(rimraf());
+		.pipe(rimraf({
+			force: true
+		}));
 });
 // build task
-gulp.task('build', function () {
-	gulp.src(src_files).pipe(gulp.dest('build'));
+gulp.task('build', ['clean', 'apidoc'], function () {
+	gulp.src(['src/**', 'src/*', '*.json']).pipe(gulp.dest('build'));
 });
 // watch files changes
 gulp.task('watch', function () {
