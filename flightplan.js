@@ -1,5 +1,7 @@
 var plan = require('flightplan');
 var deploy = require('./deploy.json');
+var date = new Date();
+var timestamp = date.getTime();
 /**
  * Remote configuration for "production"
  */
@@ -14,15 +16,39 @@ plan.target('testing', {
 	branch: 'master',
 	maxDeploys: 10
 });
-/*plan.local(function(local) {
-  local.log('Run build');
-  local.exec('gulp build');
- 
-  local.log('Copy files to remote hosts');
-  var filesToCopy = local.exec('git ls-files', {silent: true});
-  // rsync files to all the target's remote hosts 
-  local.transfer(filesToCopy, '/tmp/' + tmpDir);
-});*/
+/**
+ * [description]
+ *
+ * @method
+ *
+ * @param  {[type]} local
+ *
+ * @return {[type]} [description]
+ */
+plan.local('build', function (local) {
+	local.exec('gulp build');
+	local.with('cd build', function () {
+		local.exec('npm install');
+		local.exec('npm start');
+	});
+});
+/**
+ * [description]
+ *
+ * @method
+ *
+ * @param  {[type]} local [description]
+ *
+ * @return {[type]} [description]
+ */
+plan.local('predeploy', function (local) {
+	local.with('cd build', function () {
+		local.exec('npm shrinkwrap');
+		local.exec('git add --all');
+		local.exec('git commit -am "build ' + timestamp + '"');
+		local.exec('git push');
+	});
+});
 /**
  * Creates all the necessary folders in the remote and clones the source git repository
  * 
@@ -48,8 +74,6 @@ plan.remote('deploy', function (remote) {
 	remote.hostname();
 	remote.with('cd ' + remote.runtime.root, function () {
 		remote.exec('cd repo/' + remote.runtime.project + ' && git pull origin ' + remote.runtime.branch);
-		var date = new Date();
-		var timestamp = date.getTime();
 		var versionFolder = remote.runtime.root + '/versions/' + timestamp;
 		var currentFolder = remote.runtime.root + '/versions/current';
 		remote.exec('cp -R ' + remote.runtime.root + '/repo/' + remote.runtime.project + '/build ' + versionFolder);
