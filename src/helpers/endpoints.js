@@ -64,9 +64,21 @@ Endpoints.prototype.getLinks = function () {
  * @return {[type]}     [description]
  */
 exports.loadEnpoints = function (version, controller) {
+	var index;
+	var array = [];
 	if (version && controller) {
-		return new Endpoints(true, global.endpoints[version][controller]);
+		if (controller == 'auth') {
+			for (index in global.endpoints[version]) {
+				array = array.concat(global.endpoints[version][index]);
+			}
+		} else {
+			array = global.endpoints[version][controller];
+		}
+		return new Endpoints(true, array);
 	} else {
-		return new Endpoints(false, global.endpoints[version]);
+		for (index in global.endpoints[version]) {
+			array = array.concat(global.endpoints[version][index]);
+		}
+		return new Endpoints(false, array);
 	}
 };
