@@ -82,7 +82,7 @@ plan.remote('deploy', function (remote) {
 			remote.log('Cleaning up old deploys...');
 			remote.exec('rm -rf `ls -1dt ' + remote.runtime.root + '/versions/* | tail -n +' + (remote.runtime.maxDeploys + 1) + '`');
 		}
-		remote.exec('cd ' + versionFolder, function () {
+		remote.with('cd ' + versionFolder, function () {
 			remote.exec('npm install --production');
 			remote.exec('npm start');
 			remote.log('Successfully deployied in ' + versionFolder);
