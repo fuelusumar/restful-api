@@ -4,7 +4,10 @@
 	"private": true,
 	"scripts": {
 		"prestart": "forever stopall",
-		"start": "forever start bin/www"
+		"start": "forever start bin/www",
+		"poststart": "forever logs",
+		"stop": "forever stop bin/www",
+		"poststop": "forever logs"
 	},
 	"dependencies": {
 		"body-parser": "^1.15.0",

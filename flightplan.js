@@ -28,7 +28,7 @@ plan.target('testing', {
 plan.local('build', function (local) {
 	local.exec('gulp build');
 	local.with('cd build', function () {
-		local.exec('npm install');
+		local.exec('npm install --production');
 		local.exec('npm start');
 	});
 });
@@ -41,8 +41,9 @@ plan.local('build', function (local) {
  *
  * @return {[type]} [description]
  */
-plan.local('predeploy', function (local) {
+plan.local('prepare', function (local) {
 	local.with('cd build', function () {
+		local.exec('npm stop');
 		local.exec('git add --all');
 		local.exec('git commit -am "build ' + timestamp + '"');
 		local.exec('git push');
@@ -74,20 +75,19 @@ plan.remote('deploy', function (remote) {
 	remote.with('cd ' + remote.runtime.root, function () {
 		remote.exec('cd repo/' + remote.runtime.project + ' && git pull origin ' + remote.runtime.branch);
 		var versionFolder = remote.runtime.root + '/versions/' + timestamp;
-		//var currentFolder = remote.runtime.root + '/versions/current';
+		var currentFolder = remote.runtime.root + '/versions/current';
 		remote.exec('cp -R ' + remote.runtime.root + '/repo/' + remote.runtime.project + '/build ' + versionFolder);
-		//remote.exec('ln -fsn ' + versionFolder + ' ' + currentFolder);
-		//remote.sudo('chown -R ' + remote.runtime.owner + ':' + remote.runtime.owner + ' current');
+		remote.exec('ln -fsn ' + versionFolder + ' ' + currentFolder);
 		if (remote.runtime.maxDeploys > 0) {
 			remote.log('Cleaning up old deploys...');
 			remote.exec('rm -rf `ls -1dt ' + remote.runtime.root + '/versions/* | tail -n +' + (remote.runtime.maxDeploys + 1) + '`');
 		}
-		remote.with('cd ' + versionFolder, function () {
-			remote.exec('npm install');
+		remote.exec('cd ' + versionFolder, function () {
+			remote.exec('npm install --production');
 			remote.exec('npm start');
 			remote.log('Successfully deployied in ' + versionFolder);
 			remote.exec('forever list');
-			remote.log('To rollback to the previous version run "fly rollback:testing"');
+			remote.log('To rollback to the previous version run "fly rollback:target"');
 		});
 	});
 });
