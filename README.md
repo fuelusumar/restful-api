@@ -133,7 +133,7 @@ Finally restart the nginx server:
 #### Server Side
 First of all we have to configure our server, SSH protocol, SSH key, a local user and a remote user. Then we can use flightplan:
 ```bash
-:~$ fly setup:testing
+:~$ fly setup:testing # just the first time
 -> # Check there are no errors
 :~$ fly build:testing
 -> # Check there are no errors

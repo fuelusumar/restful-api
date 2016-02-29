@@ -39,10 +39,35 @@
 					],
 					"controllers": [
 						{
-							"name": "friends",
+							"name": "follows",
 							"description": "user's friends and friendship actions and relations",
-							"id": "friend_id",
-							"author": "fuelusumar"
+							"id": "follow_id",
+							"author": "fuelusumar",
+							"actions": [
+								{
+									"method": "GET",
+									"name": "list",
+									"id": false,
+									"append": false
+								}, {
+									"method": "GET",
+									"name": "me",
+									"id": false,
+									"append": true
+								}, {
+									"method": "POST",
+									"name": "create",
+									"id": false
+								}, {
+									"method": "GET",
+									"name": "retrieve",
+									"id": true
+								}, {
+									"method": "DELETE",
+									"name": "delete",
+									"id": true
+								}
+							]
 						}
 					]
 				}, {
