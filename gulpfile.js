@@ -17,11 +17,28 @@ var src_files = [
 	'src/services/**/*.{js,json}',
 	'src/*.{js,json}'];
 //var test_files = ['test/**/*.{js,json}'];
-var ctrl_files = ['test/controllers/*.{js,json}'];
-var help_files = ['test/helpers/*.{js,json}'];
-var modl_files = ['test/models/*.{js,json}'];
-var rout_files = ['test/routes/*.{js,json}'];
-var serv_files = ['test/services/*.{js,json}'];
+var ctrl_files = [
+	'test/controllers/auth.js',
+	'test/controllers/user.js'
+];
+var help_files = [
+	'test/helpers/auth.js',
+	'test/helpers/endpoints.js',
+	'test/helpers/validate.js'
+];
+var modl_files = [
+	'test/models/user.js',
+	'test/models/follow.js'
+];
+var rout_files = [
+	'test/routes/auth.js',
+	'test/routes/user.js',
+	'test/routes/follow.js'
+];
+var serv_files = [
+	'test/services/user.js',
+	'test/services/follow.js'
+];
 //
 process.setMaxListeners(0);
 // jslint task for source files and tests that don't require database connection
