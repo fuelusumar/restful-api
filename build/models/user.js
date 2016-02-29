@@ -13,10 +13,6 @@ var sanitization = {
 			type: "string",
 			rules: ["trim", "lower"]
 		},
-		passwd: {
-			type: "string",
-			rules: ["trim"]
-		},
 		email: {
 			type: "string",
 			rules: ["trim", "lower"]
@@ -37,10 +33,6 @@ var validation = {
 	type: "UsrMdl",
 	properties: {
 		usrnm: {
-			type: "string",
-			minLength: 1
-		},
-		passwd: {
 			type: "string",
 			minLength: 1
 		},
@@ -132,33 +124,6 @@ UsrMdl.prototype.init = function (usrSchema) {
 	this.email_verfd = usrSchema.email_verfd;
 	this.upd_at = usrSchema.upd_at;
 	inspector.sanitize(sanitization, this);
-};
-/**
- * [show description]
- *
- * @method show
- *
- * @return {[type]} [description]
- */
-UsrMdl.prototype.show = function () {
-	var usr = {};
-	usr._id = this._id;
-	usr.usrnm = this.usrnm;
-	//usr.passwd = this.passwd;
-	usr.email = this.email;
-	usr.name = this.name;
-	usr.avatar_url = this.avatar_url;
-	usr.bday = this.bday;
-	usr.sex = this.sex;
-	usr.lang = this.lang;
-	usr.country = this.country;
-	//usr.is_active = this.is_active;
-	//usr.is_private = this.is_private;
-	//usr.is_banned = this.is_banned;
-	//usr.is_verfied = this.is_verfied;
-	//usr.email_verfd = this.email_verfd;
-	usr.upd_at = this.upd_at;
-	return usr;
 };
 /**
  * [set description]

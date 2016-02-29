@@ -17,6 +17,8 @@ exports.findUsrs = function (query, page, order, callback) {
 	try {
 		var skip = (page - 1) * 100;
 		var limit = 100;
+		query.is_active = true;
+		query.is_banned = false;
 		usrSrv.findUsrs(query, skip, limit, order, function (err, usr) {
 			if (err) {
 				return callback(err, null, 500);

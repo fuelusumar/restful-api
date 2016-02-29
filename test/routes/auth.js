@@ -34,9 +34,9 @@ describe('auth router', function () {
 					res.status.should.equal(201);
 					res.body.should.have.property('action');
 					res.body.should.have.property('data');
+					console.dir(res.body.data);
 					res.body.should.have.property('links');
 					res.body.should.have.property('auth');
-					console.dir(res.body.auth);
 					res.body.should.not.have.property('error');
 					res.body.should.not.have.property('stack');
 					res.body.data.should.have.property('_id');
@@ -64,7 +64,6 @@ describe('auth router', function () {
 					res.body.should.have.property('data');
 					res.body.should.have.property('links');
 					res.body.should.have.property('auth');
-					console.dir(res.body);
 					res.body.should.not.have.property('error');
 					res.body.should.not.have.property('stack');
 					res.body.data.should.have.property('_id');

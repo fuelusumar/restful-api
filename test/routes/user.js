@@ -13,7 +13,7 @@ var usr_obj = {
 	name: 'Gerardo Jose Fuenmayor',
 	avatar_url: 'no_avatar'
 };
-var tkn = "bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1NmM1ZmMyYjhlMmNmZmI5NjQxOWM3NTIiLCJ1c3IiOiJmdWVsdXN1bWFyIiwiaWF0IjoxNDU1OTEzNTMzLCJleHAiOjE0NTU5OTk5MzN9.mkUTyZsHe7Wg9GOIRQoebfGE98Wyw-V3gidpmRGmfbc";
+var tkn = "bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1NmM1ZmMyYjhlMmNmZmI5NjQxOWM3NTIiLCJ1c3IiOiJmdWVsdXN1bWFyIiwiaWF0IjoxNDU2NzY1OTU4LCJleHAiOjE0NTY4NTIzNTh9.LArkjbEKWi0njoH06y-krgzPwesTL0mNFP-XDDAiybY";
 var upd_obj = {
 	name: 'Gerardo Fuenmayor'
 };
@@ -66,7 +66,6 @@ describe('user router', function () {
 					res.body.should.not.have.property('stack');
 					res.body.data.should.have.property('_id');
 					res.body.data.should.have.property('usrnm');
-					res.body.data.should.have.property('passwd');
 					res.body.data.should.have.property('email');
 					res.body.data.should.have.property('name');
 					res.body.data.should.have.property('avatar_url');
@@ -98,7 +97,6 @@ describe('user router', function () {
 					res.body.should.not.have.property('stack');
 					res.body.data.should.have.property('_id');
 					res.body.data.should.have.property('usrnm');
-					res.body.data.should.have.property('passwd');
 					res.body.data.should.have.property('email');
 					res.body.data.should.have.property('name');
 					res.body.data.should.have.property('avatar_url');
@@ -129,7 +127,6 @@ describe('user router', function () {
 					res.body.should.not.have.property('stack');
 					res.body.data.should.have.property('_id');
 					res.body.data.should.have.property('usrnm');
-					res.body.data.should.have.property('passwd');
 					res.body.data.should.have.property('email');
 					res.body.data.should.have.property('name');
 					res.body.data.should.have.property('avatar_url');

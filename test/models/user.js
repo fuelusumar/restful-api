@@ -20,12 +20,6 @@ try {
 				assert.equal(usr.avatar_url, 'no_avatar');
 			});
 		});
-		describe('#show()', function () {
-			it('should not has property passwd', function () {
-				var usrShow = usr.show();
-				assert.equal(typeof usrShow.passwd, 'undefined');
-			});
-		});
 	});
 } catch (err) {
 	winston.log('error', 'Error testing user model', err);
