@@ -9,6 +9,25 @@ var usrSch = require('../schemas/user');
  */
 var usrDao = new Dao('Usr', usrSch, UsrMdl);
 /**
+ * [clnUrLst description]
+ *
+ * @method clnUrLst
+ *
+ * @param  {[type]} usrs [description]
+ *
+ * @return {[type]} [description]
+ */
+var clnUrLst = function (usrs) {
+	if (Array.isArray(usrs) && usrs.length > 0) {
+		var _usrs = [];
+		for (var i = 0, l = usrs.length; i < l; i++) {
+			_usrs.push(usrs[i].show());
+		}
+		return _usrs;
+	}
+	return usrs;
+};
+/**
  * [insertUsr description]
  *
  * @method insertUsr
@@ -20,9 +39,6 @@ var usrDao = new Dao('Usr', usrSch, UsrMdl);
  */
 exports.insertUsr = function (usr_mdl, callback) {
 	usrDao.insertSchema(usr_mdl, function (err, usr) {
-		if (usr && usr.passwd) {
-			delete usr.passwd;
-		}
 		callback(err, usr);
 	});
 };
@@ -37,7 +53,7 @@ exports.insertUsr = function (usr_mdl, callback) {
  * @return {[type]}    [description]
  */
 exports.findUsrById = function (_id, callback) {
-	usrDao.findSchemaById(_id, '-passwd', '', function (err, usr) {
+	usrDao.findSchemaById(_id, null, '', function (err, usr) {
 		callback(err, usr);
 	});
 };
@@ -88,8 +104,8 @@ exports.findUsrByUsrnm = function (usrnm, callback) {
  * @return {[type]}   [description]
  */
 exports.findUsrs = function (query, skip, limit, order, callback) {
-	usrDao.findSchemaLst(query, '-passwd', skip, limit, order, '', function (err, usr) {
-		callback(err, usr);
+	usrDao.findSchemaLst(query, '-passwd', skip, limit, order, '', function (err, usrs) {
+		callback(err, clnUrLst(usrs));
 	});
 };
 /**
@@ -104,8 +120,8 @@ exports.findUsrs = function (query, skip, limit, order, callback) {
  * @return {[type]}    [description]
  */
 exports.findAllUsrs = function (query, order, callback) {
-	usrDao.findAllSchemaLst(query, '-passwd', order, '', function (err, usr) {
-		callback(err, usr);
+	usrDao.findAllSchemaLst(query, '-passwd', order, '', function (err, usrs) {
+		callback(err, clnUrLst(usrs));
 	});
 };
 /**
@@ -124,9 +140,6 @@ exports.updateUsrById = function (_id, set, callback) {
 	usrDao.updateSchema({
 		_id: _id
 	}, set, {}, function (err, usr) {
-		if (usr && usr.passwd) {
-			delete usr.passwd;
-		}
 		callback(err, usr);
 	});
 };

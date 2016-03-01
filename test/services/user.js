@@ -6,10 +6,10 @@ var usrSrv = require('../../src/services/user');
 try {
 	describe('usrSrv', function () {
 		var usr = new UsrMdl({
-			usrnm: 'tatadelgado123',
-			passwd: '21121734',
-			email: 'tatadelgado123@gmail.com',
-			name: 'Thais Delgado',
+			usrnm: 'gomezluisj',
+			passwd: '16986050',
+			email: 'gomezluisja@gmail.com',
+			name: 'Luis Gomez',
 			avatar_url: 'no_avatar'
 		});
 		var _id = null;
@@ -40,6 +40,7 @@ try {
 										winston.log('error', 'Error testing user service\n', err);
 									} else {
 										assert.equal(res.usrnm, usr.usrnm);
+										assert.equal(res.passwd, usr.passwd);
 										assert.equal(res.email, usr.email);
 										assert.equal(res.name, usr.name);
 										assert.equal(res.avatar_url, usr.avatar_url);
@@ -51,6 +52,7 @@ try {
 						});
 					} else {
 						assert.equal(res.usrnm, usr.usrnm);
+						assert.equal(res.passwd, usr.passwd);
 						assert.equal(res.email, usr.email);
 						assert.equal(res.name, usr.name);
 						assert.equal(res.avatar_url, usr.avatar_url);
@@ -68,6 +70,7 @@ try {
 						done();
 					}
 					assert.equal(res.usrnm, usr.usrnm);
+					assert.equal(res.passwd, usr.passwd);
 					assert.equal(res.email, usr.email);
 					assert.equal(res.name, usr.name);
 					assert.equal(res.avatar_url, usr.avatar_url);
@@ -109,7 +112,7 @@ try {
 		});
 		describe('#findUsrs()', function () {
 			it('should return an array of user models', function (done) {
-				usrSrv.findUsrs({}, 0, 1, {}, function (err, res) {
+				usrSrv.findUsrs({}, 0, 10, {}, function (err, res) {
 					if (err) {
 						winston.log('error', 'Error testing user service\n', err);
 						done();

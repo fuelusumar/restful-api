@@ -6,7 +6,7 @@ var flwSrv = require('../../src/services/follow');
 var UsrMdl = require('../../src/models/user');
 var usrSrv = require('../../src/services/user');
 try {
-	describe('usrSrv', function () {
+	describe('flwSrv', function () {
 		var usr = new UsrMdl({
 			usrnm: 'tatadelgado123',
 			passwd: '21121734',
@@ -88,7 +88,7 @@ try {
 			});
 		});
 		describe('#insertFlw()', function () {
-			it('should return an follow model', function (done) {
+			it('should return a follow model', function (done) {
 				var flw = new FlwMdl({
 					_usr: _usr,
 					_flw: _flw
@@ -106,7 +106,7 @@ try {
 			});
 		});
 		describe('#findFlwById()', function () {
-			it('should return an follow model', function (done) {
+			it('should return a follow model', function (done) {
 				flwSrv.findFlwById(_id, function (err, res) {
 					if (err) {
 						winston.log('error', 'Error testing follow service\n', err);
@@ -118,22 +118,9 @@ try {
 				});
 			});
 		});
-		describe('#findFlwByUsrId()', function () {
-			it('should return an follow model', function (done) {
-				flwSrv.findFlwByUsrId(_usr, function (err, res) {
-					if (err) {
-						winston.log('error', 'Error testing follow service\n', err);
-						done();
-					}
-					assert.equal(res._usr._id + '', _usr + '');
-					assert.equal(res._flw._id + '', _flw + '');
-					done();
-				});
-			});
-		});
-		describe('#findFlwByFlwId()', function () {
-			it('should return an follow model', function (done) {
-				flwSrv.findFlwByFlwId(_flw, function (err, res) {
+		describe('#findFlwByUsrIdFlwId()', function () {
+			it('should return a follow model', function (done) {
+				flwSrv.findFlwByUsrIdFlwId(_usr, _flw, function (err, res) {
 					if (err) {
 						winston.log('error', 'Error testing follow service\n', err);
 						done();
@@ -145,8 +132,8 @@ try {
 			});
 		});
 		describe('#findFlws()', function () {
-			it('should return an follow model', function (done) {
-				flwSrv.findFlws({}, 0, 1, {}, function (err, res) {
+			it('should return a follow models array', function (done) {
+				flwSrv.findFlws({}, 0, 10, {}, '_usr', function (err, res) {
 					if (err) {
 						winston.log('error', 'Error testing follow service\n', err);
 						done();
@@ -157,8 +144,8 @@ try {
 			});
 		});
 		describe('#findAllFlws()', function () {
-			it('should return an follow model', function (done) {
-				flwSrv.findAllFlws({}, {}, function (err, res) {
+			it('should return a follow models array', function (done) {
+				flwSrv.findAllFlws({}, {}, '_flw', function (err, res) {
 					if (err) {
 						winston.log('error', 'Error testing follow service\n', err);
 						done();

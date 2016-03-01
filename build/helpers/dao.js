@@ -42,13 +42,13 @@ function Dao(ref, schema, model) {
  *
  * @return {[type]}       [description]
  */
-Dao.prototype.findSchemaById = function (_id, select, callback) {
+Dao.prototype.findSchemaById = function (_id, select, path, callback) {
 	'use strict';
 	try {
 		var that = this;
 		this.Schema.findOne({
 			'_id': _id
-		}).select(select).exec(function (err, schema) {
+		}).select(select).populate(path).exec(function (err, schema) {
 			if (err) {
 				return callback(err, null);
 			}
@@ -73,11 +73,11 @@ Dao.prototype.findSchemaById = function (_id, select, callback) {
  *
  * @return {[type]}   [description]
  */
-Dao.prototype.findSchema = function (query, select, callback) {
+Dao.prototype.findSchema = function (query, select, path, callback) {
 	'use strict';
 	try {
 		var that = this;
-		this.Schema.findOne(query).select(select).exec(function (err, schema) {
+		this.Schema.findOne(query).select(select).populate(path).exec(function (err, schema) {
 			if (err) {
 				return callback(err, null);
 			}
@@ -105,11 +105,11 @@ Dao.prototype.findSchema = function (query, select, callback) {
  *
  * @return {[type]}      [description]
  */
-Dao.prototype.findSchemaLst = function (query, select, skip, limit, sort, callback) {
+Dao.prototype.findSchemaLst = function (query, select, skip, limit, sort, path, callback) {
 	'use strict';
 	try {
 		var that = this;
-		this.Schema.find(query).select(select).skip(skip).limit(limit).sort(sort).exec(function (err, schemas) {
+		this.Schema.find(query).select(select).skip(skip).limit(limit).sort(sort).populate(path).exec(function (err, schemas) {
 			if (err && !schemas) {
 				return callback(err, null);
 			}
@@ -137,11 +137,11 @@ Dao.prototype.findSchemaLst = function (query, select, skip, limit, sort, callba
  *
  * @return {[type]}         [description]
  */
-Dao.prototype.findAllSchemaLst = function (query, select, sort, callback) {
+Dao.prototype.findAllSchemaLst = function (query, select, sort, path, callback) {
 	'use strict';
 	try {
 		var that = this;
-		this.Schema.find(query).select(select).sort(sort).exec(function (err, schemas) {
+		this.Schema.find(query).select(select).sort(sort).populate(path).exec(function (err, schemas) {
 			if (err && !schemas) {
 				return callback(err, null);
 			}
@@ -208,132 +208,6 @@ Dao.prototype.insertSchema = function (model, callback) {
 				return callback(null, mdl);
 			}
 			return callback(null, null);
-		});
-	} catch (err) {
-		return callback(err, null);
-	}
-};
-/**
- * [findAndPopulateSchemaById description]
- *
- * @method findAndPopulateSchemaById
- *
- * @param  {[type]}                  _id      [description]
- * @param  {[type]}                  path     [description]
- * @param  {Function}                callback [description]
- *
- * @return {[type]}                  [description]
- */
-Dao.prototype.findAndPopulateSchemaById = function (_id, select, path, callback) {
-	'use strict';
-	try {
-		var that = this;
-		this.Schema.findOne({
-			'_id': _id
-		}).select(select).populate(path).exec(function (err, schema) {
-			if (err && !schema) {
-				return callback(err, null);
-			}
-			if (schema) {
-				var model = new that.Model();
-				model.init(schema);
-				return callback(null, model);
-			}
-			return callback(null, null);
-		});
-	} catch (err) {
-		return callback(err, null);
-	}
-};
-/**
- * [findAndPopulateSchemaById description]
- *
- * @method findAndPopulateSchemaById
- *
- * @param  {[type]}                  _id      [description]
- * @param  {[type]}                  path     [description]
- * @param  {Function}                callback [description]
- *
- * @return {[type]}                  [description]
- */
-Dao.prototype.findAndPopulateSchema = function (query, select, path, callback) {
-	'use strict';
-	try {
-		var that = this;
-		this.Schema.findOne(query).select(select).populate(path).exec(function (err, schema) {
-			if (err) {
-				return callback(err, null);
-			}
-			if (schema) {
-				var model = new that.Model();
-				model.init(schema);
-				return callback(null, model);
-			}
-			return callback(null, null);
-		});
-	} catch (err) {
-		return callback(err, null);
-	}
-};
-/**
- * [findAndPopulateSchemaById description]
- *
- * @method findAndPopulateSchemaById
- *
- * @param  {[type]}                  _id      [description]
- * @param  {[type]}                  path     [description]
- * @param  {Function}                callback [description]
- *
- * @return {[type]}                  [description]
- */
-Dao.prototype.findAndPopulateSchemaLst = function (query, select, skip, limit, sort, path, callback) {
-	'use strict';
-	try {
-		var that = this;
-		this.Schema.find(query).select(select).skip(skip).limit(limit).sort(sort).populate(path).exec(function (err, schemas) {
-			if (err && !schemas) {
-				return callback(err, null);
-			}
-			var i, l, models, model;
-			models = [];
-			for (i = 0, l = schemas.length; i < l; i++) {
-				model = new that.Model();
-				model.init(schemas[i]);
-				models.push(model);
-			}
-			return callback(err, models);
-		});
-	} catch (err) {
-		return callback(err, null);
-	}
-};
-/**
- * [findAndPopulateSchemaById description]
- *
- * @method findAndPopulateSchemaById
- *
- * @param  {[type]}                  _id      [description]
- * @param  {[type]}                  path     [description]
- * @param  {Function}                callback [description]
- *
- * @return {[type]}                  [description]
- */
-Dao.prototype.findAndPopulateAllSchemaLst = function (query, select, sort, path, callback) {
-	'use strict';
-	try {
-		var that = this;
-		this.Schema.find(query).select(select).sort(sort).populate(path).exec(function (err, schemas) {
-			if (err && !schemas) {
-				return callback(err, null);
-			}
-			var i, l, models, model;
-			models = [];
-			for (i = 0, l = schemas.length; i < l; i++) {
-				model = new that.Model();
-				model.init(schemas[i]);
-				models.push(model);
-			}
-			return callback(err, models);
 		});
 	} catch (err) {
 		return callback(err, null);

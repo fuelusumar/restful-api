@@ -12,6 +12,7 @@ var usr_obj = {
 	name: 'Georgina Fuenmayor',
 	avatar_url: 'no_avatar'
 };
+var tkn = "";
 var login_obj = {
 	usrnm: 'fuelusumar',
 	passwd: '15946659'
@@ -34,12 +35,12 @@ describe('auth router', function () {
 					res.status.should.equal(201);
 					res.body.should.have.property('action');
 					res.body.should.have.property('data');
-					console.dir(res.body.data);
 					res.body.should.have.property('links');
 					res.body.should.have.property('auth');
 					res.body.should.not.have.property('error');
 					res.body.should.not.have.property('stack');
 					res.body.data.should.have.property('_id');
+					usr_obj._id = res.body.data._id;
 					res.body.data.should.have.property('usrnm');
 					res.body.links.should.be.instanceof(Array);
 					done();
@@ -64,11 +65,30 @@ describe('auth router', function () {
 					res.body.should.have.property('data');
 					res.body.should.have.property('links');
 					res.body.should.have.property('auth');
+					tkn = "bearer " + res.body.auth;
 					res.body.should.not.have.property('error');
 					res.body.should.not.have.property('stack');
 					res.body.data.should.have.property('_id');
 					res.body.data.should.have.property('usrnm');
 					res.body.links.should.be.instanceof(Array);
+					done();
+				});
+		});
+	});
+	describe("delete users route", function () {
+		// #1 should return home page
+		it("should return a valid response", function (done) {
+			// calling home page api
+			server.delete("/v1/users/" + usr_obj._id) //
+				.set("Authorization", tkn) //
+				.expect("Content-type", /json/) //
+				.expect(200) // THis is HTTP response
+				.end(function (err, res) {
+					// HTTP status should be 200
+					if (res.status >= 400) {
+						winston.log('error', 'Error testing user router\n', res.body);
+					}
+					res.status.should.equal(204);
 					done();
 				});
 		});

@@ -19,11 +19,11 @@ exports.findUsrs = function (query, page, order, callback) {
 		var limit = 100;
 		query.is_active = true;
 		query.is_banned = false;
-		usrSrv.findUsrs(query, skip, limit, order, function (err, usr) {
+		usrSrv.findUsrs(query, skip, limit, order, function (err, usrs) {
 			if (err) {
 				return callback(err, null, 500);
 			}
-			return callback(null, usr, 200);
+			return callback(null, usrs, 200);
 		});
 	} catch (err) {
 		return callback(err, null, 500);
@@ -48,7 +48,7 @@ exports.findUsrByEmail = function (email, callback) {
 				if (err) {
 					return callback(err, null, 500);
 				}
-				return callback(null, usr, 200);
+				return callback(null, usr.show(), 200);
 			});
 		}
 	} catch (err) {
@@ -74,7 +74,7 @@ exports.findUsrByUsrnm = function (usrnm, callback) {
 				if (err) {
 					return callback(err, null, 500);
 				}
-				return callback(null, usr, 200);
+				return callback(null, usr.show(), 200);
 			});
 		}
 	} catch (err) {
@@ -100,7 +100,7 @@ exports.findUsrById = function (_id, callback) {
 				if (err) {
 					return callback(err, null, 500);
 				} else {
-					return callback(null, res, 200);
+					return callback(null, res.show(), 200);
 				}
 			});
 		}
@@ -129,7 +129,7 @@ exports.insertUsr = function (usr_obj, callback) {
 				if (err) {
 					return callback(err, null, 500);
 				} else {
-					return callback(null, res, 201);
+					return callback(null, res.show(), 201);
 				}
 			});
 		}
@@ -172,11 +172,11 @@ exports.updateOrPatchUsr = function (usr_obj, callback) {
 							if (err) {
 								return callback(err, null, 500);
 							} else {
-								return callback(null, usr, 200);
+								return callback(null, usr.show(), 200);
 							}
 						});
 					} else {
-						return callback(null, usr, 304);
+						return callback(null, usr.show(), 304);
 					}
 				}
 			});

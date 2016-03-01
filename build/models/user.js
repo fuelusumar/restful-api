@@ -57,8 +57,8 @@ var validation = {
 function UsrMdl(usrObj) {
 	if (usrObj) {
 		this.usrnm = usrObj.usrnm || null;
-		this.passwd = usrObj.passwd || null;
 		this.email = usrObj.email || null;
+		this.passwd = usrObj.passwd || null;
 		this.name = usrObj.name || null;
 		this.avatar_url = usrObj.avatar_url || null;
 		this.bday = usrObj.bday || null;
@@ -108,15 +108,15 @@ UsrMdl.prototype.sanitize = function () {
  */
 UsrMdl.prototype.init = function (usrSchema) {
 	this._id = usrSchema._id;
-	this.usrnm = usrSchema.usrnm;
-	this.passwd = usrSchema.passwd;
-	this.email = usrSchema.email;
-	this.name = usrSchema.name;
-	this.avatar_url = usrSchema.avatar_url;
-	this.bday = usrSchema.bday;
-	this.sex = usrSchema.sex;
-	this.lang = usrSchema.lang;
-	this.country = usrSchema.country;
+	this.usrnm = usrSchema.usrnm ? usrSchema.usrnm : null;
+	this.email = usrSchema.email ? usrSchema.email : null;
+	this.passwd = usrSchema.passwd ? usrSchema.passwd : null;
+	this.name = usrSchema.name ? usrSchema.name : null;
+	this.avatar_url = usrSchema.avatar_url ? usrSchema.avatar_url : null;
+	this.bday = usrSchema.bday ? usrSchema.bday : null;
+	this.sex = usrSchema.sex ? usrSchema.sex : null;
+	this.lang = usrSchema.lang ? usrSchema.lang : null;
+	this.country = usrSchema.country ? usrSchema.country : null;
 	this.is_active = usrSchema.is_active;
 	this.is_private = usrSchema.is_private;
 	this.is_banned = usrSchema.is_banned;
@@ -134,8 +134,8 @@ UsrMdl.prototype.set = function () {
 	var usr = {};
 	//usr._id = this._id;
 	usr.usrnm = this.usrnm;
-	usr.passwd = this.passwd;
 	usr.email = this.email;
+	usr.passwd = this.passwd;
 	usr.name = this.name;
 	usr.avatar_url = this.avatar_url;
 	usr.bday = this.bday;
@@ -148,6 +148,33 @@ UsrMdl.prototype.set = function () {
 	usr.is_verfied = this.is_verfied;
 	usr.email_verfd = this.email_verfd;
 	//usr.upd_at = this.upd_at;
+	return usr;
+};
+/**
+ * [show description]
+ *
+ * @method show
+ *
+ * @return {[type]} [description]
+ */
+UsrMdl.prototype.show = function () {
+	var usr = {};
+	usr._id = this._id;
+	usr.usrnm = this.usrnm;
+	//usr.passwd = this.passwd;
+	usr.email = this.email;
+	usr.name = this.name;
+	usr.avatar_url = this.avatar_url;
+	usr.bday = this.bday;
+	usr.sex = this.sex;
+	usr.lang = this.lang;
+	usr.country = this.country;
+	usr.is_active = this.is_active;
+	usr.is_private = this.is_private;
+	usr.is_banned = this.is_banned;
+	usr.is_verfied = this.is_verfied;
+	//usr.email_verfd = this.email_verfd;
+	usr.upd_at = this.upd_at;
 	return usr;
 };
 /**

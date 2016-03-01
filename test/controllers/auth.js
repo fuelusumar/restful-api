@@ -2,6 +2,7 @@
 var winston = require('winston');
 var assert = require('assert');
 var authCtrl = require('../../src/controllers/auth');
+var usrCtrl = require('../../src/controllers/user');
 var login_obj = {
 	usrnm: 'fuelusumar',
 	passwd: '15946659'
@@ -26,7 +27,32 @@ try {
 			it('should return an user object', function (done) {
 				authCtrl.signin(usr_obj, function (err, res, status) {
 					if (err) {
-						winston.log('error', 'Error testing auth controller\n', err);
+						//winston.log('error', 'Error testing auth controller\n', err);
+						usrCtrl.findUsrByUsrnm(usr_obj.usrnm, function (err, res, status) {
+							if (err) {
+								winston.log('error', 'Error testing user controller\n', err);
+								done();
+							}
+							usrCtrl.deleteUsrById(res._id, function (err, res, status) {
+								if (err) {
+									winston.log('error', 'Error testing user controller\n', err);
+									done();
+								}
+								authCtrl.signin(usr_obj, function (err, res, status) {
+									if (err) {
+										winston.log('error', 'Error testing user controller\n', err);
+									} else {
+										assert.equal(status, 201);
+										assert.equal(res.usrnm, usr_obj.usrnm);
+										assert.equal(res.email, usr_obj.email);
+										assert.equal(res.name, usr_obj.name);
+										assert.equal(res.avatar_url, usr_obj.avatar_url);
+										usr_obj._id = res._id;
+										done();
+									}
+								});
+							});
+						});
 					} else {
 						assert.equal(status, 201);
 						assert.equal(res.usrnm, usr_obj.usrnm);

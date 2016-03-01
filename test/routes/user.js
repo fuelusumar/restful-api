@@ -6,6 +6,10 @@ var assert = require('assert');
 // This agent refers to PORT where program is runninng.
 var server = supertest.agent("http://localhost:3000");
 var _id;
+var login_obj = {
+	usrnm: 'fuelusumar',
+	passwd: '15946659'
+};
 var usr_obj = {
 	usrnm: 'gefusu',
 	passwd: '17952275',
@@ -13,12 +17,41 @@ var usr_obj = {
 	name: 'Gerardo Jose Fuenmayor',
 	avatar_url: 'no_avatar'
 };
-var tkn = "bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOiI1NmM1ZmMyYjhlMmNmZmI5NjQxOWM3NTIiLCJ1c3IiOiJmdWVsdXN1bWFyIiwiaWF0IjoxNDU2NzY1OTU4LCJleHAiOjE0NTY4NTIzNTh9.LArkjbEKWi0njoH06y-krgzPwesTL0mNFP-XDDAiybY";
+var tkn = "";
 var upd_obj = {
 	name: 'Gerardo Fuenmayor'
 };
 // UNIT test begin
 describe('user router', function () {
+	describe("login route", function () {
+		// #1 should return home page
+		it("should return a valid response", function (done) {
+			// calling home page api
+			server.post("/v1/auth/login") //
+				.send(login_obj) //
+				.expect("Content-type", /json/) //
+				.expect(200) // THis is HTTP response
+				.end(function (err, res) {
+					// HTTP status should be 200
+					if (res.status >= 400) {
+						winston.log('error', 'Error testing auth router\n', res.body);
+					}
+					res.status.should.equal(200);
+					res.body.should.have.property('action');
+					res.body.should.have.property('data');
+					res.body.should.have.property('links');
+					res.body.should.have.property('auth');
+					tkn = "bearer " + res.body.auth;
+					console.dir(tkn);
+					res.body.should.not.have.property('error');
+					res.body.should.not.have.property('stack');
+					res.body.data.should.have.property('_id');
+					res.body.data.should.have.property('usrnm');
+					res.body.links.should.be.instanceof(Array);
+					done();
+				});
+		});
+	});
 	describe("list users route", function () {
 		// #1 should return home page
 		it("should return a valid response", function (done) {
@@ -36,6 +69,9 @@ describe('user router', function () {
 					res.body.should.have.property('action');
 					res.body.should.have.property('data');
 					res.body.should.have.property('links');
+					res.body.should.have.property('auth');
+					tkn = "bearer " + res.body.auth;
+					console.dir(tkn);
 					res.body.should.not.have.property('error');
 					res.body.should.not.have.property('stack');
 					res.body.data.should.be.an.instanceOf(Array);
@@ -62,6 +98,9 @@ describe('user router', function () {
 					res.body.should.have.property('action');
 					res.body.should.have.property('data');
 					res.body.should.have.property('links');
+					res.body.should.have.property('auth');
+					tkn = "bearer " + res.body.auth;
+					console.dir(tkn);
 					res.body.should.not.have.property('error');
 					res.body.should.not.have.property('stack');
 					res.body.data.should.have.property('_id');
@@ -93,6 +132,9 @@ describe('user router', function () {
 					res.body.should.have.property('action');
 					res.body.should.have.property('data');
 					res.body.should.have.property('links');
+					res.body.should.have.property('auth');
+					tkn = "bearer " + res.body.auth;
+					console.dir(tkn);
 					res.body.should.not.have.property('error');
 					res.body.should.not.have.property('stack');
 					res.body.data.should.have.property('_id');
@@ -123,6 +165,9 @@ describe('user router', function () {
 					res.body.should.have.property('action');
 					res.body.should.have.property('data');
 					res.body.should.have.property('links');
+					res.body.should.have.property('auth');
+					tkn = "bearer " + res.body.auth;
+					console.dir(tkn);
 					res.body.should.not.have.property('error');
 					res.body.should.not.have.property('stack');
 					res.body.data.should.have.property('_id');
@@ -172,6 +217,9 @@ describe('user router', function () {
 					res.status.should.equal(200);
 					res.body.should.have.property('action');
 					res.body.should.have.property('links');
+					res.body.should.have.property('auth');
+					tkn = "bearer " + res.body.auth;
+					console.dir(tkn);
 					res.body.should.not.have.property('error');
 					res.body.should.not.have.property('stack');
 					res.body.links.should.be.instanceof(Array);
@@ -195,6 +243,9 @@ describe('user router', function () {
 					res.status.should.equal(200);
 					res.body.should.have.property('action');
 					res.body.should.have.property('links');
+					res.body.should.have.property('auth');
+					tkn = "bearer " + res.body.auth;
+					console.dir(tkn);
 					res.body.should.not.have.property('error');
 					res.body.should.not.have.property('stack');
 					res.body.links.should.be.instanceof(Array);

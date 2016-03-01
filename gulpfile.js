@@ -27,16 +27,14 @@ var help_files = [
 	'test/helpers/validate.js'
 ];
 var modl_files = [
-	'test/models/user.js',
-	'test/models/follow.js'
+	'test/models/user.js'
 ];
 var rout_files = [
 	'test/routes/auth.js',
-	'test/routes/user.js',
-	'test/routes/follow.js'
+	'test/routes/user.js'
 ];
 var serv_files = [
-	//'test/services/user.js',
+	'test/services/user.js',
 	'test/services/follow.js'
 ];
 //

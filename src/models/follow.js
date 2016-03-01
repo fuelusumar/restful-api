@@ -24,8 +24,8 @@ function FlwMdl(flwObj) {
  */
 FlwMdl.prototype.init = function (flwSchema) {
 	this._id = flwSchema._id;
-	this._usr = flwSchema._usr;
-	this._flw = flwSchema._flw;
+	this._usr = flwSchema._usr ? flwSchema._usr.toJSON() : null;
+	this._flw = flwSchema._flw ? flwSchema._flw.toJSON() : null;
 	this.upd_at = flwSchema.upd_at;
 };
 /**
