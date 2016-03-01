@@ -86,7 +86,7 @@ exports.findFlwById = function (_id, callback) {
 				if (err) {
 					return callback(err, null, 500);
 				} else {
-					return callback(null, res.show(), 200);
+					return callback(null, res, 200);
 				}
 			});
 		}

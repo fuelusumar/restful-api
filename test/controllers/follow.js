@@ -1,12 +1,11 @@
 /* global describe, it */
 var winston = require('winston');
 var assert = require('assert');
-var FlwMdl = require('../../src/models/follow');
-var flwSrv = require('../../src/services/follow');
+var flwCtrl = require('../../src/controllers/follow');
 var UsrMdl = require('../../src/models/user');
 var usrSrv = require('../../src/services/user');
 try {
-	describe('flwSrv', function () {
+	describe('flwCtrl', function () {
 		var usr = new UsrMdl({
 			usrnm: 'tatadelgado123',
 			passwd: '21121734',
@@ -21,9 +20,7 @@ try {
 			name: 'Luis Fuenmayor',
 			avatar_url: 'no_avatar'
 		});
-		var _id = null;
-		var _usr = null;
-		var _flw = null;
+		var rel = {};
 		describe('database connection', function () {
 			this.timeout(2000);
 			it('should connect before doing any action', function (done) {
@@ -45,7 +42,7 @@ try {
 							assert.equal(res.email, usr.email);
 							assert.equal(res.name, usr.name);
 							assert.equal(res.avatar_url, usr.avatar_url);
-							_usr = res._id;
+							rel._usr = res._id;
 							done();
 						});
 					} else {
@@ -53,7 +50,7 @@ try {
 						assert.equal(res.email, usr.email);
 						assert.equal(res.name, usr.name);
 						assert.equal(res.avatar_url, usr.avatar_url);
-						_usr = res._id;
+						rel._usr = res._id;
 						done();
 					}
 				});
@@ -73,7 +70,7 @@ try {
 							assert.equal(res.email, flw.email);
 							assert.equal(res.name, flw.name);
 							assert.equal(res.avatar_url, flw.avatar_url);
-							_flw = res._id;
+							rel._flw = res._id;
 							done();
 						});
 					} else {
@@ -81,101 +78,85 @@ try {
 						assert.equal(res.email, flw.email);
 						assert.equal(res.name, flw.name);
 						assert.equal(res.avatar_url, flw.avatar_url);
-						_flw = res._id;
+						rel._flw = res._id;
 						done();
 					}
 				});
 			});
 		});
+		//insertFlw(flw_obj, callback)
 		describe('#insertFlw()', function () {
 			it('should return a follow model', function (done) {
-				var flw = new FlwMdl({
-					_usr: _usr,
-					_flw: _flw
-				});
-				flwSrv.insertFlw(flw, function (err, res) {
+				flwCtrl.insertFlw(rel, function (err, res, status) {
 					if (err) {
-						winston.log('error', 'Error testing follow service\n', err);
+						winston.log('error', 'Error testing follow controller\n', err);
 						done();
 					}
-					assert.equal(res._usr, _usr);
-					assert.equal(res._flw, _flw);
-					_id = res._id;
+					assert.equal(status, 201);
+					assert.equal(res._usr, rel._usr);
+					assert.equal(res._flw, rel._flw);
+					rel._id = res._id;
 					done();
 				});
 			});
 		});
+		//findFlwById(_id, callback)
 		describe('#findFlwById()', function () {
 			it('should return a follow model', function (done) {
-				flwSrv.findFlwById(_id, function (err, res) {
+				flwCtrl.findFlwById(rel._id, function (err, res, status) {
 					if (err) {
-						winston.log('error', 'Error testing follow service\n', err);
+						winston.log('error', 'Error testing follow controller\n', err);
 						done();
 					}
-					assert.equal(res._usr._id + '', _usr + '');
-					assert.equal(res._flw._id + '', _flw + '');
+					assert.equal(status, 200);
+					assert.equal(res._usr._id + '', rel._usr + '');
+					assert.equal(res._usr.usrnm + '', usr.usrnm + '');
+					assert.equal(res._flw._id + '', rel._flw + '');
+					assert.equal(res._flw.usrnm + '', flw.usrnm + '');
 					done();
 				});
 			});
 		});
-		describe('#findFlwByUsrIdFlwId()', function () {
-			it('should return a follow model', function (done) {
-				flwSrv.findFlwByUsrIdFlwId(_usr, _flw, function (err, res) {
-					if (err) {
-						winston.log('error', 'Error testing follow service\n', err);
-						done();
-					}
-					assert.equal(res._usr._id + '', _usr + '');
-					assert.equal(res._flw._id + '', _flw + '');
-					done();
-				});
-			});
-		});
+		//findFlws(_usr_id, page, callback)
 		describe('#findFlws()', function () {
 			it('should return a follow models array', function (done) {
-				flwSrv.findFlws({}, 0, 10, {}, '_usr', function (err, res) {
+				flwCtrl.findFlws(rel._usr, 1, function (err, res, status) {
 					if (err) {
-						winston.log('error', 'Error testing follow service\n', err);
+						winston.log('error', 'Error testing follow controller\n', err);
 						done();
 					}
+					assert.equal(status, 200);
 					assert.ok(Array.isArray(res));
+					//console.dir(res);
 					done();
 				});
 			});
 		});
-		describe('#findAllFlws()', function () {
+		//findFlwsMe(_usr_id, page, callback)
+		describe('#findFlwsMe()', function () {
 			it('should return a follow models array', function (done) {
-				flwSrv.findAllFlws({}, {}, '_flw', function (err, res) {
+				flwCtrl.findFlwsMe(rel._usr, 1, function (err, res, status) {
 					if (err) {
-						winston.log('error', 'Error testing follow service\n', err);
+						winston.log('error', 'Error testing follow controller\n', err);
 						done();
 					}
+					assert.equal(status, 200);
 					assert.ok(Array.isArray(res));
+					//console.dir(res);
 					done();
 				});
 			});
 		});
+		//deleteFlwById(_id, callback)
 		describe('#deleteFlwById()', function () {
 			it('should delete one registry', function (done) {
-				flwSrv.deleteFlwById(_id, function (err, res) {
+				flwCtrl.deleteFlwById(rel._id, function (err, res, status) {
 					if (err) {
-						winston.log('error', 'Error testing follow service\n', err);
+						winston.log('error', 'Error testing follow controller\n', err);
 						done();
 					}
-					assert.ok(res.result.ok);
-					assert.equal(res.result.n, 1);
-					done();
-				});
-			});
-		});
-		describe('#deleteAllFlws()', function () {
-			it('should be ok', function (done) {
-				flwSrv.deleteAllFlws(function (err, res) {
-					if (err) {
-						winston.log('error', 'Error testing follow service\n', err);
-						done();
-					}
-					assert.ok(res.result.ok);
+					assert.equal(status, 204);
+					assert.ok(res);
 					done();
 				});
 			});
