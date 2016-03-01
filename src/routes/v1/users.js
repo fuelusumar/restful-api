@@ -27,6 +27,7 @@ router.use(authHlpr.renewToken);
  * @apiSuccess {String} action indicates done action
  * @apiSuccess {Object[]} data array of user objects
  * @apiSuccess {Object[]} links hypermedia
+ * @apiSuccess {String} auth authorization token
  */
 router.get('/users', function (req, res, next) {
 	try {
@@ -67,7 +68,7 @@ router.get('/users', function (req, res, next) {
  * @apiSuccess {String} action indicates done action
  * @apiSuccess {Object} data user object
  * @apiSuccess {Object[]} links hypermedia
- * 
+ * @apiSuccess {String} auth authorization token
  */
 router.get('/users/:user_id', function (req, res, next) {
 	try {
@@ -103,6 +104,7 @@ router.get('/users/:user_id', function (req, res, next) {
  * @apiSuccess (Success 201) {String} action indicates done action
  * @apiSuccess (Success 201) {Object} data created user object
  * @apiSuccess (Success 201) {Object[]} links hypermedia
+ * @apiSuccess {String} auth authorization token
  */
 router.post('/users', function (req, res, next) {
 	try {
@@ -135,6 +137,7 @@ router.post('/users', function (req, res, next) {
  * @apiSuccess {String} action indicates done action
  * @apiSuccess {Object} data user object
  * @apiSuccess {Object[]} links hypermedia
+ * @apiSuccess {String} auth authorization token
  */
 router.put('/users/:user_id', function (req, res, next) {
 	try {
@@ -167,6 +170,7 @@ router.put('/users/:user_id', function (req, res, next) {
  * @apiSuccess {String} action indicates done action
  * @apiSuccess {Object} data user object
  * @apiSuccess {Object[]} links hypermedia
+ * @apiSuccess {String} auth authorization token
  */
 router.patch('/users/:user_id', function (req, res, next) {
 	try {
@@ -226,6 +230,7 @@ router.delete('/users/:user_id', function (req, res, next) {
  *
  * @apiSuccess {String} action indicates done action
  * @apiSuccess {Object[]} links hypermedia
+ * @apiSuccess {String} auth authorization token
  */
 router.options('/users/:user_id', function (req, res, next) {
 	try {
@@ -247,6 +252,7 @@ router.options('/users/:user_id', function (req, res, next) {
  *
  * @apiSuccess {String} action indicates done action
  * @apiSuccess {Object[]} links hypermedia
+ * @apiSuccess {String} auth authorization token
  */
 router.options('/users', function (req, res, next) {
 	try {
