@@ -18,8 +18,8 @@ var src_files = [
 	'src/*.{js,json}'];
 //var test_files = ['test/**/*.{js,json}'];
 var ctrl_files = [
-	//'test/controllers/auth.js',
-	//'test/controllers/user.js',
+	'test/controllers/auth.js',
+	'test/controllers/user.js',
 	'test/controllers/follow.js'
 ];
 var help_files = [
