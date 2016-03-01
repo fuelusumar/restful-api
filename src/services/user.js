@@ -37,7 +37,7 @@ exports.insertUsr = function (usr_mdl, callback) {
  * @return {[type]}    [description]
  */
 exports.findUsrById = function (_id, callback) {
-	usrDao.findSchemaById(_id, '-passwd', function (err, usr) {
+	usrDao.findSchemaById(_id, '-passwd', '', function (err, usr) {
 		callback(err, usr);
 	});
 };
@@ -54,7 +54,7 @@ exports.findUsrById = function (_id, callback) {
 exports.findUsrByEmail = function (email, callback) {
 	usrDao.findSchema({
 		email: email
-	}, null, function (err, usr) {
+	}, null, '', function (err, usr) {
 		callback(err, usr);
 	});
 };
@@ -71,7 +71,7 @@ exports.findUsrByEmail = function (email, callback) {
 exports.findUsrByUsrnm = function (usrnm, callback) {
 	usrDao.findSchema({
 		usrnm: usrnm
-	}, null, function (err, usr) {
+	}, null, '', function (err, usr) {
 		callback(err, usr);
 	});
 };
@@ -88,7 +88,7 @@ exports.findUsrByUsrnm = function (usrnm, callback) {
  * @return {[type]}   [description]
  */
 exports.findUsrs = function (query, skip, limit, order, callback) {
-	usrDao.findSchemaLst(query, '-passwd', skip, limit, order, function (err, usr) {
+	usrDao.findSchemaLst(query, '-passwd', skip, limit, order, '', function (err, usr) {
 		callback(err, usr);
 	});
 };
@@ -104,7 +104,7 @@ exports.findUsrs = function (query, skip, limit, order, callback) {
  * @return {[type]}    [description]
  */
 exports.findAllUsrs = function (query, order, callback) {
-	usrDao.findAllSchemaLst(query, '-passwd', order, function (err, usr) {
+	usrDao.findAllSchemaLst(query, '-passwd', order, '', function (err, usr) {
 		callback(err, usr);
 	});
 };

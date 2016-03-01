@@ -36,16 +36,5 @@ flwSchema.index({
 }, {
 	name: "flws_uq_indx"
 });
-/**
- * [lang description]
- *
- * @type {number}
- */
-flwSchema.index({
-	_usr: 1,
-	_flw: 1
-}, {
-	name: "flws_cp_indx"
-});
 //
 module.exports = flwSchema;

@@ -6,10 +6,10 @@ var usrSrv = require('../../src/services/user');
 try {
 	describe('usrSrv', function () {
 		var usr = new UsrMdl({
-			usrnm: 'fuelusumar',
-			passwd: '15946659',
-			email: 'fuelusumar@gmail.com',
-			name: 'Luis Fuenmayor',
+			usrnm: 'tatadelgado123',
+			passwd: '21121734',
+			email: 'tatadelgado123@gmail.com',
+			name: 'Thais Delgado',
 			avatar_url: 'no_avatar'
 		});
 		var _id = null;
@@ -25,7 +25,7 @@ try {
 				usrSrv.insertUsr(usr, function (err, res) {
 					if (err) {
 						//winston.log('error', 'Error testing user service\n', err);
-						usrSrv.findUsrByUsrnm('fuelusumar', function (err, res) {
+						usrSrv.findUsrByUsrnm(usr.usrnm, function (err, res) {
 							if (err) {
 								winston.log('error', 'Error testing user service\n', err);
 								done();
@@ -39,11 +39,10 @@ try {
 									if (err) {
 										winston.log('error', 'Error testing user service\n', err);
 									} else {
-										assert.equal(res.usrnm, 'fuelusumar');
-										assert.equal(res.passwd, '15946659');
-										assert.equal(res.email, 'fuelusumar@gmail.com');
-										assert.equal(res.name, 'Luis Fuenmayor');
-										assert.equal(res.avatar_url, 'no_avatar');
+										assert.equal(res.usrnm, usr.usrnm);
+										assert.equal(res.email, usr.email);
+										assert.equal(res.name, usr.name);
+										assert.equal(res.avatar_url, usr.avatar_url);
 										_id = res._id;
 										done();
 									}
@@ -51,11 +50,10 @@ try {
 							});
 						});
 					} else {
-						assert.equal(res.usrnm, 'fuelusumar');
-						assert.equal(res.passwd, '15946659');
-						assert.equal(res.email, 'fuelusumar@gmail.com');
-						assert.equal(res.name, 'Luis Fuenmayor');
-						assert.equal(res.avatar_url, 'no_avatar');
+						assert.equal(res.usrnm, usr.usrnm);
+						assert.equal(res.email, usr.email);
+						assert.equal(res.name, usr.name);
+						assert.equal(res.avatar_url, usr.avatar_url);
 						_id = res._id;
 						done();
 					}
@@ -69,43 +67,42 @@ try {
 						winston.log('error', 'Error testing user service\n', err);
 						done();
 					}
-					assert.equal(res.usrnm, 'fuelusumar');
-					assert.equal(res.passwd, '15946659');
-					assert.equal(res.email, 'fuelusumar@gmail.com');
-					assert.equal(res.name, 'Luis Fuenmayor');
-					assert.equal(res.avatar_url, 'no_avatar');
+					assert.equal(res.usrnm, usr.usrnm);
+					assert.equal(res.email, usr.email);
+					assert.equal(res.name, usr.name);
+					assert.equal(res.avatar_url, usr.avatar_url);
 					done();
 				});
 			});
 		});
 		describe('#findUsrByEmail()', function () {
 			it('should return an user model', function (done) {
-				usrSrv.findUsrByEmail('fuelusumar@gmail.com', function (err, res) {
+				usrSrv.findUsrByEmail(usr.email, function (err, res) {
 					if (err) {
 						winston.log('error', 'Error testing user service\n', err);
 						done();
 					}
-					assert.equal(res.usrnm, 'fuelusumar');
-					assert.equal(res.passwd, '15946659');
-					assert.equal(res.email, 'fuelusumar@gmail.com');
-					assert.equal(res.name, 'Luis Fuenmayor');
-					assert.equal(res.avatar_url, 'no_avatar');
+					assert.equal(res.usrnm, usr.usrnm);
+					assert.equal(res.passwd, usr.passwd);
+					assert.equal(res.email, usr.email);
+					assert.equal(res.name, usr.name);
+					assert.equal(res.avatar_url, usr.avatar_url);
 					done();
 				});
 			});
 		});
 		describe('#findUsrByUsrnm()', function () {
 			it('should return an user model', function (done) {
-				usrSrv.findUsrByUsrnm('fuelusumar', function (err, res) {
+				usrSrv.findUsrByUsrnm(usr.usrnm, function (err, res) {
 					if (err) {
 						winston.log('error', 'Error testing user service\n', err);
 						done();
 					}
-					assert.equal(res.usrnm, 'fuelusumar');
-					assert.equal(res.passwd, '15946659');
-					assert.equal(res.email, 'fuelusumar@gmail.com');
-					assert.equal(res.name, 'Luis Fuenmayor');
-					assert.equal(res.avatar_url, 'no_avatar');
+					assert.equal(res.usrnm, usr.usrnm);
+					assert.equal(res.passwd, usr.passwd);
+					assert.equal(res.email, usr.email);
+					assert.equal(res.name, usr.name);
+					assert.equal(res.avatar_url, usr.avatar_url);
 					done();
 				});
 			});
@@ -137,7 +134,7 @@ try {
 		describe('#updateUsrById()', function () {
 			it('should have changed a model', function (done) {
 				usrSrv.updateUsrById(_id, {
-					name: 'Gerardo Fuenmayor'
+					name: 'Thais Dayana Delgado Nieves'
 				}, function (err, res) {
 					if (err) {
 						winston.log('error', 'Error testing user service\n', err);

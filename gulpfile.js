@@ -36,7 +36,7 @@ var rout_files = [
 	'test/routes/follow.js'
 ];
 var serv_files = [
-	'test/services/user.js',
+	//'test/services/user.js',
 	'test/services/follow.js'
 ];
 //
