@@ -27,27 +27,9 @@ plan.target('testing', {
  */
 plan.local('build', function (local) {
 	local.exec('gulp build');
-	local.with('cd build', function () {
-		local.exec('npm install --production');
-		local.exec('npm start');
-	});
-});
-/**
- * [description]
- *
- * @method
- *
- * @param  {[type]} local [description]
- *
- * @return {[type]} [description]
- */
-plan.local('prepare', function (local) {
-	local.with('cd build', function () {
-		local.exec('npm stop');
-		local.exec('git add --all');
-		local.exec('git commit -am "build ' + timestamp + '"');
-		local.exec('git push');
-	});
+	local.exec('git add --all');
+	local.exec('git commit -am "build ' + timestamp + '"');
+	local.exec('git push');
 });
 /**
  * Creates all the necessary folders in the remote and clones the source git repository

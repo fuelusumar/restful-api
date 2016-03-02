@@ -123,7 +123,7 @@ gulp.task('watch', function () {
 	gulp.watch(src_files, ['jslint']);
 });
 // nodemon watch runs and refreshes the server when a file is modified
-gulp.task('daemon', function () {
+gulp.task('nodemon', function () {
 	nodemon({
 		script: 'src/bin/www',
 		ext: 'js html json',
