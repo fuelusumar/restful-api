@@ -41,7 +41,7 @@ First, go to the projetc's folder, then run:
 :~$ gulp apidoc
 :~$ gulp nodemon
 ```
-And you'll have a server running in [https://localhost:3000](https://localhost:3000) waiting for you! (If you clicked and the server was running, the existing routes documentation should be shown).
+And you'll have a server running in [http://localhost:3000](http://localhost:3000) waiting for you! (If you clicked and the server was running, the existing routes documentation should be shown).
 
 ### Testing Environment
 It's function is to deliver a a software that is validated, stable and usable to execute the test scenarios or replicate bugs. This installation takes course in an Ubuntu 14.04.3 x64 server instance located in DigitalOcean cloud hosting.
@@ -174,7 +174,7 @@ First of all we have to configure our server, SSH protocol, SSH key, a local use
 ```bash
 :~$ fly setup:testing # just the first time
 -> # Check there are no errors
-:~$ fly build:testing # once you res sure there are no problems in the app
+:~$ fly build:testing # do this once you are sure there are no problems in the app
 -> # Check there are no errors
 :~$ fly deploy:testing
 -> # Check there are no errors
