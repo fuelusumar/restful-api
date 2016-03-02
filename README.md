@@ -52,7 +52,7 @@ To compile and install native addons from npm you may also need to install build
 -> 3.8.0
 ```
 
-#### Run Project
+#### Run Project (after installing MongoDB as in [MongoDB Installation](#mongodb-installation))
 First, go to the projetc's folder, then run:
 ```bash
 :~$ npm install
