@@ -202,7 +202,7 @@ router.options('/users/:user_id/follows/:follow_id', function (req, res, next) {
 	try {
 		res.status(200).send({
 			action: "options",
-			_links: endptsHlpr.loadEnpoints('v1', 'follows').getHyper(req.method, req.headers.host, req.originalUrl, req.params),
+			links: endptsHlpr.loadEnpoints('v1', 'follows').getHyper(req.method, req.headers.host, req.originalUrl, req.params),
 			auth: req.auth
 		});
 	} catch (err) {
@@ -226,7 +226,7 @@ router.options('/users/:user_id/follows', function (req, res, next) {
 	try {
 		res.status(200).send({
 			action: "options",
-			_links: endptsHlpr.loadEnpoints('v1', 'follows').getHyper(req.method, req.headers.host, req.originalUrl, req.params),
+			links: endptsHlpr.loadEnpoints('v1', 'follows').getHyper(req.method, req.headers.host, req.originalUrl, req.params),
 			auth: req.auth
 		});
 	} catch (err) {
