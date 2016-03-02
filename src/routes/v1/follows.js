@@ -47,7 +47,7 @@ router.get('/users/:user_id/follows', function (req, res, next) {
 /**
  * @api {get} /v1/users/:user_id/follows/me list who follows user
  * @apiVersion 0.0.1
- * @apiName findUsrs
+ * @apiName findFlwsMe
  * @apiGroup follows
  * @apiPermission user has to have a token
  *
@@ -82,7 +82,7 @@ router.get('/users/:user_id/follows/me', function (req, res, next) {
 /**
  * @api {get} /v1/users/:user_id/follows/:follow_id rertieve a follow reltion
  * @apiVersion 0.0.1
- * @apiName findUsrs
+ * @apiName findFlwById
  * @apiGroup follows
  * @apiPermission user has to have a token
  *
@@ -116,12 +116,13 @@ router.get('/users/:user_id/follows/:follow_id', function (req, res, next) {
 /**
  * @api {post} /v1/users/:user_id/follows create a follow relation
  * @apiVersion 0.0.1
- * @apiName findUsrs
+ * @apiName insertFlw
  * @apiGroup follows
  * @apiPermission user has to have a token
  *
  * @apiParam {ObjectID} user_id users unique id
- * @apiParam {ObjectID} user_id users unique id
+ * @apiParam {Object} body request body
+ * @apiParam {ObjectID} body.user_id users unique id
  *
  * @apiSuccess {String} action indicates done action
  * @apiSuccess {Object} data follow object
@@ -153,7 +154,7 @@ router.post('/users/:user_id/follows', function (req, res, next) {
 /**
  * @api {delete} /v1/users/:user_id/follows/:follow_id delete a follow relation
  * @apiVersion 0.0.1
- * @apiName findUsrs
+ * @apiName deleteFlwById
  * @apiGroup follows
  * @apiPermission user has to have a token
  *
@@ -187,7 +188,7 @@ router.delete('/users/:user_id/follows/:follow_id', function (req, res, next) {
 /**
  * @api {options} /v1/users/:user_id/follows/:follow_id specific follow options
  * @apiVersion 0.0.1
- * @apiName findUsrs
+ * @apiName followOptions
  * @apiGroup follows
  * @apiPermission user has to have a token
  *
@@ -212,7 +213,7 @@ router.options('/users/:user_id/follows/:follow_id', function (req, res, next) {
 /**
  * @api {get} /v1/users/:user_id/follows follow options
  * @apiVersion 0.0.1
- * @apiName findUsrs
+ * @apiName followsOptions
  * @apiGroup follows
  * @apiPermission user has to have a token
  *

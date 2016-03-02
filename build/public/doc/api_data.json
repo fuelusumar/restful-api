@@ -152,6 +152,144 @@
     "groupTitle": "auth"
   },
   {
+    "type": "delete",
+    "url": "/v1/users/:user_id/follows/:follow_id",
+    "title": "delete a follow relation",
+    "version": "0.0.1",
+    "name": "deleteFlwById",
+    "group": "follows",
+    "permission": [
+      {
+        "name": "user has to have a token"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "ObjectID",
+            "optional": false,
+            "field": "user_id",
+            "description": "<p>users unique id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "ObjectID",
+            "optional": false,
+            "field": "follow_id",
+            "description": "<p>follow relation unique id</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "action",
+            "description": "<p>indicates done action</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "data",
+            "description": "<p>array of user objects</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "links",
+            "description": "<p>hypermedia</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "auth",
+            "description": "<p>authorization token</p>"
+          }
+        ]
+      }
+    },
+    "filename": "src/routes/v1/follows.js",
+    "groupTitle": "follows"
+  },
+  {
+    "type": "get",
+    "url": "/v1/users/:user_id/follows/:follow_id",
+    "title": "rertieve a follow reltion",
+    "version": "0.0.1",
+    "name": "findFlwById",
+    "group": "follows",
+    "permission": [
+      {
+        "name": "user has to have a token"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "ObjectID",
+            "optional": false,
+            "field": "user_id",
+            "description": "<p>users unique id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "ObjectID",
+            "optional": false,
+            "field": "follow_id",
+            "description": "<p>follow relation unique id</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "action",
+            "description": "<p>indicates done action</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>follow object</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "links",
+            "description": "<p>hypermedia</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "auth",
+            "description": "<p>authorization token</p>"
+          }
+        ]
+      }
+    },
+    "filename": "src/routes/v1/follows.js",
+    "groupTitle": "follows"
+  },
+  {
     "type": "get",
     "url": "/v1/users/:user_id/follows",
     "title": "list who user follows",
@@ -225,7 +363,7 @@
     "url": "/v1/users/:user_id/follows/me",
     "title": "list who follows user",
     "version": "0.0.1",
-    "name": "findUsrs",
+    "name": "findFlwsMe",
     "group": "follows",
     "permission": [
       {
@@ -290,211 +428,11 @@
     "groupTitle": "follows"
   },
   {
-    "type": "get",
-    "url": "/v1/users/:user_id/follows/:follow_id",
-    "title": "rertieve a follow reltion",
-    "version": "0.0.1",
-    "name": "findUsrs",
-    "group": "follows",
-    "permission": [
-      {
-        "name": "user has to have a token"
-      }
-    ],
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "ObjectID",
-            "optional": false,
-            "field": "user_id",
-            "description": "<p>users unique id</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "ObjectID",
-            "optional": false,
-            "field": "follow_id",
-            "description": "<p>follow relation unique id</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "action",
-            "description": "<p>indicates done action</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Object",
-            "optional": false,
-            "field": "data",
-            "description": "<p>follow object</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Object[]",
-            "optional": false,
-            "field": "links",
-            "description": "<p>hypermedia</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "auth",
-            "description": "<p>authorization token</p>"
-          }
-        ]
-      }
-    },
-    "filename": "src/routes/v1/follows.js",
-    "groupTitle": "follows"
-  },
-  {
-    "type": "post",
-    "url": "/v1/users/:user_id/follows",
-    "title": "create a follow relation",
-    "version": "0.0.1",
-    "name": "findUsrs",
-    "group": "follows",
-    "permission": [
-      {
-        "name": "user has to have a token"
-      }
-    ],
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "ObjectID",
-            "optional": false,
-            "field": "user_id",
-            "description": "<p>users unique id</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "action",
-            "description": "<p>indicates done action</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Object",
-            "optional": false,
-            "field": "data",
-            "description": "<p>follow object</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Object[]",
-            "optional": false,
-            "field": "links",
-            "description": "<p>hypermedia</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "auth",
-            "description": "<p>authorization token</p>"
-          }
-        ]
-      }
-    },
-    "filename": "src/routes/v1/follows.js",
-    "groupTitle": "follows"
-  },
-  {
-    "type": "delete",
-    "url": "/v1/users/:user_id/follows/:follow_id",
-    "title": "delete a follow relation",
-    "version": "0.0.1",
-    "name": "findUsrs",
-    "group": "follows",
-    "permission": [
-      {
-        "name": "user has to have a token"
-      }
-    ],
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "ObjectID",
-            "optional": false,
-            "field": "user_id",
-            "description": "<p>users unique id</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "ObjectID",
-            "optional": false,
-            "field": "follow_id",
-            "description": "<p>follow relation unique id</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "action",
-            "description": "<p>indicates done action</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Object[]",
-            "optional": false,
-            "field": "data",
-            "description": "<p>array of user objects</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "Object[]",
-            "optional": false,
-            "field": "links",
-            "description": "<p>hypermedia</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "auth",
-            "description": "<p>authorization token</p>"
-          }
-        ]
-      }
-    },
-    "filename": "src/routes/v1/follows.js",
-    "groupTitle": "follows"
-  },
-  {
     "type": "options",
     "url": "/v1/users/:user_id/follows/:follow_id",
     "title": "specific follow options",
     "version": "0.0.1",
-    "name": "findUsrs",
+    "name": "followOptions",
     "group": "follows",
     "permission": [
       {
@@ -556,7 +494,7 @@
     "url": "/v1/users/:user_id/follows",
     "title": "follow options",
     "version": "0.0.1",
-    "name": "findUsrs",
+    "name": "followsOptions",
     "group": "follows",
     "permission": [
       {
@@ -585,6 +523,82 @@
             "optional": false,
             "field": "action",
             "description": "<p>indicates done action</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "optional": false,
+            "field": "links",
+            "description": "<p>hypermedia</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "auth",
+            "description": "<p>authorization token</p>"
+          }
+        ]
+      }
+    },
+    "filename": "src/routes/v1/follows.js",
+    "groupTitle": "follows"
+  },
+  {
+    "type": "post",
+    "url": "/v1/users/:user_id/follows",
+    "title": "create a follow relation",
+    "version": "0.0.1",
+    "name": "insertFlw",
+    "group": "follows",
+    "permission": [
+      {
+        "name": "user has to have a token"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "ObjectID",
+            "optional": false,
+            "field": "user_id",
+            "description": "<p>users unique id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "body",
+            "description": "<p>request body</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "ObjectID",
+            "optional": false,
+            "field": "body.user_id",
+            "description": "<p>users unique id</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "action",
+            "description": "<p>indicates done action</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "data",
+            "description": "<p>follow object</p>"
           },
           {
             "group": "Success 200",
