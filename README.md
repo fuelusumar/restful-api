@@ -11,7 +11,6 @@ It's the set of processes and programming tools used to create the program or so
 - **OS Type:** 64-bit
 - **Disk:** 116.3 GB
 But this is a lot higher than the minimun requirements.
-About the text editor or IDE, i use SublimeText 3, available in [sublime].
 
 #### Uninstall what may cause conflict
 nodejs and npm packages are way out of date in the ubuntu repository, so lets uninstall them just in case, so we won't have any conflict in the future.
@@ -23,26 +22,8 @@ Let's uninstall nodejs and npm:
 :~$ sudo apt-get autoremove -y
 ```
 
-#### NodeJS Installation
-
-##### Debian and Ubuntu based Linux distributions
-Node.js is available from the NodeSource Debian and Ubuntu binary distributions repository (formerly Chris Lea's Launchpad PPA). Support for this repository, along with its scripts, can be found on GitHub at nodesource/distributions.
-```bash
-:~$ sudo curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
-:~$ sudo apt-get install -y nodejs
-:~$ sudo npm update -g # run this until no response from the terminal
-```
-
-##### Install build tools (optional)
-To compile and install native addons from npm you may also need to install build tools:
-```bash
-:~$ sudo apt-get install -y build-essential
-```
-
-##### Install global packages
-```bash
-:~$ sudo npm install -g apidoc flightplan forever gulp jshint mocha nodemon
-```
+#### Installation
+About the text editor or IDE, i use SublimeText 3, available in [sublime]. For NodeJS follow the instructions in [NodeJS Installation](#nodejs-installation). And for MongoDb follow the instructions in [MongoDB Installation](#mongodb-installation).
 
 ##### Check versions
 ```bash
@@ -52,14 +33,14 @@ To compile and install native addons from npm you may also need to install build
 -> 3.8.0
 ```
 
-#### Run Project (after installing MongoDB as in [MongoDB Installation](#mongodb-installation))
+#### Run Project
 First, go to the projetc's folder, then run:
 ```bash
 :~$ npm install
 :~$ gulp apidoc
 :~$ gulp nodemon
 ```
-And you'll have a server running in https://localhost:3000 waitong for you!
+And you'll have a server running in [https://localhost:3000](https://localhost:3000) waiting for you! (If you clicked and the server was running, the existing routes documentation should be shown).
 
 ### Testing Environment
 It's function is to deliver a a software that is validated, stable and usable to execute the test scenarios or replicate bugs. This installation takes course in an Ubuntu 14.04.3 x64 server instance located in DigitalOcean cloud hosting.
@@ -132,7 +113,8 @@ LANG=en_US.UTF-8
 Node.js is available from the NodeSource Debian and Ubuntu binary distributions repository (formerly Chris Lea's Launchpad PPA). Support for this repository, along with its scripts, can be found on GitHub at nodesource/distributions.
 ```bash
 :~$ sudo curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
-:~$ sudo apt-get install -y nodejs npm
+:~$ sudo apt-get install -y nodejs 
+:~$ sudo npm update -g # run this until no response from the terminal
 ```
 
 ##### Install build tools (optional)

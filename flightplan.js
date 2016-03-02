@@ -17,21 +17,6 @@ plan.target('testing', {
 	maxDeploys: deploy.testing.maxDeploys
 });
 /**
- * [description]
- *
- * @method
- *
- * @param  {[type]} local
- *
- * @return {[type]} [description]
- */
-plan.local('build', function (local) {
-	local.exec('gulp build');
-	local.exec('git add --all');
-	local.exec('git commit -am "build ' + timestamp + '"');
-	local.exec('git push');
-});
-/**
  * Creates all the necessary folders in the remote and clones the source git repository
  * 
  * Usage:
@@ -45,6 +30,21 @@ plan.remote('setup', function (remote) {
 	remote.with('cd repo', function () {
 		remote.exec('git clone -b ' + remote.runtime.branch + ' ' + remote.runtime.repository);
 	});
+});
+/**
+ * [description]
+ *
+ * @method
+ *
+ * @param  {[type]} local
+ *
+ * @return {[type]} [description]
+ */
+plan.local('build', function (local) {
+	local.exec('gulp build');
+	local.exec('git add --all');
+	local.exec('git commit -am "build ' + timestamp + '"');
+	local.exec('git push');
 });
 /**
  * Deploys a new version of the code pulling it from the git repository
