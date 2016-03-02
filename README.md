@@ -10,7 +10,8 @@ It's the set of processes and programming tools used to create the program or so
 - **Graphics:** GeForce GT 630M/PCIe/SSE2
 - **OS Type:** 64-bit
 - **Disk:** 116.3 GB
-But this is a lot higher than the minimun requirements.
+
+**Note:** these are a lot higher than the minimun requirements.
 
 #### Uninstall what may cause conflict
 nodejs and npm packages are way out of date in the ubuntu repository, so lets uninstall them just in case, so we won't have any conflict in the future.
