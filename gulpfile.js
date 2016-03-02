@@ -31,8 +31,8 @@ var modl_files = [
 	'test/models/user.js'
 ];
 var rout_files = [
-	//'test/routes/auth.js',
-	//'test/routes/user.js', 
+	'test/routes/auth.js',
+	'test/routes/user.js',
 	'test/routes/follow.js'
 ];
 var serv_files = [

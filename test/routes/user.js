@@ -41,13 +41,12 @@ describe('user router', function () {
 					res.body.should.have.property('data');
 					res.body.should.have.property('links');
 					res.body.should.have.property('auth');
-					tkn = "bearer " + res.body.auth;
-					console.dir(tkn);
 					res.body.should.not.have.property('error');
 					res.body.should.not.have.property('stack');
 					res.body.data.should.have.property('_id');
 					res.body.data.should.have.property('usrnm');
 					res.body.links.should.be.instanceof(Array);
+					tkn = "bearer " + res.body.auth;
 					done();
 				});
 		});
@@ -70,12 +69,11 @@ describe('user router', function () {
 					res.body.should.have.property('data');
 					res.body.should.have.property('links');
 					res.body.should.have.property('auth');
-					tkn = "bearer " + res.body.auth;
-					console.dir(tkn);
 					res.body.should.not.have.property('error');
 					res.body.should.not.have.property('stack');
 					res.body.data.should.be.an.instanceOf(Array);
 					res.body.links.should.be.instanceof(Array);
+					tkn = "bearer " + res.body.auth;
 					done();
 				});
 		});
@@ -99,8 +97,6 @@ describe('user router', function () {
 					res.body.should.have.property('data');
 					res.body.should.have.property('links');
 					res.body.should.have.property('auth');
-					tkn = "bearer " + res.body.auth;
-					console.dir(tkn);
 					res.body.should.not.have.property('error');
 					res.body.should.not.have.property('stack');
 					res.body.data.should.have.property('_id');
@@ -111,6 +107,7 @@ describe('user router', function () {
 					res.body.links.should.be.instanceof(Array);
 					_id = res.body.data._id;
 					upd_obj._id = res.body.data._id;
+					tkn = "bearer " + res.body.auth;
 					done();
 				});
 		});
@@ -133,8 +130,6 @@ describe('user router', function () {
 					res.body.should.have.property('data');
 					res.body.should.have.property('links');
 					res.body.should.have.property('auth');
-					tkn = "bearer " + res.body.auth;
-					console.dir(tkn);
 					res.body.should.not.have.property('error');
 					res.body.should.not.have.property('stack');
 					res.body.data.should.have.property('_id');
@@ -143,6 +138,7 @@ describe('user router', function () {
 					res.body.data.should.have.property('name');
 					res.body.data.should.have.property('avatar_url');
 					res.body.links.should.be.instanceof(Array);
+					tkn = "bearer " + res.body.auth;
 					done();
 				});
 		});
@@ -166,8 +162,6 @@ describe('user router', function () {
 					res.body.should.have.property('data');
 					res.body.should.have.property('links');
 					res.body.should.have.property('auth');
-					tkn = "bearer " + res.body.auth;
-					console.dir(tkn);
 					res.body.should.not.have.property('error');
 					res.body.should.not.have.property('stack');
 					res.body.data.should.have.property('_id');
@@ -177,6 +171,7 @@ describe('user router', function () {
 					res.body.data.should.have.property('avatar_url');
 					res.body.data.name.should.equal(upd_obj.name);
 					res.body.links.should.be.instanceof(Array);
+					tkn = "bearer " + res.body.auth;
 					//upd_obj.name = "Luis Gerardo Fuenmayor";
 					done();
 				});
@@ -218,11 +213,10 @@ describe('user router', function () {
 					res.body.should.have.property('action');
 					res.body.should.have.property('links');
 					res.body.should.have.property('auth');
-					tkn = "bearer " + res.body.auth;
-					console.dir(tkn);
 					res.body.should.not.have.property('error');
 					res.body.should.not.have.property('stack');
 					res.body.links.should.be.instanceof(Array);
+					tkn = "bearer " + res.body.auth;
 					done();
 				});
 		});
@@ -243,12 +237,11 @@ describe('user router', function () {
 					res.status.should.equal(200);
 					res.body.should.have.property('action');
 					res.body.should.have.property('links');
-					res.body.should.have.property('auth');
-					tkn = "bearer " + res.body.auth;
-					console.dir(tkn);
 					res.body.should.not.have.property('error');
 					res.body.should.not.have.property('stack');
 					res.body.links.should.be.instanceof(Array);
+					res.body.should.have.property('auth');
+					tkn = "bearer " + res.body.auth;
 					done();
 				});
 		});
@@ -260,7 +253,7 @@ describe('user router', function () {
 			server.delete("/v1/users/" + _id) //
 				.set("Authorization", tkn) //
 				.expect("Content-type", /json/) //
-				.expect(200) // THis is HTTP response
+				.expect(204) // THis is HTTP response
 				.end(function (err, res) {
 					// HTTP status should be 200
 					if (res.status >= 400) {
